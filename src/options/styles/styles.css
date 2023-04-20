@@ -1,17 +1,350 @@
+#main {
+	margin-top: 5vh;
+}
 body {
-	font-family: sans-serif;
-	width: 250px;
-	margin: 10px;
+	background-color: #35363a;
+	color: white;
+}
+input,
+select,
+option {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-h1 {
-	font-weight: bold;
+.headerbutton {
+	all: unset;
+	cursor: pointer;
+	/* font-family: "Courier New", Courier, monospace; */
+	font-size: large;
+	padding-top: 10px;
+}
+
+#settingsmain {
+	width: 45vw;
+	/* height: 570px; */
+	margin: 0 auto;
+	/* border: 15px #00d282 solid; */
+	font-size: 25px;
+	padding: 40px;
+	background-color: #0d0d0d;
+}
+@media all and (max-width: 1367px) {
+	#settingsmain {
+		width: 60vw;
+		font-size: 22px;
+	}
+}
+#settingsmain > p {
 	font-size: 14px;
-	margin: 10px 0;
+	color: #a5a4a4;
+	margin-top: 5px;
 }
 
-h2 {
-	font-weight: bold;
-	font-size: 12px;
-	margin: 10px 0 4px 0;
+#settingsheader {
+	display: flex;
+	flex-direction: row;
 }
+/* styles for each line of option */
+.oneoptioncontainer {
+	display: flex;
+}
+
+.oneoptioncontainer > select {
+	border-radius: 2px;
+	font-size: 16px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: transparent;
+	color: #fff;
+}
+#maximum {
+	border-radius: 2px;
+	border: 1px solid white;
+	padding-left: 10px;
+	background-color: transparent;
+	color: inherit;
+}
+
+#langtext {
+	/* flex: 1; */
+	margin-right: 20px;
+	font-weight: 500;
+}
+#language {
+	font-size: 18px;
+	margin-left: 5px;
+	width: 250px;
+}
+
+#logocontainer {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+#logocontainer {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 30px;
+}
+.promocontainer {
+	display: flex;
+	flex-direction: column;
+}
+.promocontainer > p {
+	margin: unset;
+	font-size: 20px;
+	padding: 2px 0px 2px 0px;
+}
+#title {
+	margin-left: 20px;
+	color: #fff;
+	font-size: 30px;
+	margin-top: 25px;
+}
+#subtitle {
+	margin-left: 20px;
+	color: #fff;
+	font-size: 18px;
+	margin-top: 5px;
+}
+input[type="checkbox"] {
+	transform: scale(2);
+	margin-right: 10px;
+	margin-left: 5px;
+}
+
+#popuptext,
+#alttext {
+	margin-top: 10px;
+	font-weight: 500;
+}
+
+#status {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: black;
+	z-index: 100;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: white;
+	/* border: 1px solid black; */
+	border-radius: 2px;
+	visibility: hidden;
+}
+
+#myBtn,
+#blockBtn {
+	border: none;
+	padding: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 2px;
+	margin-top: 10px;
+}
+
+#myBtn {
+	width: 30%;
+	background-color: #e5e5e5;
+	border-bottom: 2px solid #d1c4e9;
+}
+
+#blockBtn {
+	width: 30%;
+	margin-left: 5%;
+	background-color: #e5e5e5;
+	border-bottom: 2px solid #ffccbc;
+}
+
+#save {
+	font-size: 20px;
+	cursor: pointer;
+	border: 0;
+	border-radius: 2px;
+	background-color: #37ab35;
+	color: white;
+	padding: 10px;
+	margin-top: 20px;
+	width: 65%;
+	border-bottom: 2px solid grey;
+}
+
+#deepfooter {
+	bottom: 5px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	font-size: 18px;
+}
+
+/* modal related */
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 10vh; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #d1c4e9;
+	color: #000;
+	margin: auto;
+	/* padding: 20px; */
+	border: 1px solid #d1c4e9;
+	width: 50rem;
+}
+
+.block-modal-content {
+	background-color: #ffccbc;
+	margin: auto;
+	color: #000;
+	border: 1px solid #ffccbc;
+	width: 50rem;
+}
+
+/* The Close Button */
+.close,
+.blockclose {
+	color: #0e2a46;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #ff8a65;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.blockclose:hover,
+.blockclose:focus {
+	color: #00d282;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#rulescontainer {
+	/* background-color: #fefefe; */
+	color: #000;
+}
+
+#ruleinputcontainer,
+#ruleheader {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#addbutton,
+#blockaddbutton {
+	font-size: 20px;
+	border: 0;
+	background-color: #0e2a46;
+	color: white;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-left: 5px;
+	min-height: 35px;
+	border-radius: 2px;
+}
+
+.inputblock {
+	display: flex;
+	flex-direction: column;
+}
+
+.inputblock > input[type="text"] {
+	min-height: 35px;
+	font-size: 20px;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 2px;
+}
+.inputblock > input[type="text"]::placeholder {
+	color: #616161;
+}
+
+.inputblock > input[type="checkbox"] {
+	min-height: 35px;
+	margin-left: 67%;
+	margin-bottom: 33%;
+}
+
+.inputblock > input > option {
+	height: 35px;
+	font-size: 20px;
+}
+
+#colors {
+	min-height: 35px;
+	font-size: 20px;
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 2px;
+}
+.inputblock > label {
+	font-size: 12px;
+}
+
+.rulecard,
+.blockcard {
+	height: 50px;
+	line-height: 50px;
+	border-radius: 2px;
+	display: flex;
+	align-items: center;
+	margin-top: 8px;
+	color: #000;
+}
+
+.rulecard input[type="text"] {
+	background-color: inherit;
+	border: unset;
+	font-size: 22px;
+}
+
+.blockcard input[type="text"] {
+	background-color: inherit;
+	border: unset;
+	font-size: 22px;
+}
+
+.ruleaction {
+	display: flex;
+	flex-direction: row;
+}
+
+.editbutton,
+.deletebutton,
+.deleteblockbutton {
+	line-height: 50px;
+	cursor: pointer;
+	margin-right: 15px;
+}
+
+.editbutton::before {
+	content: "\1F4BE";
+}
+
+.deletebutton::before,
+.deleteblockbutton::before {
+	content: "\274c";
+}
+
+/* modal styles end  */
