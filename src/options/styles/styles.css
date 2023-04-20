@@ -1,0 +1,17 @@
+body {
+	font-family: sans-serif;
+	width: 250px;
+	margin: 10px;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 14px;
+	margin: 10px 0;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 12px;
+	margin: 10px 0 4px 0;
+}

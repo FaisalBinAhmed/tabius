@@ -1,0 +1,35 @@
+{
+	"name": "chrome-extension-preact-vite-manifest-3",
+	"version": "1.0.0",
+	"description": "A chrome extension template with Preact",
+	"main": "index.ts",
+	"scripts": {
+		"build": "vite build && cp src/manifest.json dist/ && tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FaisalBinAhmed/Chrome-Extension-Preact-Vite-Manifest-3.git"
+	},
+	"keywords": [
+		"chrome",
+		"extension",
+		"manifest-3",
+		"vite",
+		"preact"
+	],
+	"author": "Faisal Ahmed",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/FaisalBinAhmed/Chrome-Extension-Preact-Vite-Manifest-3/issues"
+	},
+	"homepage": "https://github.com/FaisalBinAhmed/Chrome-Extension-Preact-Vite-Manifest-3#readme",
+	"dependencies": {
+		"preact": "^10.13.2"
+	},
+	"devDependencies": {
+		"@preact/preset-vite": "^2.5.0",
+		"@types/chrome": "^0.0.233",
+		"typescript": "^5.0.4",
+		"vite": "^4.2.2"
+	}
+}

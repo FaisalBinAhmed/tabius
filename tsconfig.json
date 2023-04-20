@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact"
+	},
+	"files": ["./src/background/main.ts", "./src/content-script/main.ts"]
+}

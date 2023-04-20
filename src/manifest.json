@@ -1,0 +1,29 @@
+{
+	"manifest_version": 3,
+	"name": "Chrome Extension with Preact and Vite",
+	"short_name": "CEPV",
+	"description": "A Chrome Extension Boilerplate for Preact with Manifest Version 3",
+	"version": "1.0",
+	"author": "Faisal Ahmed",
+	"background": {
+		"service_worker": "background/main.js"
+	},
+	"icons": {
+		"128": "/icon.png"
+	},
+	"content_scripts": [
+		{
+			"js": ["content-script/main.js"],
+			"matches": ["http://*/*", "https://*/*"]
+		}
+	],
+	"action": {
+		"default_title": "Browser Action",
+		"default_popup": "src/action.html"
+	},
+	"options_ui": {
+		"page": "src/options/options.html",
+		"open_in_tab": true
+	},
+	"permissions": ["tabs"]
+}
