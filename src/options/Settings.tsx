@@ -1,10 +1,17 @@
 import { render } from "preact";
+import CustomModal from "./CustomModal";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ACTUAL SETTINGS COMPONENT BELOW
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function openCustomModal() {
+	let modal = document.getElementById("myModal")!;
+	modal.style.display = "block";
+	// restore_custom_rules();
+}
 
 const Settings = () => {
 	return (
@@ -111,7 +118,9 @@ const Settings = () => {
 
 				<div style="display: flex">
 					<span style="flex: 1"></span>
-					<button id="myBtn">Custom Rules</button>
+					<button id="myBtn" onClick={openCustomModal}>
+						Custom Rules
+					</button>
 					<button id="blockBtn">Blacklist</button>
 					<span style="flex: 1"></span>
 				</div>
@@ -122,6 +131,9 @@ const Settings = () => {
 					<div style="flex: 1"></div>
 				</div>
 			</div>
+
+			<CustomModal />
+
 			{/* settingMain */}
 		</div>
 	);
