@@ -75,7 +75,7 @@ const Settings = () => {
 				</div>
 				<p>
 					Hint: by default the group will be named after domain:
-					dev.facebook.com -> facebook.
+					dev.facebook.com -&gt; facebook.
 				</p>
 
 				<div class="oneoptioncontainer">
@@ -121,12 +121,10 @@ const Settings = () => {
 					<button id="save">Save Settings</button>
 					<div style="flex: 1"></div>
 				</div>
-
-				
-			</div> 
+			</div>
 			{/* settingMain */}
 		</div>
 	);
-}
+};
 
 render(<Settings />, document.getElementById("settings")!);
