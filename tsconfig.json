@@ -3,7 +3,23 @@
 		"outDir": "dist",
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact",
-		"lib": ["es2015"]
+		"lib": ["es2015", "DOM", "DOM.Iterable"],
+		// "jsx": "preserve",
+		// "jsxFactory": "h",
+		// "jsxFragmentFactory": "Fragment",
+		// "skipLibCheck": true,
+		// "module": "ES2015",
+		// "moduleResolution": "node",
+		// "esModuleInterop": false,
+		// "allowImportingTsExtensions": true,
+		// "resolveJsonModule": true,
+		// "isolatedModules": true,
+		// "allowSyntheticDefaultImports": true,
+		// "noEmit": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true
 	},
-	"files": ["./src/background/main.ts"]
+	"include": ["src/**/*"]
 }
