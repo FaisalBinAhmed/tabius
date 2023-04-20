@@ -2,7 +2,8 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"jsx": "react-jsx",
-		"jsxImportSource": "preact"
+		"jsxImportSource": "preact",
+		"lib": ["es2015"]
 	},
-	"files": ["./src/background/main.ts", "./src/content-script/main.ts"]
+	"files": ["./src/background/main.ts"]
 }
