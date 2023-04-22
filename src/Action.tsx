@@ -30,6 +30,8 @@ async function handleCurrentTabBlock() {
 	}
 }
 
+async function getTabCount(params: type) {}
+
 async function getAllTabGroups() {
 	// const currentWindowId = await getCurrentWindow();
 
@@ -42,15 +44,6 @@ async function getAllTabGroups() {
 	// console.log(tabGroups);
 
 	return tabGroups;
-
-	// const tabGroupsWithNumber = await getTabGroupNumber(tabGroups);
-	//adding the number of tabs in each group
-	// const tabCounts = await Promise.all(
-	// 	tabGroups.map(async (item) => await getSingleGroupNumberOfTab(item.id))
-	// );
-	// console.log(tabCounts);
-
-	//if there's no tab group yet
 }
 
 const ActionPage = () => {
