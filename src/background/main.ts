@@ -207,7 +207,7 @@ async function createTab(newtab) {
 	}
 }
 
-async function getDomain(url) {
+async function getDomain(url: string) {
 	const domain = new URL(url).hostname;
 	const fragments = domain.split(".");
 	// console.log("url pieces", fragments);
@@ -258,7 +258,7 @@ async function withCustomRule(url: string) {
 	}
 }
 
-async function withBlock(url) {
+async function withBlock(url: string) {
 	try {
 		const rules = await chrome.storage.sync.get(["blocklist"]);
 		// console.log(rules?.blocklist);
@@ -273,7 +273,7 @@ async function withBlock(url) {
 	}
 }
 
-async function getSingleGroupNumberOfTab(tabGroupId) {
+async function getSingleGroupNumberOfTab(tabGroupId: number) {
 	const queryInfo = {
 		groupId: tabGroupId,
 	};
@@ -327,7 +327,7 @@ chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
 	// }
 });
 
-async function isGroupNotLonely(tabGroupId) {
+async function isGroupNotLonely(tabGroupId: number) {
 	const queryInfo = {
 		groupId: tabGroupId,
 	};
@@ -335,8 +335,11 @@ async function isGroupNotLonely(tabGroupId) {
 	// console.log("223", tabNumbers);
 	if (tabNumbers.length === 1) {
 		//ungrouping the tab:
-		const tabIds = parseInt(tabNumbers[0].id);
-		const a = await chrome.tabs.ungroup(tabIds);
+		const tabId = tabNumbers[0].id;
+		// const a =
+		if (tabId) {
+			await chrome.tabs.ungroup(tabId);
+		}
 		// console.log("lonely group unlonlied", a);
 
 		return true;
@@ -393,7 +396,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 	// in that case, don't close that
 });
 
-async function collapseTabGroup(groupId) {
+async function collapseTabGroup(groupId: number) {
 	// console.log("fallback close group", groupId);
 	const updateProperties = {
 		collapsed: true,

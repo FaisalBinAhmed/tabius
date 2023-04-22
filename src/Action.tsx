@@ -30,8 +30,6 @@ async function handleCurrentTabBlock() {
 	}
 }
 
-async function getTabCount(params: type) {}
-
 async function getAllTabGroups() {
 	// const currentWindowId = await getCurrentWindow();
 
@@ -59,8 +57,8 @@ const ActionPage = () => {
 	}
 
 	return (
-		<div id="popuproot">
-			<div class="pophead">
+		<div className="popuproot">
+			<div className="pophead">
 				<div style="display: flex; flex-direction: column; margin-right: 10px">
 					<span style="flex: 1"></span>
 					<img src="/icon.png" width="32px" height="32px" />
