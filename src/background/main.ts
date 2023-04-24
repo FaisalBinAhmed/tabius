@@ -1,15 +1,21 @@
 // Background Script Code
 
+import {
+	EXCLUDED_URL,
+	K_AUTO_COLLAPSE,
+	K_BLOCK_LIST,
+	K_CUSTOM_RULES,
+	K_GROUP_BY_RULE,
+	K_LONELY,
+	K_MAXIMUM_TABS_PER_GROUP,
+} from "../const";
+
 chrome.tabs.onCreated.addListener(async (tab) => await createTab(tab));
 
-const EXCLUDED_URL = [
-	"chrome://",
-	"chrome-extension://",
-	"edge://",
-	"extensions://",
-];
-
-function checkNativeUrl(url: string) {
+function isTheURLNative(url?: string) {
+	if (!url) {
+		return false;
+	}
 	return EXCLUDED_URL.some((item) => url.includes(item));
 }
 
@@ -42,7 +48,9 @@ async function createTab(newtab: chrome.tabs.Tab) {
 	let maximumAchieved = false;
 	// to stop propagating the function
 
-	const options = {
+	//this options is used to create a new tab group down the road
+
+	const options: chrome.tabs.GroupOptions = {
 		tabIds: [tab.id, tab.openerTabId],
 	};
 
@@ -78,7 +86,9 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 	// checking maximum limitation
 
-	const maximumPropmise = await chrome.storage.sync.get(["maximum"]);
+	const maximumPropmise = await chrome.storage.sync.get([
+		K_MAXIMUM_TABS_PER_GROUP,
+	]);
 
 	if (maximumPropmise.maximum && parseInt(maximumPropmise.maximum) > 1) {
 		if (!newGroup) {
@@ -107,8 +117,8 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 		if (
 			(tab.url || tab.pendingUrl) &&
-			!checkNativeUrl(tab.pendingUrl ?? tab.url) &&
-			!checkNativeUrl(openerTabInfo?.url) &&
+			!isTheURLNative(tab.pendingUrl ?? tab.url) &&
+			!isTheURLNative(openerTabInfo?.url) &&
 			!maximumAchieved
 		) {
 			// console.log("max ach", maximumAchieved);
@@ -117,7 +127,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			// results in error when pendingUrl is not found while opening the tab directly.
 			// this can however be used to control whether tab group should be created by right clicking or just by target _blank
 
-			const groupByPropmise = await chrome.storage.sync.get(["groupby"]);
+			const groupByPropmise = await chrome.storage.sync.get([K_GROUP_BY_RULE]);
 			const originalURL = openerTabInfo?.url;
 			const newUrl = tab.pendingUrl ?? tab.url;
 			if (
@@ -156,20 +166,22 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			if (!existingTabGroup.title) {
 				// custom rule checking
 				// this should be based on original tab or new tab??
-				const crule = await withCustomRule(openerTabInfo.url);
+				const crule = await withCustomRule(openerTabInfo?.url);
 
 				// console.log(crule, "custom rule clog");
 
-				let tabgroupName: string;
-				let color: string;
-				let updateProperties;
+				let tabgroupName: string | undefined;
+				let color: chrome.tabGroups.ColorEnum | undefined;
+				let updateProperties: chrome.tabGroups.UpdateProperties;
 
+				//if custom tab rule exists for this domain, we asign the custom rule
 				if (crule) {
 					tabgroupName = crule.alias;
 					color = crule.color;
 				} else {
+					//we choose something dependingn on the domain rule
 					tabgroupName = await getDomain(
-						openerTabInfo.pendingUrl ?? openerTabInfo.url
+						openerTabInfo?.pendingUrl ?? openerTabInfo?.url
 					); //getting original tab's url and checking if it's pending
 				}
 
@@ -209,7 +221,11 @@ async function createTab(newtab: chrome.tabs.Tab) {
 	}
 }
 
-async function getDomain(url: string) {
+async function getDomain(url?: string) {
+	if (!url) {
+		return;
+	}
+
 	const domain = new URL(url).hostname;
 	const fragments = domain.split(".");
 	// console.log("url pieces", fragments);
@@ -241,16 +257,29 @@ async function getDomain(url: string) {
 	}
 }
 
-function getHostname(url: string) {
+function getHostname(url?: string) {
+	if (!url) return;
 	return new URL(url).hostname;
 }
 
-async function withCustomRule(url: string) {
+export type CustomRule = {
+	id: string;
+	url: string;
+	alias: string;
+	color: chrome.tabGroups.ColorEnum;
+};
+
+//return the rule if it exists for the said url
+async function withCustomRule(url?: string): Promise<CustomRule | false> {
+	if (!url) {
+		return false;
+	}
+
 	try {
-		const rules = await chrome.storage.sync.get(["customrules"]);
+		const rules = await chrome.storage.sync.get([K_CUSTOM_RULES]);
 		// console.log(rules?.customrules);
 		const rule = rules?.customrules?.find(
-			(item) => getHostname(item.url) === getHostname(url)
+			(item: CustomRule) => getHostname(item.url) === getHostname(url)
 		);
 
 		return rule;
@@ -259,16 +288,21 @@ async function withCustomRule(url: string) {
 		return false;
 	}
 }
+
+export type BlockRule = {
+	id: string;
+	blockedUrl: string;
+};
 
 async function withBlock(url?: string): Promise<boolean> {
 	if (!url) {
 		return false;
 	}
 	try {
-		const rules = await chrome.storage.sync.get(["blocklist"]);
+		const rules = await chrome.storage.sync.get([K_BLOCK_LIST]);
 		// console.log(rules?.blocklist);
-		const rule = rules?.blocklist?.find(
-			(item) => getHostname(item.blockedUrl) === getHostname(url)
+		const rule: boolean = rules?.blocklist?.find(
+			(item: BlockRule) => getHostname(item.blockedUrl) === getHostname(url)
 		);
 
 		return rule;
@@ -278,7 +312,7 @@ async function withBlock(url?: string): Promise<boolean> {
 	}
 }
 
-async function getSingleGroupNumberOfTab(tabGroupId: number) {
+async function getSingleGroupNumberOfTab(tabGroupId?: number) {
 	const queryInfo = {
 		groupId: tabGroupId,
 	};
@@ -291,7 +325,7 @@ async function getSingleGroupNumberOfTab(tabGroupId: number) {
 chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
 	// console.log("220", removeInfo);
 
-	const lonely = await chrome.storage.sync.get(["lonely"]);
+	const lonely = await chrome.storage.sync.get([K_LONELY]);
 	if (!lonely.lonely) return;
 
 	const queryInfo = {
@@ -334,7 +368,7 @@ async function isGroupNotLonely(tabGroupId: number) {
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
 	//check if I should autocollapse tabs in the groups
 
-	const autocollapse = await chrome.storage.sync.get(["autocollapse"]);
+	const autocollapse = await chrome.storage.sync.get([K_AUTO_COLLAPSE]);
 
 	if (!autocollapse.autocollapse) return; //we don't have to do anything
 

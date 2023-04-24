@@ -13,3 +13,19 @@ export const Colors: ColorMap = {
 	cyan: "#84FFFF",
 	orange: "#FC9B51",
 };
+
+export const EXCLUDED_URL = [
+	"chrome://",
+	"chrome-extension://",
+	"edge://",
+	"extensions://",
+];
+
+// storage keys
+
+export const K_LONELY = "lonely";
+export const K_AUTO_COLLAPSE = "autocollapse";
+export const K_BLOCK_LIST = "blocklist";
+export const K_CUSTOM_RULES = "customrules";
+export const K_MAXIMUM_TABS_PER_GROUP = "maximum";
+export const K_GROUP_BY_RULE = "groupby";
