@@ -8,8 +8,16 @@ export default defineConfig({
 			input: {
 				main: "./src/action.html",
 				options: "./src/options/options.html",
-				// background: "./src/background"
+				background: "./src/background/background.ts",
 			},
+			output: {
+				// dir: "dist",
+				// preserveModules: true,
+				entryFileNames: `assets/[name].js`,
+				chunkFileNames: `assets/[name].js`,
+				assetFileNames: `assets/[name].[ext]`,
+			},
+			// preserveEntrySignatures: "strict",
 		},
 	},
 });

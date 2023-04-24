@@ -6,7 +6,8 @@
 	"version": "2.0",
 	"author": "Faisal Ahmed",
 	"background": {
-		"service_worker": "main.js"
+		"service_worker": "assets/background.js",
+		"type": "module"
 	},
 	"icons": {
 		"128": "/icon.png"
