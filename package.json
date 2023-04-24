@@ -2,8 +2,6 @@
 	"name": "chrome-extension-preact-vite-manifest-3",
 	"version": "1.0.0",
 	"description": "A chrome extension template with Preact",
-	"main": "index.ts",
-	"type": "module",
 	"scripts": {
 		"build": "vite build && cp src/manifest.json dist/ && tsc --p tsconfig-build.json",
 		"build-v": "vite build && cp src/manifest.json dist/",
