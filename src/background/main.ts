@@ -9,25 +9,33 @@ const EXCLUDED_URL = [
 	"extensions://",
 ];
 
-function checkNativeUrl(url) {
+function checkNativeUrl(url: string) {
 	return EXCLUDED_URL.some((item) => url.includes(item));
 }
 
-function UnGroup(tab) {
-	const tabIds = parseInt(tab);
-	chrome.tabs.ungroup(tabIds, () => {
+//UnGroup an existing tab from its group
+function ungroupOneTab(tabId: chrome.tabs.Tab["id"]) {
+	// const tabIds = parseInt(tab);
+	if (!tabId) {
+		return;
+	}
+
+	chrome.tabs.ungroup(tabId, () => {
 		// console.log("tab was ungrouped")
 	});
 }
 
-async function createTab(newtab) {
+async function createTab(newtab: chrome.tabs.Tab) {
 	// console.log("new tab created");
 
+	//fetching the new tab info again
 	// workaround for tab sometimes not having pending or url for some some seconds.
-	// let tab = newtab;
-	// try {
+
+	if (!newtab.id) {
+		return;
+	}
+
 	const tab = await chrome.tabs.get(newtab.id);
-	// } catch (error) {}
 
 	let getout = false;
 	let newGroup = true;
@@ -39,36 +47,30 @@ async function createTab(newtab) {
 	};
 
 	//getting the original tab to see if it's a member of a group already, for some reason the groupId in tab was always set to -1
-	let getTabPromise;
-	try {
-		getTabPromise = await chrome.tabs.get(tab?.openerTabId);
+	let openerTabInfo;
+	if (tab.openerTabId) {
+		openerTabInfo = await chrome.tabs.get(tab?.openerTabId);
 		// console.log("opener tab info", getTabPromise);
-		if (getTabPromise.pinned) return;
-	} catch (error) {
+		if (openerTabInfo.pinned) return; //if the opener tab is pinned, we don't put the tabs in a group
+	} else {
 		// console.log(error);
 	}
 
-	//if the tab is pinned, don't create a tab group from it
-
-	//check if the original tab is pinned
-	// let sipt = await shouldIgnorePinnedTab(getTabPromise.pinned);
-	// if (sipt) return;
-
-	// checking if a blocking ruke exist if yes stop running the function
-	const blockFound = await withBlock(getTabPromise?.url);
+	// checking if a blocking rule exists if yes stop running the function
+	const blockFound = await withBlock(openerTabInfo?.url);
 	if (blockFound) {
 		// it is possible that a blocksite can be opened from an already existing group, in that case it will be
 		// part of a group already, so this function will exit, and wont let maximum calculation to happen
 		// console.log("block found");
 		try {
-			UnGroup(tab.id);
+			ungroupOneTab(tab.id);
 		} catch (error) {}
 		return;
 	}
 
 	//checking if it is not included in a group, else creates a new group
-	if (getTabPromise?.groupId !== -1) {
-		options.groupId = getTabPromise?.groupId;
+	if (openerTabInfo?.groupId !== -1) {
+		options.groupId = openerTabInfo?.groupId;
 		newGroup = false;
 	}
 	// console.log(newGroup, "new group");
@@ -82,7 +84,7 @@ async function createTab(newtab) {
 		if (!newGroup) {
 			//checking if its a new group
 			const tabsNumber = await getSingleGroupNumberOfTab(
-				getTabPromise?.groupId
+				openerTabInfo?.groupId
 			);
 			// console.log("number of tabs", tabsNumber, maximumPropmise.maximum);
 
@@ -91,7 +93,7 @@ async function createTab(newtab) {
 				maximumAchieved = true;
 
 				// chrome will include the tab in the existing group anyway, so we have to ungroup it manually
-				UnGroup(tab.id);
+				ungroupOneTab(tab.id);
 			}
 		}
 	}
@@ -106,7 +108,7 @@ async function createTab(newtab) {
 		if (
 			(tab.url || tab.pendingUrl) &&
 			!checkNativeUrl(tab.pendingUrl ?? tab.url) &&
-			!checkNativeUrl(getTabPromise?.url) &&
+			!checkNativeUrl(openerTabInfo?.url) &&
 			!maximumAchieved
 		) {
 			// console.log("max ach", maximumAchieved);
@@ -116,7 +118,7 @@ async function createTab(newtab) {
 			// this can however be used to control whether tab group should be created by right clicking or just by target _blank
 
 			const groupByPropmise = await chrome.storage.sync.get(["groupby"]);
-			const originalURL = getTabPromise?.url;
+			const originalURL = openerTabInfo?.url;
 			const newUrl = tab.pendingUrl ?? tab.url;
 			if (
 				groupByPropmise.groupby === "sd" &&
@@ -135,7 +137,7 @@ async function createTab(newtab) {
 				]);
 				// console.log("regardless", regardlessPropmise);
 				if (regardlessPropmise?.regardless !== true) {
-					UnGroup(tab.id);
+					ungroupOneTab(tab.id);
 				}
 				// now I have option to combine new tab from a group to always be in the group regardless of domain
 				// to be implemented. IMPLEMENTED!
@@ -154,7 +156,7 @@ async function createTab(newtab) {
 			if (!existingTabGroup.title) {
 				// custom rule checking
 				// this should be based on original tab or new tab??
-				const crule = await withCustomRule(getTabPromise.url);
+				const crule = await withCustomRule(openerTabInfo.url);
 
 				// console.log(crule, "custom rule clog");
 
@@ -167,7 +169,7 @@ async function createTab(newtab) {
 					color = crule.color;
 				} else {
 					tabgroupName = await getDomain(
-						getTabPromise.pendingUrl ?? getTabPromise.url
+						openerTabInfo.pendingUrl ?? openerTabInfo.url
 					); //getting original tab's url and checking if it's pending
 				}
 
@@ -258,7 +260,10 @@ async function withCustomRule(url: string) {
 	}
 }
 
-async function withBlock(url: string) {
+async function withBlock(url?: string): Promise<boolean> {
+	if (!url) {
+		return false;
+	}
 	try {
 		const rules = await chrome.storage.sync.get(["blocklist"]);
 		// console.log(rules?.blocklist);
@@ -282,28 +287,6 @@ async function getSingleGroupNumberOfTab(tabGroupId: number) {
 }
 
 // group event related
-
-// chrome.tabGroups.onUpdated.addListener(async (tabGroup) => {
-// 	const queryInfo = {
-// 		groupId: tabGroup.id,
-// 	};
-// 	const tabs = await chrome.tabs.query(queryInfo);
-
-// 	console.log(tabs, "tab length");
-
-// 	if (tabs.length > 2) {
-// 		// const lonelyPromise = await chrome.storage.sync.get(["lonely"]);
-// 		// if (lonelyPromise?.lonely === true) {
-// 		// 	let tabIds = tabs[0].id;
-// 		// 	chrome.tabs.ungroup(tabIds, () =>
-// 		// 	);
-// 		// }
-// 		const tabIds = parseInt(tabs[-1].id);
-// 		await chrome.tabs.ungroup(tabIds);
-
-// 		console.log("extra tab was ungrouped");
-// 	}
-// });
 
 chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
 	// console.log("220", removeInfo);
@@ -410,7 +393,3 @@ async function getCurrentTab() {
 	let [tab] = await chrome.tabs.query(queryOptions);
 	return tab;
 }
-
-// async function shouldIgnorePinnedTab(originalTabIsPinned) {
-// 	if (originalTabIsPinned) return false;
-// }
