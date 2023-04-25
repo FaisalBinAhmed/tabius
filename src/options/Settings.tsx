@@ -1,5 +1,8 @@
 import { render } from "preact";
+import { useEffect, useState } from "preact/hooks";
+
 import CustomModal from "./CustomModal";
+import { K_LONELY } from "../const";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -14,6 +17,26 @@ function openCustomModal() {
 }
 
 const Settings = () => {
+	const [lonelyValue, setLonelyValue] = useState(false);
+
+	useEffect(() => {
+		restoreValues();
+	}, []);
+
+	async function restoreValues() {
+		const items = await chrome.storage.sync.get([K_LONELY]);
+		setLonelyValue(items[K_LONELY]);
+	}
+
+	function toggleLonelyValue() {
+		// evt: unknown //EventHandler<TargetedEvent<HTMLInputElement, Event>>
+		let cv = lonelyValue;
+		setLonelyValue(!cv);
+		chrome.storage.sync.set({
+			K_LONELY: !cv,
+		});
+	}
+
 	return (
 		<div id="main">
 			<div id="settingsmain">
@@ -96,7 +119,12 @@ const Settings = () => {
 				</p>
 				<div id="popuptext">
 					<label>
-						<input type="checkbox" id="lonely" />
+						<input
+							type="checkbox"
+							onClick={toggleLonelyValue}
+							id="lonely"
+							checked={lonelyValue}
+						/>
 						Remove group when there is only 1 tab left
 					</label>
 				</div>
