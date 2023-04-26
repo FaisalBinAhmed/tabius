@@ -12,7 +12,7 @@ import {
 
 chrome.tabs.onCreated.addListener(async (tab) => await createTab(tab));
 
-function isTheURLNative(url?: string) {
+export function isTheURLNative(url?: string) {
 	if (!url) {
 		return false;
 	}
@@ -294,7 +294,7 @@ export type BlockRule = {
 	blockedUrl: string;
 };
 
-async function withBlock(url?: string): Promise<boolean> {
+export async function withBlock(url?: string): Promise<boolean> {
 	if (!url) {
 		return false;
 	}

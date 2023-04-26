@@ -1,6 +1,7 @@
 import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import TabgroupCard from "./components/TabgroupCard";
+import { isTheURLNative, withBlock } from "./background/background";
 
 async function handleCurrentTabBlock() {
 	// get current tab
@@ -47,13 +48,28 @@ async function getAllTabGroups() {
 const ActionPage = () => {
 	const [tabGroups, setTabGroups] = useState<chrome.tabGroups.TabGroup[]>([]);
 
+	const [siteIsBlocked, setSiteBlocked] = useState(false);
+
 	useEffect(() => {
 		fetchTabGroups();
+		fetchBlockInfo();
 	}, []);
 
 	async function fetchTabGroups() {
 		let tg = await getAllTabGroups();
 		setTabGroups(tg);
+	}
+
+	async function fetchBlockInfo() {
+		const currentTab = await chrome.tabs.query({
+			active: true,
+		});
+
+		if (isTheURLNative(currentTab[0].url)) {
+			return;
+		}
+		let a = await withBlock(currentTab[0].url);
+		setSiteBlocked(a);
 	}
 
 	return (
@@ -71,12 +87,13 @@ const ActionPage = () => {
 				<img
 					title="Tabius settings"
 					class="settingsbutton"
-					src="icons/settings.svg"
+					src="/settings.svg"
 				/>
 				<div
-					id="hey"
+					style={{ backgroundColor: siteIsBlocked ? "#008751" : "#ff004d" }}
+					className="blockbutton"
 					title="Blacklist or unblacklist this site from creating new tab groups">
-					<p>Blacklist</p>
+					<p>{siteIsBlocked ? "Unblock" : "Block"}</p>
 				</div>
 			</div>
 			<div>

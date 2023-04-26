@@ -61,7 +61,7 @@ TabgroupCardProps) {
 	return (
 		<div className="tabgroupCard" style={{ backgroundColor: Colors[color] }}>
 			<div className="tabgroupData">
-				<span>{name}</span>
+				<span className="tabgroupName">{name}</span>
 				<span> → {count}</span>
 			</div>
 			<div className="trafficLights">
