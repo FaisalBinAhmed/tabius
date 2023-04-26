@@ -18,7 +18,7 @@ body {
 }
 
 .popuproot {
-	background-color: #0d0d0d;
+	background-color: transparent;
 	/* width: 300px; */
 	padding: 5px;
 }
