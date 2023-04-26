@@ -40,23 +40,26 @@ body {
 	flex: 1;
 }
 
-.tabgroupCard {
+.tabgroupContainer {
 	min-width: 300px;
-	height: 42px;
-	line-height: 50px;
-	/* border-radius: 2px; */
-	display: flex;
-	align-items: center;
+	min-height: 42px;
 	margin-bottom: 8px;
-
 	border-radius: 5px;
 	/* background: #e0e0e0; */
 	box-shadow: 10px 10px 20px #181818, -10px -10px 20px #101010;
+}
+
+.tabgroupCard {
+	line-height: 42px;
+	/* border-radius: 2px; */
+	display: flex;
+	align-items: center;
 }
 .tabgroupData {
 	flex: 1;
 	flex-direction: row;
 	align-items: center;
+	user-select: none;
 }
 
 .tabgroupName {

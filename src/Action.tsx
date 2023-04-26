@@ -40,16 +40,11 @@ function handleOptionButton() {
 }
 
 async function getAllTabGroups() {
-	// const currentWindowId = await getCurrentWindow();
-
 	const queryInfo = {
 		windowId: -2,
 	};
 	// who knew -2 always refers to the current window. So much stuff for this.
-
 	const tabGroups = await chrome.tabGroups.query(queryInfo);
-	// console.log(tabGroups);
-
 	return tabGroups;
 }
 
@@ -107,7 +102,7 @@ const ActionPage = () => {
 					style={{ backgroundColor: siteIsBlocked ? "#008751" : "#ff004d" }}
 					className="blockbutton"
 					onClick={handleBlockButton}
-					title="Blacklist or unblacklist this site from creating new tab groups">
+					title="Quickly blacklist or unblacklist this site from creating new tab groups">
 					<p>{siteIsBlocked ? "Unblock" : "Block"}</p>
 				</div>
 			</div>
