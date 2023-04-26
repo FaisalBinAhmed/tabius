@@ -3,26 +3,20 @@ body {
 }
 
 .blockbutton {
-	/* background-color: #e0e0e0; */
 	cursor: pointer;
-	font-size: small;
-	/* align-self: center; */
-	/* display: flex; */
+	align-self: center;
+	display: flex;
 	padding: 5px;
-	border-radius: 2px;
-	color: #000;
+	margin-left: 5px;
+	border-radius: 5px;
 	height: 20px;
-	/* flex-direction: column;
-	align-items: center; */
+	align-items: center;
 }
 
 .blockbutton > p {
-	margin: 0 auto;
+	font-size: small;
+	color: whitesmoke;
 }
-
-/* #hey > div > img {
-	margin-right: 5px;
-} */
 
 .popuproot {
 	background-color: #121212;
@@ -67,6 +61,11 @@ body {
 	font-size: medium;
 }
 
+.tabgroupCount {
+	font-size: medium;
+	font-weight: 100;
+}
+
 .trafficLights {
 	display: flex;
 	flex-direction: row;
@@ -82,4 +81,6 @@ body {
 	justify-content: center;
 	cursor: pointer;
 	margin-right: 3px;
+	font-size: smaller;
+	font-weight: bold;
 }

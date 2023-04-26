@@ -62,12 +62,12 @@ TabgroupCardProps) {
 		<div className="tabgroupCard" style={{ backgroundColor: Colors[color] }}>
 			<div className="tabgroupData">
 				<span className="tabgroupName">{name}</span>
-				<span> → {count}</span>
+				<span className="tabGroupCount"> → {count}</span>
 			</div>
 			<div className="trafficLights">
 				<TrafficLightButton onClick={minimizeGroup} icon="-" color="#febc30" />
 				<TrafficLightButton onClick={maximizeGroup} icon="⤢" color="#28c840" />
-				<TrafficLightButton onClick={closeGroup} icon="x" color="#fe5f58" />
+				<TrafficLightButton onClick={closeGroup} icon="×" color="#fe5f58" />
 			</div>
 		</div>
 	);
