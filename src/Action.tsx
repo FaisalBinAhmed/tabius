@@ -31,6 +31,14 @@ async function handleCurrentTabBlock() {
 	}
 }
 
+function handleOptionButton() {
+	if (chrome.runtime.openOptionsPage) {
+		chrome.runtime.openOptionsPage();
+	} else {
+		window.open(chrome.runtime.getURL("options.html"));
+	}
+}
+
 async function getAllTabGroups() {
 	// const currentWindowId = await getCurrentWindow();
 
@@ -72,6 +80,11 @@ const ActionPage = () => {
 		setSiteBlocked(a);
 	}
 
+	async function handleBlockButton() {
+		setSiteBlocked((prev) => !prev);
+		//TODO save to storage
+	}
+
 	return (
 		<div className="popuproot">
 			<div className="pophead">
@@ -88,10 +101,12 @@ const ActionPage = () => {
 					title="Tabius settings"
 					class="settingsbutton"
 					src="/settings.svg"
+					onClick={handleOptionButton}
 				/>
 				<div
 					style={{ backgroundColor: siteIsBlocked ? "#008751" : "#ff004d" }}
 					className="blockbutton"
+					onClick={handleBlockButton}
 					title="Blacklist or unblacklist this site from creating new tab groups">
 					<p>{siteIsBlocked ? "Unblock" : "Block"}</p>
 				</div>

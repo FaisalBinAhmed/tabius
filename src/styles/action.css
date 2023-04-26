@@ -2,6 +2,10 @@ body {
 	margin: unset;
 }
 
+.settingsbutton {
+	cursor: pointer;
+}
+
 .blockbutton {
 	cursor: pointer;
 	align-self: center;
