@@ -39,27 +39,28 @@ TabgroupCardProps) {
 		setCount(tabNumbers.length);
 	}
 
-	function toggleGroupDetails() {
+	function toggleGroupDetails(e: MouseEvent) {
+		// e.preventDefault();
 		setGroupDetailOpen((prev) => !prev);
 	}
 
 	async function minimizeGroup(e: MouseEvent) {
+		e.stopImmediatePropagation(); //prevents parent event getting triggered
 		const updateProperties = {
 			collapsed: true,
 		};
 		try {
 			await chrome.tabGroups.update(id, updateProperties);
 		} catch (error) {}
-		e.stopPropagation();
 	}
 	async function maximizeGroup(e: MouseEvent) {
+		e.stopImmediatePropagation();
 		const updateProperties = {
 			collapsed: false,
 		};
 		try {
 			await chrome.tabGroups.update(id, updateProperties);
 		} catch (error) {}
-		e.stopPropagation();
 	}
 
 	function closeGroup() {
