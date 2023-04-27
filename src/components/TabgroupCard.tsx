@@ -83,7 +83,7 @@ TabgroupCardProps) {
 			<div className="tabgroupCard" onClick={toggleGroupDetails}>
 				<div className="tabgroupData">
 					<span className="tabgroupName">{truncateText(name)}</span>
-					<span className="tabGroupCount"> → {count}</span>
+					<span className="tabgroupCount">{count}</span>
 				</div>
 				<div className="trafficLights">
 					<TrafficLightButton
