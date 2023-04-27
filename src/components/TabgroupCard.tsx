@@ -43,21 +43,23 @@ TabgroupCardProps) {
 		setGroupDetailOpen((prev) => !prev);
 	}
 
-	async function minimizeGroup() {
+	async function minimizeGroup(e: MouseEvent) {
 		const updateProperties = {
 			collapsed: true,
 		};
 		try {
 			await chrome.tabGroups.update(id, updateProperties);
 		} catch (error) {}
+		e.stopPropagation();
 	}
-	async function maximizeGroup() {
+	async function maximizeGroup(e: MouseEvent) {
 		const updateProperties = {
 			collapsed: false,
 		};
 		try {
 			await chrome.tabGroups.update(id, updateProperties);
 		} catch (error) {}
+		e.stopPropagation();
 	}
 
 	function closeGroup() {
@@ -105,7 +107,7 @@ TabgroupCardProps) {
 type TrafficProps = {
 	icon: string;
 	color: string;
-	onClick: () => void;
+	onClick: (event: MouseEvent) => void;
 };
 
 function TrafficLightButton({ icon, color, onClick }: TrafficProps) {

@@ -25,6 +25,7 @@ const Settings = () => {
 
 	async function restoreValues() {
 		const items = await chrome.storage.sync.get([K_LONELY]);
+		console.log(items);
 		setLonelyValue(items[K_LONELY]);
 	}
 
