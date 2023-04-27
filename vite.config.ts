@@ -4,6 +4,8 @@ import preact from "@preact/preset-vite";
 export default defineConfig({
 	plugins: [preact()],
 	build: {
+		target: "chrome89", //minimum chrome with tabGroups
+		sourcemap: true,
 		rollupOptions: {
 			input: {
 				main: "./src/action.html",

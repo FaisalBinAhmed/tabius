@@ -2,7 +2,22 @@ import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import CustomModal from "./CustomModal";
-import { K_LONELY } from "../const";
+import {
+	StorageKey,
+	getMultipleStorageItems,
+	// K_AUTO_COLLAPSE,
+	// K_BLOCK_LIST,
+	// K_CUSTOM_RULES,
+	// K_GROUP_BY_RULE,
+	// K_LONELY,
+	// K_MAXIMUM_TABS_PER_GROUP,
+	// K_NAMING_RULE,
+	// K_REGARDLESS_DOMAIN,
+	// SettingsObject,\
+	getOneStorageItem,
+	setMultipleStorageObjects,
+	setOneStorageObject,
+} from "../const";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,25 +32,71 @@ function openCustomModal() {
 }
 
 const Settings = () => {
-	const [lonelyValue, setLonelyValue] = useState(false);
+	//Boolean values
+	const [lonely, setLonely] = useState(false);
+	const [autocollapse, setAutocollapse] = useState(false);
+	const [regardless, setRegardless] = useState(false);
+
+	//string values
+	const [groupby, setGroupby] = useState();
+	const [naming, setNaming] = useState();
+	const [maximum, setMaximum] = useState(0);
 
 	useEffect(() => {
 		restoreValues();
 	}, []);
 
 	async function restoreValues() {
-		const items = await chrome.storage.sync.get([K_LONELY]);
+		const items = await getMultipleStorageItems([
+			"autocollapse",
+			"blocklist",
+			"customrules",
+			"groupby",
+			"lonely",
+			"maximum",
+			"naming",
+			"regardless",
+		]);
+
 		console.log(items);
-		setLonelyValue(items[K_LONELY]);
+		setLonely(items.lonely);
+		setAutocollapse(items.autocollapse);
+		setRegardless(items.regardless);
+		setMaximum(items.maximum);
+	}
+
+	async function saveSettings() {
+		// setOneStorageObject("lonely", lonelyValue);
+		// setOneStorageObject("autocollapse", autoCollapse);
+		// setOneStorageObject("regardless", regardless);
+
+		chrome.storage.sync.set(
+			{
+				groupby: groupby,
+				naming: naming,
+				regardless: regardless,
+				maximum: maximum,
+				lonely: lonely,
+				autocollapse: autocollapse,
+			},
+			function () {
+				// Update status to let user know options were saved.
+				// set_status("Options saved.");
+			}
+		);
 	}
 
 	function toggleLonelyValue() {
-		// evt: unknown //EventHandler<TargetedEvent<HTMLInputElement, Event>>
-		let cv = lonelyValue;
-		setLonelyValue(!cv);
-		chrome.storage.sync.set({
-			K_LONELY: !cv,
-		});
+		setLonely((prev) => !prev);
+	}
+	function toggleCollapseValue() {
+		setAutocollapse((prev) => !prev);
+	}
+
+	function handleMaximum(e) {
+		if (e.target.value) {
+			setMaximum(parseInt(e?.target?.value));
+		}
 	}
 
 	return (
@@ -111,7 +172,14 @@ const Settings = () => {
 
 				<div class="oneoptioncontainer">
 					<div id="langtext">Maximum number of tabs per group</div>
-					<input id="maximum" type="number" value="0" min="0" max="999" />
+					<input
+						id="maximum"
+						type="number"
+						onInput={handleMaximum}
+						value={maximum}
+						min="0"
+						max="999"
+					/>
 				</div>
 				<p>
 					0 (default) = no restrictions ~ unlimited tabs.
@@ -124,7 +192,7 @@ const Settings = () => {
 							type="checkbox"
 							onClick={toggleLonelyValue}
 							id="lonely"
-							checked={lonelyValue}
+							checked={lonely}
 						/>
 						Remove group when there is only 1 tab left
 					</label>
@@ -136,7 +204,12 @@ const Settings = () => {
 
 				<div id="popuptext">
 					<label>
-						<input type="checkbox" id="autocollapse" />
+						<input
+							type="checkbox"
+							onClick={toggleCollapseValue}
+							id="autocollapse"
+							checked={autocollapse}
+						/>
 						Auto collapse inactive tab groups
 					</label>
 				</div>
@@ -156,7 +229,9 @@ const Settings = () => {
 				{/* <p>Hint: Blocklist will always get precendence over Custom Rules.</p> */}
 				<div style="display: flex">
 					<div style="flex: 1"></div>
-					<button id="save">Save Settings</button>
+					<button id="save" onClick={saveSettings}>
+						Save Settings
+					</button>
 					<div style="flex: 1"></div>
 				</div>
 			</div>

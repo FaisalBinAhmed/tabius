@@ -1,14 +1,6 @@
 // Background Script Code
 
-import {
-	EXCLUDED_URL,
-	K_AUTO_COLLAPSE,
-	K_BLOCK_LIST,
-	K_CUSTOM_RULES,
-	K_GROUP_BY_RULE,
-	K_LONELY,
-	K_MAXIMUM_TABS_PER_GROUP,
-} from "../const";
+import { EXCLUDED_URL, getOneStorageItem } from "../const";
 
 chrome.tabs.onCreated.addListener(async (tab) => await createTab(tab));
 
@@ -86,9 +78,10 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 	// checking maximum limitation
 
-	const maximumPropmise = await chrome.storage.sync.get([
-		K_MAXIMUM_TABS_PER_GROUP,
-	]);
+	const maximumPropmise = await getOneStorageItem("maximum");
+	//  chrome.storage.sync.get([
+	// 	K_MAXIMUM_TABS_PER_GROUP,
+	// ]);
 
 	if (maximumPropmise.maximum && parseInt(maximumPropmise.maximum) > 1) {
 		if (!newGroup) {
@@ -127,7 +120,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			// results in error when pendingUrl is not found while opening the tab directly.
 			// this can however be used to control whether tab group should be created by right clicking or just by target _blank
 
-			const groupByPropmise = await chrome.storage.sync.get([K_GROUP_BY_RULE]);
+			const groupByPropmise = await getOneStorageItem("groupby"); //chrome.storage.sync.get([K_GROUP_BY_RULE]);
 			const originalURL = openerTabInfo?.url;
 			const newUrl = tab.pendingUrl ?? tab.url;
 			if (
@@ -142,9 +135,10 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			if (getout) {
 				// let tabIds = tab.id;
 
-				const regardlessPropmise = await chrome.storage.sync.get([
-					"regardless",
-				]);
+				const regardlessPropmise = await getOneStorageItem("regardless");
+				// chrome.storage.sync.get([
+				// 	K_REGARDLESS_DOMAIN,
+				// ]);
 				// console.log("regardless", regardlessPropmise);
 				if (regardlessPropmise?.regardless !== true) {
 					ungroupOneTab(tab.id);
@@ -230,7 +224,7 @@ async function getDomain(url?: string) {
 	const fragments = domain.split(".");
 	// console.log("url pieces", fragments);
 	// let groupname = justDomain();
-	const groupnamePropmise = await chrome.storage.sync.get(["naming"]);
+	const groupnamePropmise = await getOneStorageItem("naming"); //chrome.storage.sync.get<StorageKey>([K_NAMING_RULE]);
 	// console.log(groupnamePropmise);
 
 	switch (groupnamePropmise.naming) {
@@ -276,7 +270,7 @@ async function withCustomRule(url?: string): Promise<CustomRule | false> {
 	}
 
 	try {
-		const rules = await chrome.storage.sync.get([K_CUSTOM_RULES]);
+		const rules = await getOneStorageItem("customrules"); //chrome.storage.sync.get([K_CUSTOM_RULES]);
 		// console.log(rules?.customrules);
 		const rule = rules?.customrules?.find(
 			(item: CustomRule) => getHostname(item.url) === getHostname(url)
@@ -299,7 +293,7 @@ export async function withBlock(url?: string): Promise<boolean> {
 		return false;
 	}
 	try {
-		const rules = await chrome.storage.sync.get([K_BLOCK_LIST]);
+		const rules = await getOneStorageItem("blocklist"); //chrome.storage.sync.get([K_BLOCK_LIST]);
 		// console.log(rules?.blocklist);
 		const rule: boolean = rules?.blocklist?.find(
 			(item: BlockRule) => getHostname(item.blockedUrl) === getHostname(url)
@@ -325,7 +319,7 @@ async function getSingleGroupNumberOfTab(tabGroupId?: number) {
 chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
 	// console.log("220", removeInfo);
 
-	const lonely = await chrome.storage.sync.get([K_LONELY]);
+	const lonely = await getOneStorageItem("lonely"); //chrome.storage.sync.get([K_LONELY]);
 	if (!lonely.lonely) return;
 
 	const queryInfo = {
@@ -368,7 +362,7 @@ async function isGroupNotLonely(tabGroupId: number) {
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
 	//check if I should autocollapse tabs in the groups
 
-	const autocollapse = await chrome.storage.sync.get([K_AUTO_COLLAPSE]);
+	const autocollapse = await getOneStorageItem("autocollapse"); //chrome.storage.sync.get([K_AUTO_COLLAPSE]);
 
 	if (!autocollapse.autocollapse) return; //we don't have to do anything
 
