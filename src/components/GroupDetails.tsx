@@ -24,7 +24,7 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 	}
 
 	return (
-		<div>
+		<div className="tabscontainer">
 			{gDetails?.map((tab) => (
 				<TabCard id={tab.id} favIconUrl={tab.favIconUrl} title={tab.title} />
 			))}
@@ -42,17 +42,34 @@ function TabCard({ favIconUrl, title }: TabCardProps) {
 	return (
 		<div className="tabcard">
 			<div className="tabdetails">
-				<img
-					width="18px"
-					height="18px"
-					style={{ marginRight: "5px" }}
-					src={favIconUrl}
-				/>
+				{favIconUrl ? (
+					<img
+						width="18px"
+						height="18px"
+						style={{ marginRight: "5px" }}
+						src={favIconUrl}
+					/>
+				) : (
+					<img
+						width="18px"
+						height="18px"
+						style={{ marginRight: "5px" }}
+						src="/icons/media-image.svg"
+					/>
+				)}
 				{truncateText(title, 21)}
 			</div>
 			<div className="trafficLights">
-				<TrafficLightButton onClick={() => {}} icon="⤻" color="#29aeff" />
-				<TrafficLightButton onClick={() => {}} icon="×" color="#fe5f58" />
+				<TrafficLightButton
+					onClick={() => {}}
+					icon="/icons/transition-up.svg"
+					color="#29aeff"
+				/>
+				<TrafficLightButton
+					onClick={() => {}}
+					icon="/icons/cancel.svg"
+					color="#fe5f58"
+				/>
 			</div>
 		</div>
 	);

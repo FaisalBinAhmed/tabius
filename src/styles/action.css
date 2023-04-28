@@ -4,13 +4,14 @@ body {
 
 .settingsbutton {
 	cursor: pointer;
+	margin-left: 5px;
 }
 
 .blockbutton {
 	cursor: pointer;
 	align-self: center;
 	padding: 5px;
-	background-color: white;
+	background-color: #181818;
 	width: 280px;
 	border-radius: 3px;
 	display: flex;
@@ -18,7 +19,7 @@ body {
 	margin-bottom: 5px;
 	user-select: none;
 	font-size: large;
-	font-weight: 100;
+	font-weight: 300;
 	line-height: 36px;
 }
 
@@ -28,25 +29,35 @@ body {
 	padding: 6px;
 	padding-bottom: 20px;
 }
+
+.headercontainer {
+	display: flex;
+	flex-direction: column;
+	background-color: #242424;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
 .pophead {
 	display: flex;
-	flex-direction: row;
 	/* justify-content: space-around; */
 	margin-top: 0px;
 	color: white;
+	padding: 0 5px 0 5px;
 }
 
 .title {
-	font-size: medium;
+	font-size: large;
 	flex: 1;
 }
 
 .bigcard {
-	background-color: #85937a;
+	/* background-color: #85937a; */
+	/* background-color: #181818; */
 	display: flex;
 	flex-direction: column;
 	border-radius: 5px;
-	color: black;
+	color: whitesmoke;
 	margin-bottom: 10px;
 }
 
@@ -126,7 +137,7 @@ body {
 	height: 18px;
 	border-radius: 50%;
 	border-width: 0;
-	flex-direction: row;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
@@ -135,17 +146,27 @@ body {
 	font-weight: bold;
 }
 
+.trafficicon {
+	width: 12px;
+	height: 12px;
+}
+
+.tabscontainer {
+	margin-bottom: 10px;
+}
+
 .tabcard {
 	align-self: center;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 5px;
-	background-color: white;
+	/* background-color: white; */
 	/* max-width: 280px; */
 	line-height: 36px;
 	height: 36px;
 	margin: 1px;
+	border-bottom: 1px solid #101010;
 }
 
 .tabdetails {
@@ -154,4 +175,5 @@ body {
 	flex-direction: row;
 	align-items: center;
 	user-select: none;
+	padding: 5px;
 }

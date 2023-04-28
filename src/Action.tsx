@@ -108,39 +108,48 @@ const ActionPage = () => {
 
 	return (
 		<div className="popuproot">
-			<div className="pophead">
-				<div style="display: flex; flex-direction: column; margin-right: 10px">
-					<span style="flex: 1"></span>
-					<img src="/icon.png" width="32px" height="32px" />
-					<span style="flex: 1"></span>
-				</div>
-				<div class="title">
-					<p>Tabius</p>
-				</div>
-
-				<img
-					title="Tabius settings"
-					class="settingsbutton"
-					src="/settings.svg"
-					onClick={handleOptionButton}
-				/>
-			</div>
-			<div className="bigcard">
-				<div class="bigcardhead">
-					<div className="totaltgcount">
-						<b>{tabGroups.length}</b> tab groups
+			<div className="headercontainer">
+				<div className="pophead">
+					{/* <div style="display: flex; flex-direction: column; margin-right: 10px">
+						<span style="flex: 1"></span>
+						<img src="/icon.png" width="32px" height="32px" />
+						<span style="flex: 1"></span>
+					</div> */}
+					<div class="title">
+						<p>Tabius</p>
 					</div>
-					<div className="trafficLights">
-						<TrafficLightButton
-							onClick={minimizeAllGroups}
-							icon="-"
-							color="#febc30"
-						/>
-						<TrafficLightButton
-							onClick={maximizeAllGroups}
-							icon="⤢"
-							color="#28c840"
-						/>
+
+					<img
+						title="Tabius settings"
+						class="settingsbutton"
+						src="/icons/emoji-satisfied.svg"
+						onClick={handleOptionButton}
+					/>
+
+					<img
+						title="Tabius settings"
+						class="settingsbutton"
+						src="/icons/settings.svg"
+						onClick={handleOptionButton}
+					/>
+				</div>
+				<div className="bigcard">
+					<div class="bigcardhead">
+						<div className="totaltgcount">
+							<b>{tabGroups.length}</b> tab groups
+						</div>
+						<div className="trafficLights">
+							<TrafficLightButton
+								onClick={minimizeAllGroups}
+								icon="/icons/minus.svg"
+								color="#febc30"
+							/>
+							<TrafficLightButton
+								onClick={maximizeAllGroups}
+								icon="/icons/enlarge.svg"
+								color="#28c840"
+							/>
+						</div>
 					</div>
 				</div>
 				<div
