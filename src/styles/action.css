@@ -9,24 +9,24 @@ body {
 .blockbutton {
 	cursor: pointer;
 	align-self: center;
-	display: flex;
 	padding: 5px;
-	margin-left: 5px;
-	border-radius: 5px;
-	height: 20px;
-	align-items: center;
-}
-
-.blockbutton > p {
-	font-size: small;
-	color: whitesmoke;
+	background-color: white;
+	width: 280px;
+	border-radius: 3px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 5px;
+	user-select: none;
+	font-size: large;
+	font-weight: 100;
+	line-height: 42px;
 }
 
 .popuproot {
 	background-color: #121212;
 	/* width: 300px; */
-	padding: 7px;
-	padding-bottom: 16px;
+	padding: 6px;
+	padding-bottom: 20px;
 }
 .pophead {
 	display: flex;
@@ -41,6 +41,28 @@ body {
 	flex: 1;
 }
 
+.bigcard {
+	background-color: #85937a;
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+	color: black;
+	margin-bottom: 10px;
+}
+
+.bigcardhead {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+}
+
+.totaltgcount {
+	font-size: large;
+	font-weight: 400;
+	padding: 5px 0 5px 0;
+}
+
 /* .tabgroupContainer {
 	min-width: 300px;
 	min-height: 42px;
@@ -51,16 +73,18 @@ body {
 
 .tabgroupContainer {
 	min-width: 300px;
-	min-height: 50px;
-	margin-bottom: -8px;
+	min-height: 55px;
+	margin-bottom: -13px;
 	border-radius: 5px;
 	/* background: #e0e0e0; */
 	/* box-shadow: 10px 10px 20px #181818, -10px -10px 20px #101010; */
-	box-shadow: 5px 5px 10px #181818, -5px -5px 10px #101010;
+	box-shadow: 2px 2px 5px #181818, -2px -2px 5px #101010;
 }
 
 .tabgroupContainer:last-child {
 	min-height: 42px;
+	/* border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px; */
 }
 
 .tabgroupCard {
@@ -84,10 +108,10 @@ body {
 
 .tabgroupCount {
 	font-size: small;
-	font-weight: 100;
+	font-weight: 200;
 	background-color: #121212;
-	color: #fff;
-	padding: 5px;
+	/* color: transparent; */
+	padding: 3px;
 	margin-left: 10px;
 	border-radius: 3px;
 }

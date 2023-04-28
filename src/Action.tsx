@@ -1,6 +1,6 @@
 import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import TabgroupCard from "./components/TabgroupCard";
+import TabgroupCard, { TrafficLightButton } from "./components/TabgroupCard";
 import { isTheURLNative, withBlock } from "./background/background";
 
 async function handleCurrentTabBlock() {
@@ -80,6 +80,9 @@ const ActionPage = () => {
 		//TODO save to storage
 	}
 
+	function minimizeAllGroups() {}
+	function maximizeAllGroups() {}
+
 	return (
 		<div className="popuproot">
 			<div className="pophead">
@@ -98,17 +101,43 @@ const ActionPage = () => {
 					src="/settings.svg"
 					onClick={handleOptionButton}
 				/>
+			</div>
+			<div className="bigcard">
+				<div class="bigcardhead">
+					<div className="totaltgcount">
+						<b>{tabGroups.length}</b> tab Groups
+					</div>
+					<div className="trafficLights">
+						<TrafficLightButton
+							onClick={minimizeAllGroups}
+							icon="-"
+							color="#febc30"
+						/>
+						<TrafficLightButton
+							onClick={maximizeAllGroups}
+							icon="⤢"
+							color="#28c840"
+						/>
+					</div>
+				</div>
 				<div
-					style={{ backgroundColor: siteIsBlocked ? "#008751" : "#ff004d" }}
+					style={{ color: siteIsBlocked ? "#008751" : "#ff004d" }}
 					className="blockbutton"
 					onClick={handleBlockButton}
 					title="Quickly blacklist or unblacklist this site from creating new tab groups">
-					<p>{siteIsBlocked ? "Unblock" : "Block"}</p>
+					{/* <p> */}
+					{siteIsBlocked ? "Enable for this domain" : "Disable for this domain"}
+					{/* </p> */}
 				</div>
 			</div>
 			<div>
 				{tabGroups.map((tg) => (
-					<TabgroupCard name={tg.title} color={tg.color} id={tg.id} />
+					<TabgroupCard
+						name={tg.title}
+						color={tg.color}
+						id={tg.id}
+						collapsed={tg.collapsed}
+					/>
 				))}
 			</div>
 		</div>

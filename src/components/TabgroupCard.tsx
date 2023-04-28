@@ -15,17 +15,18 @@ type TabgroupCardProps = {
 	id: number;
 	name?: string;
 	color: chrome.tabGroups.ColorEnum;
-	// count?: number;
+	collapsed: boolean;
 };
 
 export default function TabgroupCard({
 	id,
 	name,
 	color,
+	collapsed = false,
 }: // count,
 TabgroupCardProps) {
 	const [count, setCount] = useState(0);
-	const [groupDetailIsOpen, setGroupDetailOpen] = useState(false);
+	const [groupDetailIsOpen, setGroupDetailOpen] = useState(!collapsed);
 
 	useEffect(() => {
 		fetchTabGroupCount();
@@ -41,25 +42,34 @@ TabgroupCardProps) {
 
 	function toggleGroupDetails(e: MouseEvent) {
 		// e.preventDefault();
+
+		// if (groupDetailIsOpen) {
+		// 	minimizeGroup();
+		// } else {
+		// 	maximizeGroup();
+		// }
+
 		setGroupDetailOpen((prev) => !prev);
 	}
 
-	async function minimizeGroup(e: MouseEvent) {
-		e.stopImmediatePropagation(); //prevents parent event getting triggered
+	async function minimizeGroup(e?: MouseEvent) {
+		e?.stopImmediatePropagation(); //prevents parent event getting triggered
 		const updateProperties = {
 			collapsed: true,
 		};
 		try {
 			await chrome.tabGroups.update(id, updateProperties);
+			setGroupDetailOpen(false);
 		} catch (error) {}
 	}
-	async function maximizeGroup(e: MouseEvent) {
-		e.stopImmediatePropagation();
+	async function maximizeGroup(e?: MouseEvent) {
+		e?.stopImmediatePropagation();
 		const updateProperties = {
 			collapsed: false,
 		};
 		try {
 			await chrome.tabGroups.update(id, updateProperties);
+			setGroupDetailOpen(true);
 		} catch (error) {}
 	}
 
@@ -83,7 +93,9 @@ TabgroupCardProps) {
 			<div className="tabgroupCard" onClick={toggleGroupDetails}>
 				<div className="tabgroupData">
 					<span className="tabgroupName">{truncateText(name)}</span>
-					<span className="tabgroupCount">{count}</span>
+					<span style={{ color: Colors[color] }} className="tabgroupCount">
+						{count}
+					</span>
 				</div>
 				<div className="trafficLights">
 					<TrafficLightButton
@@ -111,7 +123,7 @@ type TrafficProps = {
 	onClick: (event: MouseEvent) => void;
 };
 
-function TrafficLightButton({ icon, color, onClick }: TrafficProps) {
+export function TrafficLightButton({ icon, color, onClick }: TrafficProps) {
 	return (
 		<button
 			className="trafficButton"
