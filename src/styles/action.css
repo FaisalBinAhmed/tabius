@@ -25,7 +25,8 @@ body {
 .popuproot {
 	background-color: #121212;
 	/* width: 300px; */
-	padding: 5px;
+	padding: 7px;
+	padding-bottom: 16px;
 }
 .pophead {
 	display: flex;
@@ -40,13 +41,26 @@ body {
 	flex: 1;
 }
 
-.tabgroupContainer {
+/* .tabgroupContainer {
 	min-width: 300px;
 	min-height: 42px;
-	margin-bottom: 8px;
+	margin-bottom: -2px;
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px #181818, -5px -5px 10px #101010;
+} */
+
+.tabgroupContainer {
+	min-width: 300px;
+	min-height: 50px;
+	margin-bottom: -8px;
 	border-radius: 5px;
 	/* background: #e0e0e0; */
-	box-shadow: 10px 10px 20px #181818, -10px -10px 20px #101010;
+	/* box-shadow: 10px 10px 20px #181818, -10px -10px 20px #101010; */
+	box-shadow: 5px 5px 10px #181818, -5px -5px 10px #101010;
+}
+
+.tabgroupContainer:last-child {
+	min-height: 42px;
 }
 
 .tabgroupCard {
