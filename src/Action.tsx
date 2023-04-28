@@ -80,8 +80,31 @@ const ActionPage = () => {
 		//TODO save to storage
 	}
 
-	function minimizeAllGroups() {}
-	function maximizeAllGroups() {}
+	function minimizeAllGroups() {
+		toggleAllGroups(true);
+	}
+	function maximizeAllGroups() {
+		toggleAllGroups(false);
+	}
+
+	async function toggleAllGroups(shouldCollapse: boolean) {
+		const queryInfo = {
+			windowId: -2,
+		};
+
+		try {
+			const tabGroups = await chrome.tabGroups.query(queryInfo);
+
+			tabGroups.forEach(async (item) => {
+				const groupId = item.id;
+				const updateProperties = {
+					collapsed: shouldCollapse,
+				};
+
+				await chrome.tabGroups.update(groupId, updateProperties);
+			});
+		} catch (error) {}
+	}
 
 	return (
 		<div className="popuproot">
@@ -105,7 +128,7 @@ const ActionPage = () => {
 			<div className="bigcard">
 				<div class="bigcardhead">
 					<div className="totaltgcount">
-						<b>{tabGroups.length}</b> tab Groups
+						<b>{tabGroups.length}</b> tab groups
 					</div>
 					<div className="trafficLights">
 						<TrafficLightButton

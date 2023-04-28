@@ -1,7 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
 import { Colors } from "../const";
+import GroupDetails from "./GroupDetails";
 
-function truncateText(text?: string, length = 18) {
+export function truncateText(text?: string, length = 18) {
 	if (!text) return;
 
 	if (text.length > length) {
@@ -112,7 +113,7 @@ TabgroupCardProps) {
 				</div>
 			</div>
 
-			{groupDetailIsOpen && <div style={{ height: "100px" }}></div>}
+			{groupDetailIsOpen && <GroupDetails id={id} />}
 		</div>
 	);
 }

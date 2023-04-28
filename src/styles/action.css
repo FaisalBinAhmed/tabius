@@ -19,7 +19,7 @@ body {
 	user-select: none;
 	font-size: large;
 	font-weight: 100;
-	line-height: 42px;
+	line-height: 36px;
 }
 
 .popuproot {
@@ -133,4 +133,25 @@ body {
 	margin-right: 3px;
 	font-size: smaller;
 	font-weight: bold;
+}
+
+.tabcard {
+	align-self: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	background-color: white;
+	/* max-width: 280px; */
+	line-height: 36px;
+	height: 36px;
+	margin: 1px;
+}
+
+.tabdetails {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	align-items: center;
+	user-select: none;
 }
