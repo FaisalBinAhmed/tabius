@@ -90,8 +90,14 @@ TabgroupCardProps) {
 	return (
 		<div
 			className="tabgroupContainer"
-			style={{ backgroundColor: Colors[color] }}>
-			<div className="tabgroupCard" onClick={toggleGroupDetails}>
+			style={{
+				backgroundColor: Colors[color],
+				marginBottom: groupDetailIsOpen ? 0 : -13,
+			}}>
+			<div
+				className="tabgroupCard"
+				title="Click to open"
+				onClick={toggleGroupDetails}>
 				<div className="tabgroupData">
 					<span className="tabgroupName">{truncateText(name)}</span>
 					<span style={{ color: Colors[color] }} className="tabgroupCount">

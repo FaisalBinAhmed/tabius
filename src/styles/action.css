@@ -84,7 +84,7 @@ body {
 .tabgroupContainer {
 	min-width: 300px;
 	min-height: 55px;
-	margin-bottom: -13px;
+	/* margin-bottom: -13px; */
 	border-radius: 5px;
 	/* background: #e0e0e0; */
 	/* box-shadow: 10px 10px 20px #181818, -10px -10px 20px #101010; */
@@ -166,6 +166,9 @@ body {
 	height: 30px;
 	margin: 0 5px 0 5px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+.tabcard:last-child {
+	border-bottom: unset;
 }
 
 .tabdetails {
