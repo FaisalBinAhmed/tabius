@@ -167,16 +167,24 @@ const ActionPage = () => {
 					/>
 				</div>
 			</div>
-			<div>
-				{tabGroups.map((tg) => (
-					<TabgroupCard
-						name={tg.title}
-						color={tg.color}
-						id={tg.id}
-						collapsed={tg.collapsed}
-					/>
-				))}
-			</div>
+
+			{tabGroups.length ? (
+				<div>
+					{tabGroups.map((tg) => (
+						<TabgroupCard
+							name={tg.title}
+							color={tg.color}
+							id={tg.id}
+							collapsed={tg.collapsed}
+						/>
+					))}
+				</div>
+			) : (
+				<div className="nothing">
+					<img src="/icons/emoji-puzzled.svg" />
+					<p>Nothing to see here</p>
+				</div>
+			)}
 		</div>
 	);
 };

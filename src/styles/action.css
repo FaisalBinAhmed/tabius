@@ -179,3 +179,14 @@ body {
 	align-items: center;
 	user-select: none;
 }
+
+.nothing {
+	display: flex;
+	justify-content: center;
+	color: #c2c3c7;
+}
+
+.nothing > p {
+	margin-left: 5px;
+	font-size: medium;
+}
