@@ -39,6 +39,12 @@ function handleOptionButton() {
 	}
 }
 
+function handleRatingButton() {
+	window.open(
+		"https://chrome.google.com/webstore/detail/tabius-tab-grouping-assis/enceimdjnaccoeikjobaeicfodlfnijp"
+	);
+}
+
 async function getAllTabGroups() {
 	const queryInfo = {
 		windowId: -2,
@@ -122,8 +128,8 @@ const ActionPage = () => {
 					<img
 						title="Tabius settings"
 						class="settingsbutton"
-						src="/icons/emoji-satisfied.svg"
-						onClick={handleOptionButton}
+						src="/icons/heart.svg"
+						onClick={handleRatingButton}
 					/>
 
 					<img
@@ -133,25 +139,6 @@ const ActionPage = () => {
 						onClick={handleOptionButton}
 					/>
 				</div>
-				<div className="bigcard">
-					<div class="bigcardhead">
-						<div className="totaltgcount">
-							<b>{tabGroups.length}</b> tab groups
-						</div>
-						<div className="trafficLights">
-							<TrafficLightButton
-								onClick={minimizeAllGroups}
-								icon="/icons/minus.svg"
-								color="#febc30"
-							/>
-							<TrafficLightButton
-								onClick={maximizeAllGroups}
-								icon="/icons/enlarge.svg"
-								color="#28c840"
-							/>
-						</div>
-					</div>
-				</div>
 				<div
 					style={{ color: siteIsBlocked ? "#008751" : "#ff004d" }}
 					className="blockbutton"
@@ -160,6 +147,23 @@ const ActionPage = () => {
 					{/* <p> */}
 					{siteIsBlocked ? "Enable for this domain" : "Disable for this domain"}
 					{/* </p> */}
+				</div>
+			</div>
+			<div className="bigcard">
+				{/* <div className="totaltgcount">
+					<b>{tabGroups.length}</b>
+				</div> */}
+				<div className="trafficLights">
+					<TrafficLightButton
+						onClick={minimizeAllGroups}
+						icon="/icons/minus.svg"
+						color="#febc30"
+					/>
+					<TrafficLightButton
+						onClick={maximizeAllGroups}
+						icon="/icons/enlarge.svg"
+						color="#28c840"
+					/>
 				</div>
 			</div>
 			<div>

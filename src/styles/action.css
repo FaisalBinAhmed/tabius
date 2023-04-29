@@ -18,16 +18,16 @@ body {
 	justify-content: center;
 	margin-bottom: 5px;
 	user-select: none;
-	font-size: large;
-	font-weight: 300;
+	font-size: medium;
+	/* font-weight: 300; */
 	line-height: 36px;
 }
 
 .popuproot {
 	background-color: #121212;
 	/* width: 300px; */
-	padding: 6px;
-	padding-bottom: 20px;
+	padding: 10px;
+	padding-bottom: 25px;
 }
 
 .headercontainer {
@@ -49,23 +49,18 @@ body {
 .title {
 	font-size: large;
 	flex: 1;
+	color: #c2c3c7;
 }
 
 .bigcard {
 	/* background-color: #85937a; */
 	/* background-color: #181818; */
 	display: flex;
-	flex-direction: column;
-	border-radius: 5px;
-	color: whitesmoke;
+	justify-content: flex-end;
+	/* flex-direction: column; */
+	/* border-radius: 5px; */
+	/* color: whitesmoke; */
 	margin-bottom: 10px;
-}
-
-.bigcardhead {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 5px;
 }
 
 .totaltgcount {
@@ -119,7 +114,7 @@ body {
 
 .tabgroupCount {
 	font-size: small;
-	font-weight: 200;
+	/* font-weight: 200; */
 	background-color: #121212;
 	/* color: transparent; */
 	padding: 3px;
@@ -163,10 +158,10 @@ body {
 	padding: 5px;
 	/* background-color: white; */
 	/* max-width: 280px; */
-	line-height: 36px;
-	height: 36px;
+	line-height: 30px;
+	height: 30px;
 	margin: 1px;
-	border-bottom: 1px solid #101010;
+	border-bottom: 0.2px solid #101010;
 }
 
 .tabdetails {
