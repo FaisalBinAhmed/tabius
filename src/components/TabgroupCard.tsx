@@ -109,16 +109,19 @@ TabgroupCardProps) {
 						onClick={minimizeGroup}
 						icon="/icons/minus.svg"
 						color="#febc30"
+						tooltip="Minimize tab group"
 					/>
 					<TrafficLightButton
 						onClick={maximizeGroup}
 						icon="/icons/enlarge.svg"
 						color="#28c840"
+						tooltip="Open tab group"
 					/>
 					<TrafficLightButton
 						onClick={closeGroup}
 						icon="/icons/cancel.svg"
 						color="#fe5f58"
+						tooltip="Close all tabs in the group"
 					/>
 				</div>
 			</div>
@@ -132,17 +135,23 @@ type TrafficProps = {
 	icon: string;
 	color: string;
 	onClick: (event: MouseEvent) => void;
+	tooltip?: string;
 };
 
-export function TrafficLightButton({ icon, color, onClick }: TrafficProps) {
+export function TrafficLightButton({
+	icon,
+	color,
+	onClick,
+	tooltip,
+}: TrafficProps) {
 	return (
 		<div
 			className="trafficButton"
 			style={{ backgroundColor: color }}
-			onClick={onClick}>
+			onClick={onClick}
+			title={tooltip}>
 			{/* {icon} */}
 			<img
-				title="Tabius settings"
 				class="trafficicon"
 				src={icon}
 				// onClick={handleOptionButton}

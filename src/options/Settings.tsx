@@ -2,24 +2,7 @@ import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import CustomModal from "./CustomModal";
-import {
-	GROUP_BY,
-	GROUP_NAMING,
-	StorageKey,
-	getMultipleStorageItems,
-	// K_AUTO_COLLAPSE,
-	// K_BLOCK_LIST,
-	// K_CUSTOM_RULES,
-	// K_GROUP_BY_RULE,
-	// K_LONELY,
-	// K_MAXIMUM_TABS_PER_GROUP,
-	// K_NAMING_RULE,
-	// K_REGARDLESS_DOMAIN,
-	// SettingsObject,\
-	getOneStorageItem,
-	setMultipleStorageObjects,
-	setOneStorageObject,
-} from "../const";
+import { GROUP_BY, GROUP_NAMING, getMultipleStorageItems } from "../const";
 import BlockModal from "./BlockModal";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -172,11 +172,13 @@ const ActionPage = () => {
 						onClick={minimizeAllGroups}
 						icon="/icons/minus.svg"
 						color="#febc30"
+						tooltip="Minimize all tab groups"
 					/>
 					<TrafficLightButton
 						onClick={maximizeAllGroups}
 						icon="/icons/enlarge.svg"
 						color="#28c840"
+						tooltip="Open all tab groups"
 					/>
 				</div>
 			</div>

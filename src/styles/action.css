@@ -177,12 +177,12 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px;
+	padding: 5px 0 5px 5px;
 	/* background-color: white; */
 	/* max-width: 280px; */
 	line-height: 30px;
 	height: 30px;
-	margin: 0 5px 0 5px;
+	/* margin: 0 5px 0 5px; */
 	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 .tabcard:last-child {
