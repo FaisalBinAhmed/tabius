@@ -128,9 +128,7 @@ const ActionPage = () => {
 						<img src="/icon.png" width="32px" height="32px" />
 						<span style="flex: 1"></span>
 					</div> */}
-					<div class="title">
-						<p>Tabius</p>
-					</div>
+					<div class="title">Tabius</div>
 
 					<img
 						title="Rate it"
