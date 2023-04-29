@@ -1,10 +1,18 @@
-export default function CustomModal() {
+export default function CustomModal({
+	isVisible = false,
+	toggleVisibility,
+}: {
+	isVisible: boolean;
+	toggleVisibility: () => void;
+}) {
 	return (
-		<div id="myModal" class="modal">
+		<div class="modal" style={{ display: isVisible ? "block" : "none" }}>
 			{/* <!-- Modal content --> */}
 			<div class="modal-content">
 				<div style="padding: 20px 20px 0px 20px">
-					<span class="close">&times;</span>
+					<span onClick={toggleVisibility} class="close">
+						&times;
+					</span>
 					<p style="margin: 0px 0px 15px 0px; font-weight: 500">
 						Custom Tab Grouping Rules
 					</p>

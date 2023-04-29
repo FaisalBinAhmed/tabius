@@ -69,3 +69,6 @@ type StorageObject = {
 export async function setMultipleStorageObjects(items: StorageObject[]) {
 	chrome.storage.sync.set({ ...items });
 }
+
+export type GROUP_BY = "sot" | "sd";
+export type GROUP_NAMING = "dom" | "subdom" | "subdomtld";

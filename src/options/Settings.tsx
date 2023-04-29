@@ -3,6 +3,8 @@ import { useEffect, useState } from "preact/hooks";
 
 import CustomModal from "./CustomModal";
 import {
+	GROUP_BY,
+	GROUP_NAMING,
 	StorageKey,
 	getMultipleStorageItems,
 	// K_AUTO_COLLAPSE,
@@ -18,18 +20,13 @@ import {
 	setMultipleStorageObjects,
 	setOneStorageObject,
 } from "../const";
+import BlockModal from "./BlockModal";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ACTUAL SETTINGS COMPONENT BELOW
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-function openCustomModal() {
-	let modal = document.getElementById("myModal")!;
-	modal.style.display = "block";
-	// restore_custom_rules();
-}
 
 const Settings = () => {
 	//Boolean values
@@ -38,9 +35,23 @@ const Settings = () => {
 	const [regardless, setRegardless] = useState(false);
 
 	//string values
-	const [groupby, setGroupby] = useState();
-	const [naming, setNaming] = useState();
+	const [groupby, setGroupby] = useState<GROUP_BY>("sot");
+	const [naming, setNaming] = useState<GROUP_NAMING>("dom");
+	//number
 	const [maximum, setMaximum] = useState(0);
+
+	//toggling modals
+
+	const [crIsVisible, setCrVisible] = useState(false);
+	const [brIsVisible, setBrVisible] = useState(false);
+
+	function toggleCustomModal() {
+		setCrVisible((prev) => !prev);
+	}
+
+	function toggleBlockModal() {
+		setBrVisible((prev) => !prev);
+	}
 
 	useEffect(() => {
 		restoreValues();
@@ -63,6 +74,9 @@ const Settings = () => {
 		setAutocollapse(items.autocollapse);
 		setRegardless(items.regardless);
 		setMaximum(items.maximum);
+
+		setGroupby(items.groupby);
+		setNaming(items.naming);
 	}
 
 	async function saveSettings() {
@@ -92,10 +106,25 @@ const Settings = () => {
 	function toggleCollapseValue() {
 		setAutocollapse((prev) => !prev);
 	}
+	function toggleRegardlessValue() {
+		setRegardless((prev) => !prev);
+	}
 
 	function handleMaximum(e) {
 		if (e.target.value) {
 			setMaximum(parseInt(e?.target?.value));
+		}
+	}
+
+	function handleGroupBy(e) {
+		if (e.target.value) {
+			setGroupby(e.target.value);
+		}
+	}
+
+	function handleNaming(e) {
+		if (e.target.value) {
+			setNaming(e.target.value);
 		}
 	}
 
@@ -133,7 +162,7 @@ const Settings = () => {
 				</div>
 				<div class="oneoptioncontainer">
 					<div id="langtext">Group By Option</div>
-					<select id="groupby">
+					<select id="groupby" value={groupby} onChange={handleGroupBy}>
 						<option value="sot">same opening tab</option>
 						<option value="sd">same domain</option>
 					</select>
@@ -146,7 +175,12 @@ const Settings = () => {
 
 				<div id="alttext">
 					<label>
-						<input type="checkbox" id="regardless" />
+						<input
+							type="checkbox"
+							id="regardless"
+							checked={regardless}
+							onClick={toggleRegardlessValue}
+						/>
 						Combine tabs inside existing groups regardless of domain
 					</label>
 				</div>
@@ -159,7 +193,7 @@ const Settings = () => {
 
 				<div class="oneoptioncontainer">
 					<div id="langtext">Group Naming Convention</div>
-					<select id="naming">
+					<select id="naming" value={naming} onChange={handleNaming}>
 						<option value="dom">domain</option>
 						<option value="subdom">subdomain.domain</option>
 						<option value="subdomtld">subdomain.domain.tld</option>
@@ -220,10 +254,12 @@ const Settings = () => {
 
 				<div style="display: flex">
 					<span style="flex: 1"></span>
-					<button id="myBtn" onClick={openCustomModal}>
+					<button id="myBtn" onClick={toggleCustomModal}>
 						Custom Rules
 					</button>
-					<button id="blockBtn">Blacklist</button>
+					<button id="blockBtn" onClick={toggleBlockModal}>
+						Blacklist
+					</button>
 					<span style="flex: 1"></span>
 				</div>
 				{/* <p>Hint: Blocklist will always get precendence over Custom Rules.</p> */}
@@ -235,8 +271,11 @@ const Settings = () => {
 					<div style="flex: 1"></div>
 				</div>
 			</div>
-
-			<CustomModal />
+			<CustomModal
+				isVisible={crIsVisible}
+				toggleVisibility={toggleCustomModal}
+			/>
+			<BlockModal isVisible={brIsVisible} toggleVisibility={toggleBlockModal} />
 
 			{/* settingMain */}
 		</div>
