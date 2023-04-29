@@ -1,5 +1,8 @@
 body {
 	margin: unset;
+	overscroll-behavior-y: none;
+	/* disables weird white scroll bounce */
+	/* font-family: "Courier New", Courier, monospace; */
 }
 
 .settingsbutton {
@@ -27,7 +30,7 @@ body {
 	background-color: #121212;
 	/* width: 300px; */
 	padding: 10px;
-	padding-bottom: 25px;
+	padding-bottom: 23px;
 }
 
 .headercontainer {
@@ -50,6 +53,7 @@ body {
 	font-size: large;
 	flex: 1;
 	color: #c2c3c7;
+	font-family: "Courier New", Courier, monospace;
 }
 
 .bigcard {
@@ -160,8 +164,8 @@ body {
 	/* max-width: 280px; */
 	line-height: 30px;
 	height: 30px;
-	margin: 1px;
-	border-bottom: 0.2px solid #101010;
+	margin: 0 5px 0 5px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .tabdetails {
@@ -170,5 +174,4 @@ body {
 	flex-direction: row;
 	align-items: center;
 	user-select: none;
-	padding: 5px;
 }

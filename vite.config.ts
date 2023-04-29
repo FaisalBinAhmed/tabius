@@ -5,7 +5,7 @@ export default defineConfig({
 	plugins: [preact()],
 	build: {
 		target: "chrome89", //minimum chrome with tabGroups
-		sourcemap: true,
+		// sourcemap: true,
 		rollupOptions: {
 			input: {
 				main: "./src/action.html",

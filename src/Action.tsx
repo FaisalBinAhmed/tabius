@@ -40,6 +40,7 @@ function handleOptionButton() {
 }
 
 function handleRatingButton() {
+	// check if it"s chrome or edge
 	window.open(
 		"https://chrome.google.com/webstore/detail/tabius-tab-grouping-assis/enceimdjnaccoeikjobaeicfodlfnijp"
 	);
@@ -126,7 +127,7 @@ const ActionPage = () => {
 					</div>
 
 					<img
-						title="Tabius settings"
+						title="Rate it"
 						class="settingsbutton"
 						src="/icons/heart.svg"
 						onClick={handleRatingButton}

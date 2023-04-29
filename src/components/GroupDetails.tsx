@@ -57,7 +57,7 @@ function TabCard({ favIconUrl, title }: TabCardProps) {
 						src="/icons/media-image.svg"
 					/>
 				)}
-				{truncateText(title, 21)}
+				{truncateText(title, 30)}
 			</div>
 			<div className="trafficLights">
 				<TrafficLightButton
