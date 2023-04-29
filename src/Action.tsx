@@ -60,6 +60,8 @@ const ActionPage = () => {
 
 	const [siteIsBlocked, setSiteBlocked] = useState(false);
 
+	const [showSavedGroups, setShowSavedGroups] = useState(false);
+
 	useEffect(() => {
 		fetchTabGroups();
 		fetchBlockInfo();
@@ -92,6 +94,10 @@ const ActionPage = () => {
 	}
 	function maximizeAllGroups() {
 		toggleAllGroups(false);
+	}
+
+	function toggleSavedGroups() {
+		setShowSavedGroups((prev) => !prev);
 	}
 
 	async function toggleAllGroups(shouldCollapse: boolean) {
@@ -151,9 +157,18 @@ const ActionPage = () => {
 				</div>
 			</div>
 			<div className="bigcard">
-				{/* <div className="totaltgcount">
-					<b>{tabGroups.length}</b>
-				</div> */}
+				<span onClick={toggleSavedGroups} className="togglecontainer">
+					<span
+						style={{ opacity: showSavedGroups ? "25%" : "100%" }}
+						className="toggle">
+						Current
+					</span>
+					<span
+						style={{ opacity: showSavedGroups ? "100%" : "25%" }}
+						className="toggle">
+						Saved
+					</span>
+				</span>
 				<div className="trafficLights">
 					<TrafficLightButton
 						onClick={minimizeAllGroups}

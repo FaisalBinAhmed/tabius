@@ -61,11 +61,25 @@ body {
 	/* background-color: #85937a; */
 	/* background-color: #181818; */
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
+	align-items: center;
 	/* flex-direction: column; */
 	/* border-radius: 5px; */
-	/* color: whitesmoke; */
+	color: white;
 	margin-bottom: 10px;
+}
+
+.togglecontainer {
+	background-color: #242424;
+	padding: 5px;
+	border-radius: 5px;
+	user-select: none;
+	cursor: pointer;
+}
+
+.toggle {
+	padding: 5px;
+	font-size: small;
 }
 
 .totaltgcount {
