@@ -1,3 +1,5 @@
+import { customHint } from "../const";
+
 export default function CustomModal({
 	isVisible = false,
 	toggleVisibility,
@@ -9,16 +11,17 @@ export default function CustomModal({
 		<div class="modal" style={{ display: isVisible ? "block" : "none" }}>
 			{/* <!-- Modal content --> */}
 			<div class="modal-content">
-				<div style="padding: 20px 20px 0px 20px">
-					<span onClick={toggleVisibility} class="close">
-						&times;
-					</span>
-					<p style="margin: 0px 0px 15px 0px; font-weight: 500">
-						Custom Tab Grouping Rules
-					</p>
+				<div className="headercontainer">
+					<div className="pophead">
+						<div class="title">Custom Tab Grouping Rules</div>
 
-					{/* <!-- adding rules content --> */}
-
+						<img
+							title="Rate it"
+							class="settingsbutton"
+							src="/icons/cancel.svg"
+							onClick={toggleVisibility}
+						/>
+					</div>
 					<div id="ruleinputcontainer">
 						<div class="inputblock" style="flex: 1">
 							<label for="groupsite">URL</label>
@@ -80,32 +83,10 @@ export default function CustomModal({
 							<button id="addbutton">Add</button>
 						</div>
 					</div>
-
-					{/* <!-- existing rules --> */}
-					<p style="font-size: 12px">
-						Please put the website URL in this format: "https://somewebsite.com"
-						or "http://sub.domain.com" without the quotes. Note: only the origin
-						part of the URL (https://www.domain.com) is considered. The rules
-						are applicable when you open new tabs from these websites - in other
-						words - when they are the
-						<b>original tab</b>. The rules are also
-						<b>subdomain sensitive</b>, meaning "https://en.wikipedia.com" is
-						treated differenty than "https://wikipedia.com". Duplicate entries
-						will be ignored.
-					</p>
+					<p>{customHint}</p>
 				</div>
-				<div
-					style="
-								background-color: #0d0d0d;
-								color: #fff;
-								padding: 10px 20px 20px 20px;
-							">
-					<p style="margin: 0px 0px 10px 0px; font-size: 16px">
-						Modify Existing Rules
-					</p>
-					{/* <!-- <p style="font-size: 12px !important">
-								No Custom Rules yet. Add your first one above.
-							</p> --> */}
+				<div>
+					<h3>Modify Existing Rules</h3>
 					<div id="rulescontainer"></div>
 				</div>
 			</div>

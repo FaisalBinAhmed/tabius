@@ -77,3 +77,22 @@ export type BlockList = {
 	id: string;
 	blockedUrl: string;
 };
+
+export const blockHint = `Please put the website URL in this format: "https://somewebsite.com"
+					or "http://sub.domain.com" without the quotes. Note: only the origin
+					part of the URL (https://www.domain.com) is considered when
+					blacklisting. The rules are applicable when you open new tabs from
+					these websites - in other words - when they are the{" "}
+					<b>original tab</b>. The rules are also <b>subdomain sensitive</b>,
+					meaning "https://en.wikipedia.com" is treated differenty than
+					"https://wikipedia.com".`;
+
+export const customHint = `Please put the website URL in this format: "https://somewebsite.com"
+					or "http://sub.domain.com" without the quotes. Note: only the origin
+					part of the URL (https://www.domain.com) is considered. The rules are
+					applicable when you open new tabs from these websites - in other words
+					- when they are the
+					<b>original tab</b>. The rules are also
+					<b>subdomain sensitive</b>, meaning "https://en.wikipedia.com" is
+					treated differenty than "https://wikipedia.com". Duplicate entries
+					will be ignored.`;

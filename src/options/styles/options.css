@@ -200,48 +200,19 @@ input[type="checkbox"] {
 
 /* Modal Content */
 .modal-content {
-	background-color: #d1c4e9;
-	color: #000;
+	background-color: #121212;
+	color: #c2c3c7;
 	margin: auto;
-	/* padding: 20px; */
-	border: 1px solid #d1c4e9;
+	padding: 5px;
 	width: 50rem;
 }
 
 .block-modal-content {
-	background-color: #ffccbc;
+	background-color: #121212;
 	margin: auto;
-	color: #000;
-	border: 1px solid #ffccbc;
+	color: #c2c3c7;
+	padding: 5px;
 	width: 50rem;
-}
-
-/* The Close Button */
-.close,
-.blockclose {
-	color: #0e2a46;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-	color: #ff8a65;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.blockclose:hover,
-.blockclose:focus {
-	color: #00d282;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-#rulescontainer {
-	/* background-color: #fefefe; */
-	color: #000;
 }
 
 #ruleinputcontainer,
@@ -253,9 +224,9 @@ input[type="checkbox"] {
 
 #addbutton,
 #blockaddbutton {
-	font-size: 20px;
+	font-size: medium;
 	border: 0;
-	background-color: #0e2a46;
+	background-color: #121212;
 	color: white;
 	padding-left: 25px;
 	padding-right: 25px;
@@ -274,7 +245,8 @@ input[type="checkbox"] {
 	font-size: 20px;
 	background-color: transparent;
 	border: 1px solid black;
-	border-radius: 2px;
+	border-radius: 5px;
+	color: #c2c3c7;
 }
 .inputblock > input[type="text"]::placeholder {
 	color: #616161;
@@ -295,7 +267,7 @@ input[type="checkbox"] {
 	min-height: 35px;
 	font-size: 20px;
 	background-color: transparent;
-	border: 1px solid black;
+	border: 1px solid #121212;
 	border-radius: 2px;
 }
 .inputblock > label {
@@ -304,13 +276,25 @@ input[type="checkbox"] {
 
 .rulecard,
 .blockcard {
-	height: 50px;
-	line-height: 50px;
-	border-radius: 2px;
+	height: 42px;
+	line-height: 42px;
+	border-radius: 5px;
 	display: flex;
 	align-items: center;
-	margin-top: 8px;
 	color: #fff;
+	flex: 1;
+	background-color: #121212;
+	margin-bottom: 5px;
+	font-size: medium;
+	padding: 5px;
+}
+
+.blockcard:nth-child(2) {
+	background-color: #242424;
+}
+
+.blockcardDetails {
+	flex: 1;
 }
 
 .rulecard input[type="text"] {
@@ -328,23 +312,6 @@ input[type="checkbox"] {
 .ruleaction {
 	display: flex;
 	flex-direction: row;
-}
-
-.editbutton,
-.deletebutton,
-.deleteblockbutton {
-	line-height: 50px;
-	cursor: pointer;
-	margin-right: 15px;
-}
-
-.editbutton::before {
-	content: "\1F4BE";
-}
-
-.deletebutton::before,
-.deleteblockbutton::before {
-	content: "\274c";
 }
 
 /* modal styles end  */
@@ -371,4 +338,28 @@ input[type="checkbox"] {
 .trafficicon {
 	width: 12px;
 	height: 12px;
+}
+
+.headercontainer {
+	display: flex;
+	flex-direction: column;
+	background-color: #242424;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding: 5px;
+}
+
+.pophead {
+	display: flex;
+	/* justify-content: space-around; */
+	margin-top: 0px;
+	color: white;
+	padding: 10px 0 10px 0;
+}
+
+.title {
+	font-size: large;
+	flex: 1;
+	color: #c2c3c7;
+	font-family: "Courier New", Courier, monospace;
 }
