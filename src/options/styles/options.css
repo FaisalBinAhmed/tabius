@@ -151,14 +151,14 @@ input[type="checkbox"] {
 #myBtn {
 	width: 30%;
 	background-color: #e5e5e5;
-	border-bottom: 2px solid #d1c4e9;
+	/* border-bottom: 2px solid #d1c4e9; */
 }
 
 #blockBtn {
 	width: 30%;
 	margin-left: 5%;
 	background-color: #e5e5e5;
-	border-bottom: 2px solid #ffccbc;
+	/* border-bottom: 2px solid #ffccbc; */
 }
 
 #save {
@@ -171,7 +171,7 @@ input[type="checkbox"] {
 	padding: 10px;
 	margin-top: 20px;
 	width: 65%;
-	border-bottom: 2px solid grey;
+	/* border-bottom: 2px solid grey; */
 }
 
 #deepfooter {
