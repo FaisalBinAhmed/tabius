@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
-import { CustomRule, customHint, getOneStorageItem } from "../const";
+import { Colors, CustomRule, customHint, getOneStorageItem } from "../const";
+import { TrafficLightButton } from "../components/TabgroupCard";
 
 export default function CustomModal({
 	isVisible = false,
@@ -112,7 +113,31 @@ export default function CustomModal({
 				</div>
 				<div>
 					<h3>Modify Existing Rules</h3>
-					<div id="rulescontainer"></div>
+					<div id="rulescontainer">
+						{customRules?.length ? (
+							customRules.map((rule) => (
+								<div
+									class="blockcard"
+									style={{
+										backgroundColor: rule.color ? Colors[rule.color] : "black",
+									}}>
+									<div className="blockcardDetails">
+										<span>{rule.url}</span>
+									</div>
+									<div class="trafficLights">
+										<TrafficLightButton
+											icon="/icons/trash.svg"
+											color="red"
+											onClick={() => {}}
+											tooltip="Delete this rule"
+										/>
+									</div>
+								</div>
+							))
+						) : (
+							<p>No Blacklisting rules yet. Blacklist a specific site above.</p>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
