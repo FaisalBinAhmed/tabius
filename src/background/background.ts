@@ -1,15 +1,9 @@
 // Background Script Code
 
-import { EXCLUDED_URL, getOneStorageItem } from "../const";
+import { getOneStorageItem } from "../const";
+import { isTheURLNative } from "../helpers";
 
 chrome.tabs.onCreated.addListener(async (tab) => await createTab(tab));
-
-export function isTheURLNative(url?: string) {
-	if (!url) {
-		return false;
-	}
-	return EXCLUDED_URL.some((item) => url.includes(item));
-}
 
 //UnGroup an existing tab from its group
 function ungroupOneTab(tabId: chrome.tabs.Tab["id"]) {

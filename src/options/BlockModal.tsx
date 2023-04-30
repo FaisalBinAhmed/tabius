@@ -1,3 +1,8 @@
+import { useEffect, useState } from "preact/hooks";
+import { BlockList, getOneStorageItem } from "../const";
+import { generateId, isValidUrl } from "../helpers";
+import { TrafficLightButton } from "../components/TabgroupCard";
+
 export default function BlockModal({
 	isVisible = false,
 	toggleVisibility,
@@ -5,6 +10,67 @@ export default function BlockModal({
 	isVisible: boolean;
 	toggleVisibility: () => void;
 }) {
+	const [blockedSites, setBlockedSites] = useState<BlockList[]>([]);
+	const [url, setUrl] = useState("");
+
+	useEffect(() => {
+		restoreBlockSites();
+	}, []);
+
+	function onUrlChange(e) {
+		if (e.target.value) {
+			setUrl(e.target.value);
+		}
+	}
+
+	async function restoreBlockSites() {
+		const bl = await getOneStorageItem("blocklist");
+		if (bl?.blocklist?.length) {
+			setBlockedSites(bl.blocklist); //TODO type safe this
+		}
+	}
+
+	function addNewBlock() {
+		const id = generateId();
+
+		if (!isValidUrl(url)) {
+			// set_status("Please enter a valid url.", "red");
+		} else {
+			const newSite: BlockList = {
+				id: id,
+				blockedUrl: url,
+			};
+
+			let newBlockList = [...blockedSites, newSite];
+
+			chrome.storage.sync.set(
+				{
+					blocklist: newBlockList,
+				},
+				function () {
+					setBlockedSites(newBlockList);
+					// Update status to let user know options were saved.
+					setUrl("");
+					// set_status("Blacklisted site saved.");
+				}
+			);
+		}
+	}
+
+	function deleteRule(id: string) {
+		let newArray = blockedSites.filter((item) => item.id !== id); // replace this with actually deleting the rule in the localstorage
+
+		chrome.storage.sync.set(
+			{
+				blocklist: newArray,
+			},
+			function () {
+				setBlockedSites(newArray);
+				// set_status("Blacklisted site deleted.");
+			}
+		);
+	}
+
 	return (
 		<div style={{ display: isVisible ? "block" : "none" }} class="modal">
 			{/* <!-- Modal content --> */}
@@ -27,12 +93,16 @@ export default function BlockModal({
 								placeholder="https://facebook.com"
 								name="groupsite"
 								id="urlToBeBlocked"
+								value={url}
+								onInput={onUrlChange}
 							/>
 						</div>
 
 						<div class="inputblock">
 							<label>&#10240;</label>
-							<button id="blockaddbutton">Add</button>
+							<button onClick={addNewBlock} id="blockaddbutton">
+								Add
+							</button>
 						</div>
 					</div>
 
@@ -58,9 +128,30 @@ export default function BlockModal({
 						Blacklisted Sites:
 					</p>
 					<div id="blockcontainer">
-						<p style="font-size: 12px !important">
-							No Blacklisting rules yet. Blacklist a specific site above.
-						</p>
+						{blockedSites?.length ? (
+							<div>
+								{blockedSites.map((site, index) => (
+									<div class="blockcard">
+										<div>
+											<span>{index + 1} </span>
+											<span>{site.blockedUrl}</span>
+										</div>
+										<div class="trafficLights">
+											<TrafficLightButton
+												icon="/icons/trash.svg"
+												color="red"
+												onClick={() => deleteRule(site.id)}
+												tooltip="Delete this rule"
+											/>
+										</div>
+									</div>
+								))}
+							</div>
+						) : (
+							<p style="font-size: 12px !important">
+								No Blacklisting rules yet. Blacklist a specific site above.
+							</p>
+						)}
 					</div>
 				</div>
 			</div>

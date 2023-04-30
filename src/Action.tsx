@@ -1,7 +1,8 @@
 import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import TabgroupCard, { TrafficLightButton } from "./components/TabgroupCard";
-import { isTheURLNative, withBlock } from "./background/background";
+import { withBlock } from "./background/background";
+import { isTheURLNative } from "./helpers";
 
 async function handleCurrentTabBlock() {
 	// get current tab
