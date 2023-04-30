@@ -79,11 +79,11 @@ export default function BlockModal({
 					<div className="pophead">
 						<div class="title">Blacklisted Sites</div>
 
-						<img
-							title="Rate it"
-							class="settingsbutton"
-							src="/icons/cancel.svg"
+						<TrafficLightButton
+							icon="/icons/cancel.svg"
+							color="red"
 							onClick={toggleVisibility}
+							tooltip="Close"
 						/>
 					</div>
 					<div id="ruleinputcontainer">

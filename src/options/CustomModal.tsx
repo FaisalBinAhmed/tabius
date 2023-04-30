@@ -37,11 +37,11 @@ export default function CustomModal({
 					<div className="pophead">
 						<div class="title">Custom Tab Grouping Rules</div>
 
-						<img
-							title="Rate it"
-							class="settingsbutton"
-							src="/icons/cancel.svg"
+						<TrafficLightButton
+							icon="/icons/cancel.svg"
+							color="red"
 							onClick={toggleVisibility}
+							tooltip="Close"
 						/>
 					</div>
 					<div id="ruleinputcontainer">
