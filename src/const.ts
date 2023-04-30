@@ -78,6 +78,13 @@ export type BlockList = {
 	blockedUrl: string;
 };
 
+export type CustomRule = {
+	id: string;
+	url: string;
+	alias: string;
+	color?: chrome.tabGroups.ColorEnum;
+};
+
 export const blockHint = `Please put the website URL in this format: "https://somewebsite.com"
 					or "http://sub.domain.com" without the quotes. Note: only the origin
 					part of the URL (https://www.domain.com) is considered when

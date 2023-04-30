@@ -1,4 +1,5 @@
-import { customHint } from "../const";
+import { useEffect, useState } from "preact/hooks";
+import { CustomRule, customHint, getOneStorageItem } from "../const";
 
 export default function CustomModal({
 	isVisible = false,
@@ -7,6 +8,26 @@ export default function CustomModal({
 	isVisible: boolean;
 	toggleVisibility: () => void;
 }) {
+	const [color, setColor] = useState<chrome.tabGroups.ColorEnum>(""); //random??
+	const [customRules, setCustomRules] = useState<CustomRule[]>([]);
+
+	useEffect(() => {
+		restoreCustomRules();
+	}, []);
+
+	async function restoreCustomRules() {
+		const cr = await getOneStorageItem("customrules");
+		if (cr?.customrules?.length) {
+			setCustomRules(cr.customrules); //TODO type safe this
+		}
+	}
+
+	function handleColor(e) {
+		if (e.target.value) {
+			setColor(e.target.value);
+		}
+	}
+
 	return (
 		<div class="modal" style={{ display: isVisible ? "block" : "none" }}>
 			{/* <!-- Modal content --> */}
@@ -49,7 +70,11 @@ export default function CustomModal({
 
 						<div class="inputblock" style="margin-left: 5px">
 							<label for="groupcolor">Group Color</label>
-							<select id="colors" name="groupcolor">
+							<select
+								id="colors"
+								name="groupcolor"
+								value={color}
+								onChange={handleColor}>
 								<option value="">Random</option>
 								<option value="grey" style="background-color: #e0e0e0">
 									grey
