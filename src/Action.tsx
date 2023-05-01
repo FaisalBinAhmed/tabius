@@ -63,6 +63,8 @@ const ActionPage = () => {
 
 	const [showSavedGroups, setShowSavedGroups] = useState(false);
 
+	const [savedGroups, setSavedGroups] = useState([]);
+
 	useEffect(() => {
 		fetchTabGroups();
 		fetchBlockInfo();
@@ -184,7 +186,18 @@ const ActionPage = () => {
 				</div>
 			</div>
 
-			{tabGroups.length ? (
+			{showSavedGroups ? (
+				<div>
+					{savedGroups.length ? (
+						<div></div>
+					) : (
+						<div className="nothing">
+							<img src="/icons/emoji-puzzled.svg" />
+							<p>Nothing to see here</p>
+						</div>
+					)}
+				</div>
+			) : tabGroups.length ? (
 				<div>
 					{tabGroups.map((tg) => (
 						<TabgroupCard
