@@ -8,6 +8,7 @@ import {
 	TrafficLightButton,
 } from "./components/TrafficLightButton";
 import { SavedGroup, getOneStorageItem } from "./const";
+import SavedGroupCard from "./components/SavedGroupCard";
 
 async function handleCurrentTabBlock() {
 	// get current tab
@@ -223,7 +224,7 @@ const ActionPage = () => {
 						<IconButton
 							onClick={minimizeAllGroups}
 							icon="/icons/plus.svg"
-							color="#008751"
+							color="#bbc9d2"
 							tooltip="Save current tab group"
 							title="Add"
 						/>
@@ -257,13 +258,7 @@ const ActionPage = () => {
 					{savedGroups.length ? (
 						<div>
 							{savedGroups.map((group) => (
-								<TabgroupCard
-									name={group.title}
-									color={group.color}
-									id={group.id}
-									// collapsed={tg.collapsed}
-									// saveHandler={saveTabGroup}
-								/>
+								<SavedGroupCard group={group} />
 							))}
 						</div>
 					) : (
