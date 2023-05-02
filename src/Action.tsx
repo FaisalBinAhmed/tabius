@@ -3,7 +3,10 @@ import { useEffect, useState } from "preact/hooks";
 import TabgroupCard from "./components/TabgroupCard";
 import { withBlock } from "./background/background";
 import { isTheURLNative } from "./helpers";
-import { TrafficLightButton } from "./components/TrafficLightButton";
+import {
+	IconButton,
+	TrafficLightButton,
+} from "./components/TrafficLightButton";
 
 async function handleCurrentTabBlock() {
 	// get current tab
@@ -174,11 +177,12 @@ const ActionPage = () => {
 
 				{showSavedGroups ? (
 					<div className="trafficLights">
-						<TrafficLightButton
+						<IconButton
 							onClick={minimizeAllGroups}
 							icon="/icons/plus.svg"
 							color="#008751"
 							tooltip="Save current tab group"
+							title="Add"
 						/>
 						<TrafficLightButton
 							onClick={maximizeAllGroups}

@@ -17,12 +17,26 @@ export function TrafficLightButton({
 			style={{ backgroundColor: color }}
 			onClick={onClick}
 			title={tooltip}>
-			{/* {icon} */}
-			<img
-				class="trafficicon"
-				src={icon}
-				// onClick={handleOptionButton}
-			/>
+			<img class="trafficicon" src={icon} />
+		</div>
+	);
+}
+
+export function IconButton({
+	icon,
+	color,
+	onClick,
+	tooltip,
+	title,
+}: TrafficProps & { title: string }) {
+	return (
+		<div
+			className="iconButton"
+			style={{ backgroundColor: color }}
+			onClick={onClick}
+			title={tooltip}>
+			<img class="trafficicon" src={icon} />
+			<h4>{title}</h4>
 		</div>
 	);
 }
