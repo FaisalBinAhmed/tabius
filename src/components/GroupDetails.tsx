@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
-import { TrafficLightButton, truncateText } from "./TabgroupCard";
+import { truncateText } from "./TabgroupCard";
+import { TrafficLightButton } from "./TrafficLightButton";
 
 type GroupDetailsProps = {
 	id: number;

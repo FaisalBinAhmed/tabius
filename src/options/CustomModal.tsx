@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { Colors, CustomRule, customHint, getOneStorageItem } from "../const";
-import { TrafficLightButton } from "../components/TabgroupCard";
+import { TrafficLightButton } from "../components/TrafficLightButton";
 
 export default function CustomModal({
 	isVisible = false,

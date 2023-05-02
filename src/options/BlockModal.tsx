@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { BlockList, blockHint, getOneStorageItem } from "../const";
 import { generateId, isValidUrl } from "../helpers";
-import { TrafficLightButton } from "../components/TabgroupCard";
+import { TrafficLightButton } from "../components/TrafficLightButton";
 
 export default function BlockModal({
 	isVisible = false,

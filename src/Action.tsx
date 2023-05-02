@@ -1,8 +1,9 @@
 import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import TabgroupCard, { TrafficLightButton } from "./components/TabgroupCard";
+import TabgroupCard from "./components/TabgroupCard";
 import { withBlock } from "./background/background";
 import { isTheURLNative } from "./helpers";
+import { TrafficLightButton } from "./components/TrafficLightButton";
 
 async function handleCurrentTabBlock() {
 	// get current tab
@@ -170,20 +171,38 @@ const ActionPage = () => {
 						Saved
 					</span>
 				</span>
-				<div className="trafficLights">
-					<TrafficLightButton
-						onClick={minimizeAllGroups}
-						icon="/icons/minus.svg"
-						color="#febc30"
-						tooltip="Minimize all tab groups"
-					/>
-					<TrafficLightButton
-						onClick={maximizeAllGroups}
-						icon="/icons/enlarge.svg"
-						color="#28c840"
-						tooltip="Open all tab groups"
-					/>
-				</div>
+
+				{showSavedGroups ? (
+					<div className="trafficLights">
+						<TrafficLightButton
+							onClick={minimizeAllGroups}
+							icon="/icons/plus.svg"
+							color="#008751"
+							tooltip="Save current tab group"
+						/>
+						<TrafficLightButton
+							onClick={maximizeAllGroups}
+							icon="/icons/open-in-browser.svg"
+							color="#83769c"
+							tooltip="Open all saved groups"
+						/>
+					</div>
+				) : (
+					<div className="trafficLights">
+						<TrafficLightButton
+							onClick={minimizeAllGroups}
+							icon="/icons/minus.svg"
+							color="#febc30"
+							tooltip="Minimize all tab groups"
+						/>
+						<TrafficLightButton
+							onClick={maximizeAllGroups}
+							icon="/icons/enlarge.svg"
+							color="#28c840"
+							tooltip="Maximize all tab groups"
+						/>
+					</div>
+				)}
 			</div>
 
 			{showSavedGroups ? (
