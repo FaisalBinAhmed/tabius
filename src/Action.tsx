@@ -7,6 +7,7 @@ import {
 	IconButton,
 	TrafficLightButton,
 } from "./components/TrafficLightButton";
+import { SavedGroup, getOneStorageItem } from "./const";
 
 async function handleCurrentTabBlock() {
 	// get current tab
@@ -67,16 +68,24 @@ const ActionPage = () => {
 
 	const [showSavedGroups, setShowSavedGroups] = useState(false);
 
-	const [savedGroups, setSavedGroups] = useState([]);
+	const [savedGroups, setSavedGroups] = useState<SavedGroup[]>([]);
 
 	useEffect(() => {
 		fetchTabGroups();
+		fetchSavedTabGroups();
 		fetchBlockInfo();
 	}, []);
 
 	async function fetchTabGroups() {
 		let tg = await getAllTabGroups();
 		setTabGroups(tg);
+	}
+
+	async function fetchSavedTabGroups() {
+		const sg = await getOneStorageItem("savedgroups");
+		if (sg?.savedgroups?.length) {
+			setSavedGroups(sg.savedgroups); //TODO type safe this
+		}
 	}
 
 	async function fetchBlockInfo() {
@@ -105,6 +114,40 @@ const ActionPage = () => {
 
 	function toggleSavedGroups() {
 		setShowSavedGroups((prev) => !prev);
+	}
+
+	async function saveTabGroup(
+		id: number,
+		color: chrome.tabGroups.ColorEnum,
+		count: number,
+		name?: string
+	) {
+		const queryInfo = {
+			groupId: id,
+		};
+
+		try {
+			const tabsInTheGroup = await chrome.tabs.query(queryInfo);
+
+			let newGroupToSave: SavedGroup = {
+				id: id,
+				title: name,
+				color: color,
+				count: count,
+				tabs: tabsInTheGroup,
+			};
+
+			let newSavedGroups = [...savedGroups, newGroupToSave];
+
+			chrome.storage.sync.set(
+				{
+					savedgroups: newSavedGroups,
+				},
+				function () {
+					setSavedGroups(newSavedGroups);
+				}
+			);
+		} catch (error) {}
 	}
 
 	async function toggleAllGroups(shouldCollapse: boolean) {
@@ -212,7 +255,17 @@ const ActionPage = () => {
 			{showSavedGroups ? (
 				<div>
 					{savedGroups.length ? (
-						<div></div>
+						<div>
+							{savedGroups.map((group) => (
+								<TabgroupCard
+									name={group.title}
+									color={group.color}
+									id={group.id}
+									// collapsed={tg.collapsed}
+									// saveHandler={saveTabGroup}
+								/>
+							))}
+						</div>
 					) : (
 						<div className="nothing">
 							<img src="/icons/emoji-puzzled.svg" />
@@ -228,6 +281,7 @@ const ActionPage = () => {
 							color={tg.color}
 							id={tg.id}
 							collapsed={tg.collapsed}
+							saveHandler={saveTabGroup}
 						/>
 					))}
 				</div>

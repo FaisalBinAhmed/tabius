@@ -23,18 +23,13 @@ export const EXCLUDED_URL = [
 
 // storage keys
 
-// export const K_LONELY = "lonely";
-// export const K_AUTO_COLLAPSE = "autocollapse";
-// export const K_BLOCK_LIST = "blocklist";
-// export const K_CUSTOM_RULES = "customrules";
-// export const K_MAXIMUM_TABS_PER_GROUP = "maximum";
-// export const K_GROUP_BY_RULE = "groupby";
-// export const K_NAMING_RULE = "naming";
-// export const K_REGARDLESS_DOMAIN = "regardless";
-
-// export const SettingsObject: SettingsMap = {
-// 	K_LONELY: "lonely",
-// };
+export type SavedGroup = {
+	id: number; //same as the original group. SHOULD CHECK FOR CLASH WHEN STORING
+	title?: string;
+	color: chrome.tabGroups.ColorEnum;
+	count: number;
+	tabs: chrome.tabs.Tab[];
+};
 
 export type StorageKey =
 	| "lonely"
@@ -44,7 +39,8 @@ export type StorageKey =
 	| "maximum"
 	| "groupby"
 	| "naming"
-	| "regardless";
+	| "regardless"
+	| "savedgroups";
 
 export async function getOneStorageItem(itemKey: StorageKey) {
 	return chrome.storage.sync.get(itemKey);

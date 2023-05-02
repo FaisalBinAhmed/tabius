@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { Colors } from "../const";
+import { Colors, SavedGroup } from "../const";
 import GroupDetails from "./GroupDetails";
 import { TrafficLightButton } from "./TrafficLightButton";
 
@@ -18,6 +18,12 @@ type TabgroupCardProps = {
 	name?: string;
 	color: chrome.tabGroups.ColorEnum;
 	collapsed: boolean;
+	saveHandler: (
+		id: number,
+		color: chrome.tabGroups.ColorEnum,
+		count: number,
+		name?: string
+	) => Promise<void>;
 };
 
 export default function TabgroupCard({
@@ -25,6 +31,7 @@ export default function TabgroupCard({
 	name,
 	color,
 	collapsed = false,
+	saveHandler,
 }: // count,
 TabgroupCardProps) {
 	const [count, setCount] = useState(0);
@@ -75,8 +82,6 @@ TabgroupCardProps) {
 		} catch (error) {}
 	}
 
-	function saveTabGroup() {}
-
 	function closeGroup() {
 		//     const queryInfo = {
 		// 	groupId: id,
@@ -110,7 +115,7 @@ TabgroupCardProps) {
 						<span>
 							<TrafficLightButton
 								color="#bbc9d2"
-								onClick={saveTabGroup}
+								onClick={() => saveHandler(id, color, count, name)}
 								icon="/icons/save-floppy-disk.svg"
 								tooltip="Save this tab group"
 							/>
