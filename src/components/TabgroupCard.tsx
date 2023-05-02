@@ -75,6 +75,8 @@ TabgroupCardProps) {
 		} catch (error) {}
 	}
 
+	function saveTabGroup() {}
+
 	function closeGroup() {
 		//     const queryInfo = {
 		// 	groupId: id,
@@ -104,6 +106,16 @@ TabgroupCardProps) {
 					<span style={{ color: Colors[color] }} className="tabgroupCount">
 						{count}
 					</span>
+					{groupDetailIsOpen && (
+						<span>
+							<TrafficLightButton
+								color="#bbc9d2"
+								onClick={saveTabGroup}
+								icon="/icons/save-floppy-disk.svg"
+								tooltip="Save this tab group"
+							/>
+						</span>
+					)}
 				</div>
 				<div className="trafficLights">
 					<TrafficLightButton
@@ -126,7 +138,6 @@ TabgroupCardProps) {
 					/>
 				</div>
 			</div>
-
 			{groupDetailIsOpen && <GroupDetails id={id} />}
 		</div>
 	);

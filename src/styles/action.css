@@ -122,6 +122,7 @@ body {
 	align-items: center;
 }
 .tabgroupData {
+	display: flex;
 	flex: 1;
 	flex-direction: row;
 	align-items: center;
@@ -136,11 +137,13 @@ body {
 
 .tabgroupCount {
 	font-size: small;
-	/* font-weight: 200; */
+	height: 18px;
+	line-height: 18px;
 	background-color: #121212;
-	/* color: transparent; */
+
 	padding: 3px;
 	margin-left: 10px;
+	margin-right: 10px;
 	border-radius: 3px;
 }
 
