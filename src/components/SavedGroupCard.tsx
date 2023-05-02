@@ -67,7 +67,7 @@ TabgroupCardProps) {
 					<TrafficLightButton
 						onClick={restoreGroup}
 						icon="/icons/open-in-browser.svg"
-						color="#83769c"
+						color="#a8f57d"
 						tooltip="Restore this tab group"
 					/>
 					<TrafficLightButton
@@ -78,6 +78,11 @@ TabgroupCardProps) {
 					/>
 				</div>
 			</div>
+
+			{groupDetailIsOpen && (
+				<div className="addButton"> + Add current tab to this group</div>
+			)}
+
 			{groupDetailIsOpen &&
 				group.tabs?.length &&
 				group.tabs.map((tab) => (

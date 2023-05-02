@@ -111,16 +111,6 @@ TabgroupCardProps) {
 					<span style={{ color: Colors[color] }} className="tabgroupCount">
 						{count}
 					</span>
-					{groupDetailIsOpen && (
-						<span>
-							<TrafficLightButton
-								color="#bbc9d2"
-								onClick={() => saveHandler(id, color, count, name)}
-								icon="/icons/save-floppy-disk.svg"
-								tooltip="Save this tab group"
-							/>
-						</span>
-					)}
 				</div>
 				<div className="trafficLights">
 					<TrafficLightButton
@@ -143,6 +133,9 @@ TabgroupCardProps) {
 					/>
 				</div>
 			</div>
+			{groupDetailIsOpen && (
+				<div className="addButton"> + Save this tab group</div>
+			)}
 			{groupDetailIsOpen && <GroupDetails id={id} />}
 		</div>
 	);

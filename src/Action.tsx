@@ -231,7 +231,7 @@ const ActionPage = () => {
 						<TrafficLightButton
 							onClick={maximizeAllGroups}
 							icon="/icons/open-in-browser.svg"
-							color="#83769c"
+							color="#a8f57d"
 							tooltip="Open all saved groups"
 						/>
 					</div>

@@ -63,13 +63,15 @@ function TabCard({ favIconUrl, title }: TabCardProps) {
 			<div className="trafficLights">
 				<TrafficLightButton
 					onClick={() => {}}
-					icon="/icons/transition-up.svg"
-					color="#29aeff"
+					icon="/icons/eject.svg"
+					color="#ffa300"
+					tooltip="Eject this tab from the group"
 				/>
 				<TrafficLightButton
 					onClick={() => {}}
 					icon="/icons/cancel.svg"
 					color="#fe5f58"
+					tooltip="Close this tab"
 				/>
 			</div>
 		</div>
