@@ -134,7 +134,12 @@ TabgroupCardProps) {
 				</div>
 			</div>
 			{groupDetailIsOpen && (
-				<div className="addButton"> + Save this tab group</div>
+				<div
+					className="addButton"
+					onClick={() => saveHandler(id, color, count, name)}>
+					{" "}
+					+ Save this tab group
+				</div>
 			)}
 			{groupDetailIsOpen && <GroupDetails id={id} />}
 		</div>
