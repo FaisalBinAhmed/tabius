@@ -8,13 +8,7 @@ export function isTheURLNative(url?: string) {
 }
 
 export function generateId() {
-	let size = 12;
-	let charset = "abcdefghijklmnopqrstuvwxyz";
-	let result = "";
-	for (let i = 0; i < size; i++) {
-		result += charset[Math.floor(Math.random() * charset.length)];
-	}
-	return result;
+	return crypto.randomUUID();
 }
 
 export function isValidUrl(inputurl: string) {

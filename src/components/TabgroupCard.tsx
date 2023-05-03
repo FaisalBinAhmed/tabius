@@ -57,6 +57,8 @@ TabgroupCardProps) {
 		// 	maximizeGroup();
 		// }
 
+		// console.log("uuid: ", crypto.randomUUID());
+
 		setGroupDetailOpen((prev) => !prev);
 	}
 
