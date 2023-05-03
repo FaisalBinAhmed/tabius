@@ -20,14 +20,15 @@ function ungroupOneTab(tabId: chrome.tabs.Tab["id"]) {
 async function createTab(newtab: chrome.tabs.Tab) {
 	// console.log("new tab created");
 
-	//fetching the new tab info again
-	// workaround for tab sometimes not having pending or url for some some seconds.
-
 	if (!newtab.id) {
 		return;
 	}
 
+	//fetching the new tab info again
+	// workaround for tab sometimes not having pending or url for some some seconds.
 	const tab = await chrome.tabs.get(newtab.id);
+
+	//TODO: handle no openertab
 
 	let getout = false;
 	let newGroup = true;
