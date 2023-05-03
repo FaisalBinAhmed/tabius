@@ -21,7 +21,6 @@ type TabgroupCardProps = {
 	saveHandler: (
 		id: number,
 		color: chrome.tabGroups.ColorEnum,
-		count: number,
 		name?: string
 	) => Promise<void>;
 };
@@ -134,9 +133,7 @@ TabgroupCardProps) {
 				</div>
 			</div>
 			{groupDetailIsOpen && (
-				<div
-					className="addButton"
-					onClick={() => saveHandler(id, color, count, name)}>
+				<div className="addButton" onClick={() => saveHandler(id, color, name)}>
 					+ Save this tab group
 				</div>
 			)}

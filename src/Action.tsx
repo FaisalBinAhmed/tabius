@@ -120,7 +120,6 @@ const ActionPage = () => {
 	async function saveTabGroup(
 		id: number,
 		color: chrome.tabGroups.ColorEnum,
-		count: number,
 		name?: string
 	) {
 		const queryInfo = {
