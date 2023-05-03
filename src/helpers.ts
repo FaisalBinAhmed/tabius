@@ -12,11 +12,9 @@ export function generateId() {
 }
 
 export function isValidUrl(inputurl: string) {
-	let regex =
-		/(http|https):\/\/[\w\-~]+(\.[\w\-~]+)+(\/[\w\-~]*)*(#[\w\-]*)?(\?.*)?/;
-	if (!regex.test(inputurl)) {
+	try {
+		return Boolean(new URL(inputurl));
+	} catch (e) {
 		return false;
-	} else {
-		return true;
 	}
 }
