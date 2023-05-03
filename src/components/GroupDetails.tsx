@@ -39,7 +39,14 @@ type TabCardProps = {
 	title?: string;
 };
 
-function TabCard({ favIconUrl, title }: TabCardProps) {
+function TabCard({ id, favIconUrl, title }: TabCardProps) {
+	function ejectTabFromGroup() {
+		if (id) {
+			chrome.tabs.ungroup(id);
+		}
+		// TODO: remove the tab from view
+	}
+
 	return (
 		<div className="tabcard">
 			<div className="tabdetails">
@@ -62,7 +69,7 @@ function TabCard({ favIconUrl, title }: TabCardProps) {
 			</div>
 			<div className="trafficLights">
 				<TrafficLightButton
-					onClick={() => {}}
+					onClick={ejectTabFromGroup}
 					icon="/icons/eject.svg"
 					color="#ffa300"
 					tooltip="Eject this tab from the group"
