@@ -13,6 +13,15 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 		fetchGroupDetails();
 	}, []);
 
+	function ejectTabFromGroup(id?: number) {
+		if (id) {
+			chrome.tabs.ungroup(id);
+			let newTabs = gDetails?.filter((tab) => tab.id !== id);
+			setGDetails(newTabs);
+		}
+		// TODO: remove the tab from view
+	}
+
 	async function fetchGroupDetails() {
 		const queryInfo = {
 			groupId: id,
@@ -27,7 +36,12 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 	return (
 		<div className="tabscontainer">
 			{gDetails?.map((tab) => (
-				<TabCard id={tab.id} favIconUrl={tab.favIconUrl} title={tab.title} />
+				<TabCard
+					id={tab.id}
+					favIconUrl={tab.favIconUrl}
+					title={tab.title}
+					tabEjectHandler={ejectTabFromGroup}
+				/>
 			))}
 		</div>
 	);
@@ -37,16 +51,10 @@ type TabCardProps = {
 	id?: number;
 	favIconUrl?: string;
 	title?: string;
+	tabEjectHandler: (id?: number) => void;
 };
 
-function TabCard({ id, favIconUrl, title }: TabCardProps) {
-	function ejectTabFromGroup() {
-		if (id) {
-			chrome.tabs.ungroup(id);
-		}
-		// TODO: remove the tab from view
-	}
-
+function TabCard({ id, favIconUrl, title, tabEjectHandler }: TabCardProps) {
 	return (
 		<div className="tabcard">
 			<div className="tabdetails">
@@ -69,7 +77,7 @@ function TabCard({ id, favIconUrl, title }: TabCardProps) {
 			</div>
 			<div className="trafficLights">
 				<TrafficLightButton
-					onClick={ejectTabFromGroup}
+					onClick={() => tabEjectHandler(id)}
 					icon="/icons/eject.svg"
 					color="#ffa300"
 					tooltip="Eject this tab from the group"
