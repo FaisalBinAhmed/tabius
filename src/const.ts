@@ -27,7 +27,7 @@ export type SavedGroup = {
 	id: number; //same as the original group. SHOULD CHECK FOR CLASH WHEN STORING
 	title?: string;
 	color: chrome.tabGroups.ColorEnum;
-	count: number;
+	// count: number;
 	tabs: chrome.tabs.Tab[];
 };
 

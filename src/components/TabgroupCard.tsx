@@ -137,7 +137,6 @@ TabgroupCardProps) {
 				<div
 					className="addButton"
 					onClick={() => saveHandler(id, color, count, name)}>
-					{" "}
 					+ Save this tab group
 				</div>
 			)}

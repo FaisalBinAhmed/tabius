@@ -1,18 +1,19 @@
 import { useEffect, useState } from "preact/hooks";
 import { Colors, SavedGroup } from "../const";
-import GroupDetails from "./GroupDetails";
 import { TrafficLightButton } from "./TrafficLightButton";
 import { truncateText } from "./TabgroupCard";
 
 type TabgroupCardProps = {
 	group: SavedGroup;
+	addToSavedGroupHandler: (id: number) => void;
 };
 
 export default function SavedGroupCard({
 	group,
+	addToSavedGroupHandler,
 }: // count,
 TabgroupCardProps) {
-	const [count, setCount] = useState(group.count);
+	// const [count, setCount] = useState(group.count);
 	const [groupDetailIsOpen, setGroupDetailOpen] = useState(false);
 
 	useEffect(() => {
@@ -60,7 +61,7 @@ TabgroupCardProps) {
 					<span
 						style={{ color: Colors[group.color] }}
 						className="tabgroupCount">
-						{count}
+						{group.tabs.length}
 					</span>
 				</div>
 				<div className="trafficLights">
@@ -80,7 +81,12 @@ TabgroupCardProps) {
 			</div>
 
 			{groupDetailIsOpen && (
-				<div className="addButton"> + Add current tab to this group</div>
+				<div
+					className="addButton"
+					onClick={() => addToSavedGroupHandler(group.id)}>
+					{" "}
+					+ Add current tab to this group
+				</div>
 			)}
 
 			{groupDetailIsOpen && group.tabs?.length && (

@@ -134,7 +134,6 @@ const ActionPage = () => {
 				id: id,
 				title: name,
 				color: color,
-				count: count,
 				tabs: tabsInTheGroup,
 			};
 
@@ -170,15 +169,33 @@ const ActionPage = () => {
 		} catch (error) {}
 	}
 
+	async function addCurrentTabToSavedGroup(id: number) {
+		//the id is the groupId saved in storage
+
+		let sg = [...savedGroups];
+
+		let gIndex = sg.findIndex((item) => item.id === id);
+
+		const currentTab = await chrome.tabs.query({
+			active: true,
+		});
+
+		sg[gIndex].tabs.push(currentTab[0]); //the first one is the currentTab
+
+		chrome.storage.sync.set(
+			{
+				savedgroups: sg,
+			},
+			function () {
+				setSavedGroups(sg);
+			}
+		);
+	}
+
 	return (
 		<div className="popuproot">
 			<div className="headercontainer">
 				<div className="pophead">
-					{/* <div style="display: flex; flex-direction: column; margin-right: 10px">
-						<span style="flex: 1"></span>
-						<img src="/icon.png" width="32px" height="32px" />
-						<span style="flex: 1"></span>
-					</div> */}
 					<div class="title">Tabius</div>
 
 					<img
@@ -258,7 +275,10 @@ const ActionPage = () => {
 					{savedGroups.length ? (
 						<div>
 							{savedGroups.map((group) => (
-								<SavedGroupCard group={group} />
+								<SavedGroupCard
+									group={group}
+									addToSavedGroupHandler={addCurrentTabToSavedGroup}
+								/>
 							))}
 						</div>
 					) : (
