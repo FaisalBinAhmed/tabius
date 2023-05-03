@@ -83,42 +83,44 @@ TabgroupCardProps) {
 				<div className="addButton"> + Add current tab to this group</div>
 			)}
 
-			{groupDetailIsOpen &&
-				group.tabs?.length &&
-				group.tabs.map((tab) => (
-					<div className="tabcard">
-						<div className="tabdetails">
-							{tab.favIconUrl ? (
-								<img
-									width="18px"
-									height="18px"
-									style={{ marginRight: "5px" }}
-									src={tab.favIconUrl}
-								/>
-							) : (
-								<img
-									width="18px"
-									height="18px"
-									style={{ marginRight: "5px" }}
-									src="/icons/media-image.svg"
-								/>
-							)}
-							{truncateText(tab.title, 30)}
-						</div>
-						<div className="trafficLights">
-							{/* <TrafficLightButton
+			{groupDetailIsOpen && group.tabs?.length && (
+				<div className="tabscontainer">
+					{group.tabs.map((tab) => (
+						<div className="tabcard">
+							<div className="tabdetails">
+								{tab.favIconUrl ? (
+									<img
+										width="18px"
+										height="18px"
+										style={{ marginRight: "5px" }}
+										src={tab.favIconUrl}
+									/>
+								) : (
+									<img
+										width="18px"
+										height="18px"
+										style={{ marginRight: "5px" }}
+										src="/icons/media-image.svg"
+									/>
+								)}
+								{truncateText(tab.title, 30)}
+							</div>
+							<div className="trafficLights">
+								{/* <TrafficLightButton
 									onClick={() => {}}
 									icon="/icons/transition-up.svg"
 									color="#29aeff"
 								/> */}
-							<TrafficLightButton
-								onClick={() => {}}
-								icon="/icons/trash.svg"
-								color="#fe5f58"
-							/>
+								<TrafficLightButton
+									onClick={() => {}}
+									icon="/icons/trash.svg"
+									color="#fe5f58"
+								/>
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
+			)}
 		</div>
 	);
 }
