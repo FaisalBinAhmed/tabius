@@ -59,7 +59,7 @@ TabgroupCardProps) {
 				<div className="tabgroupData">
 					<span className="tabgroupName">{truncateText(group.title)}</span>
 					<span
-						style={{ color: Colors[group.color] }}
+						// style={{ color: Colors[group.color] }}
 						className="tabgroupCount">
 						{group.tabs.length}
 					</span>
