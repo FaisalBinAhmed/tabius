@@ -3,7 +3,7 @@
 		"outDir": "dist",
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact",
-		"lib": ["es2015", "DOM", "DOM.Iterable"],
+		"lib": ["es2017", "DOM", "DOM.Iterable"],
 		// "jsx": "preserve",
 		// "jsxFactory": "h",
 		// "jsxFragmentFactory": "Fragment",

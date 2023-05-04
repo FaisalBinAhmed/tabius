@@ -1,6 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { Colors, CustomRule, customHint, getOneStorageItem } from "../const";
 import { TrafficLightButton } from "../components/TrafficLightButton";
+import { generateId, isValidUrl } from "../helpers";
 
 export default function CustomModal({
 	isVisible = false,
@@ -9,7 +10,10 @@ export default function CustomModal({
 	isVisible: boolean;
 	toggleVisibility: () => void;
 }) {
+	const [url, setUrl] = useState("");
+	const [alias, setAlias] = useState("");
 	const [color, setColor] = useState<chrome.tabGroups.ColorEnum>(""); //random??
+
 	const [customRules, setCustomRules] = useState<CustomRule[]>([]);
 
 	useEffect(() => {
@@ -20,6 +24,47 @@ export default function CustomModal({
 		const cr = await getOneStorageItem("customrules");
 		if (cr?.customrules?.length) {
 			setCustomRules(cr.customrules); //TODO type safe this
+		}
+	}
+
+	function addNewRule() {
+		const id = generateId();
+
+		if (!isValidUrl(url)) {
+			// set_status("Please enter a valid url.", "red");
+		} else {
+			const newRule: CustomRule = {
+				id: id,
+				url: url,
+				alias: alias,
+				color: color,
+			};
+
+			let newCustomRules = [...customRules, newRule];
+
+			chrome.storage.sync.set(
+				{
+					customrules: newCustomRules,
+				},
+				function () {
+					setCustomRules(newCustomRules);
+					// Update status to let user know options were saved.
+					setUrl("");
+					setAlias("");
+					setColor("");
+				}
+			);
+		}
+	}
+
+	function onUrlChange(e) {
+		if (e.target.value) {
+			setUrl(e.target.value);
+		}
+	}
+	function onAliasChange(e) {
+		if (e.target.value) {
+			setAlias(e.target.value);
 		}
 	}
 
@@ -52,6 +97,8 @@ export default function CustomModal({
 								placeholder="https://facebook.com"
 								name="groupsite"
 								id="customUrl"
+								value={url}
+								onInput={onUrlChange}
 							/>
 						</div>
 						<div class="inputblock">
@@ -66,6 +113,8 @@ export default function CustomModal({
 								id="customAlias"
 								placeholder="FB"
 								name="groupalias"
+								value={alias}
+								onInput={onAliasChange}
 							/>
 						</div>
 
@@ -77,36 +126,19 @@ export default function CustomModal({
 								value={color}
 								onChange={handleColor}>
 								<option value="">Random</option>
-								<option value="grey" style="background-color: #e0e0e0">
-									grey
-								</option>
-								<option value="blue" style="background-color: #82b1ff">
-									blue
-								</option>
-								<option value="red" style="background-color: #e57373">
-									red
-								</option>
-								<option value="yellow" style="background-color: #fff176">
-									yellow
-								</option>
-								<option value="green" style="background-color: #81c784">
-									green
-								</option>
-								<option value="pink" style="background-color: #ff80ab">
-									pink
-								</option>
-								<option value="purple" style="background-color: #ea80fc">
-									purple
-								</option>
-								<option value="cyan" style="background-color: #84ffff">
-									cyan
-								</option>
+								{Object.entries(Colors).map(([k, v]) => (
+									<option value={k} style={{ backgroundColor: v }}>
+										{k}
+									</option>
+								))}
 							</select>
 						</div>
 
 						<div class="inputblock">
 							<label>&#10240;</label>
-							<button id="addbutton">Add</button>
+							<button onClick={addNewRule} id="addbutton">
+								Add
+							</button>
 						</div>
 					</div>
 					<p>{customHint}</p>
