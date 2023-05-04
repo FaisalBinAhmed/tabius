@@ -12,9 +12,11 @@ export function generateId() {
 }
 
 export function isValidUrl(inputurl: string) {
+	let u;
 	try {
-		return Boolean(new URL(inputurl));
+		u = new URL(inputurl);
 	} catch (e) {
 		return false;
 	}
+	return u.protocol === "https:" || u.protocol === "http:";
 }
