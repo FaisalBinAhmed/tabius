@@ -81,7 +81,7 @@ export default function BlockModal({
 
 						<TrafficLightButton
 							icon="/icons/cancel.svg"
-							color="red"
+							color="#fe5f58"
 							onClick={toggleVisibility}
 							tooltip="Close"
 						/>
@@ -100,7 +100,6 @@ export default function BlockModal({
 						</div>
 
 						<div class="inputblock">
-							<label>&#10240;</label>
 							<button onClick={addNewBlock} id="blockaddbutton">
 								Add
 							</button>

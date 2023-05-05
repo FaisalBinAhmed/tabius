@@ -220,6 +220,7 @@ input[type="checkbox"] {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: flex-end;
 }
 
 #addbutton,
@@ -231,7 +232,7 @@ input[type="checkbox"] {
 	padding-left: 25px;
 	padding-right: 25px;
 	margin-left: 5px;
-	min-height: 35px;
+	min-height: 42px;
 	border-radius: 2px;
 }
 
@@ -241,8 +242,8 @@ input[type="checkbox"] {
 }
 
 .inputblock > input[type="text"] {
-	min-height: 35px;
-	font-size: 20px;
+	min-height: 42px;
+	font-size: medium;
 	background-color: transparent;
 	border: 1px solid black;
 	border-radius: 5px;
@@ -253,25 +254,33 @@ input[type="checkbox"] {
 }
 
 .inputblock > input[type="checkbox"] {
-	min-height: 35px;
+	min-height: 42px;
 	margin-left: 67%;
 	margin-bottom: 33%;
 }
 
 .inputblock > input > option {
-	height: 35px;
-	font-size: 20px;
+	height: 42px;
+	font-size: medium;
 }
 
 #colors {
-	min-height: 35px;
-	font-size: 20px;
+	min-height: 42px;
+	font-size: medium;
 	background-color: transparent;
 	border: 1px solid #121212;
 	border-radius: 2px;
+	color: #fff;
 }
 .inputblock > label {
-	font-size: 12px;
+	font-size: small;
+}
+
+.inputGap {
+	margin: 10px;
+}
+.inputGap > span {
+	line-height: 42px;
 }
 
 .rulecard,
@@ -286,7 +295,7 @@ input[type="checkbox"] {
 	background-color: #121212;
 	margin-bottom: 5px;
 	font-size: medium;
-	padding: 5px;
+	padding: 0 5px;
 }
 
 .blockcard:nth-child(2) {
@@ -307,11 +316,6 @@ input[type="checkbox"] {
 	background-color: inherit;
 	border: unset;
 	font-size: 22px;
-}
-
-.ruleaction {
-	display: flex;
-	flex-direction: row;
 }
 
 /* modal styles end  */
@@ -362,4 +366,9 @@ input[type="checkbox"] {
 	flex: 1;
 	color: #c2c3c7;
 	font-family: "Courier New", Courier, monospace;
+}
+
+.trafficSpan {
+	display: flex;
+	flex-direction: row;
 }
