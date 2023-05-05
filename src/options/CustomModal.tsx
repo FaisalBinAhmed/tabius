@@ -78,7 +78,7 @@ export default function CustomModal({
 		newAlias: string,
 		newColor: chrome.tabGroups.ColorEnum
 	) {
-		const restArray = customRules.filter((item) => item.id !== id);
+		const restArray = customRules.filter((item) => item.id !== id); //all other except current
 		const newRule: CustomRule = {
 			id: id,
 			url: newUrl,
@@ -89,10 +89,11 @@ export default function CustomModal({
 		restArray.push(newRule);
 		chrome.storage.sync.set(
 			{
-				customrules: [...restArray],
+				customrules: restArray,
 			},
 			function () {
 				// set_status("Custom Rule updated.");
+				setCustomRules(restArray);
 			}
 		);
 	}
@@ -242,11 +243,15 @@ function CustomRuleCard({
 	function confirmEdit() {
 		if (!isValidUrl(url)) {
 			// set_status("Please enter a valid url.", "red");
-		} else if (!alias.length) {
-			// set_status("Alias can't be empty.", "red");
-		} else {
-			//everything should be valid here:
+			return;
 		}
+		if (!alias.length) {
+			// set_status("Alias can't be empty.", "red");
+			return;
+		}
+		//everything should be valid here:
+
+		editRule(rule.id, url, alias, color); //should be newcolor TODO
 	}
 	return (
 		<div
