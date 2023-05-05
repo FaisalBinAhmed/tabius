@@ -79,14 +79,14 @@ export default function CustomModal({
 		newColor: chrome.tabGroups.ColorEnum
 	) {
 		const restArray = customRules.filter((item) => item.id !== id); //all other except current
-		const newRule: CustomRule = {
+		const editedRule: CustomRule = {
 			id: id,
 			url: newUrl,
 			alias: newAlias,
 			color: newColor,
 		};
 
-		restArray.push(newRule);
+		restArray.push(editedRule);
 		chrome.storage.sync.set(
 			{
 				customrules: restArray,
@@ -188,6 +188,7 @@ export default function CustomModal({
 						{customRules?.length ? (
 							customRules.map((rule) => (
 								<CustomRuleCard
+									key={rule.id}
 									rule={rule}
 									editRule={editRule}
 									deleteRule={deleteRule}
@@ -252,6 +253,7 @@ function CustomRuleCard({
 		//everything should be valid here:
 
 		editRule(rule.id, url, alias, color); //should be newcolor TODO
+		setShowEdit(false);
 	}
 	return (
 		<div

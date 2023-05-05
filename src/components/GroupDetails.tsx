@@ -47,6 +47,7 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 		<div className="tabscontainer">
 			{gDetails?.map((tab) => (
 				<TabCard
+					key={tab.id}
 					id={tab.id}
 					favIconUrl={tab.favIconUrl}
 					title={tab.title}

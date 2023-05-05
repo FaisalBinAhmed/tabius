@@ -275,6 +275,7 @@ const ActionPage = () => {
 						<div>
 							{savedGroups.map((group) => (
 								<SavedGroupCard
+									key={group.id}
 									group={group}
 									addToSavedGroupHandler={addCurrentTabToSavedGroup}
 								/>
@@ -291,6 +292,7 @@ const ActionPage = () => {
 				<div>
 					{tabGroups.map((tg) => (
 						<TabgroupCard
+							key={tg.id}
 							name={tg.title}
 							color={tg.color}
 							id={tg.id}

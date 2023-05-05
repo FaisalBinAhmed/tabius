@@ -92,7 +92,7 @@ TabgroupCardProps) {
 			{groupDetailIsOpen && group.tabs?.length && (
 				<div className="tabscontainer">
 					{group.tabs.map((tab) => (
-						<div className="tabcard">
+						<div key={tab.id} className="tabcard">
 							<div className="tabdetails">
 								{tab.favIconUrl ? (
 									<img

@@ -114,8 +114,8 @@ export default function BlockModal({
 					<h3>Block list</h3>
 					<div id="blockcontainer">
 						{blockedSites?.length ? (
-							blockedSites.map((site, index) => (
-								<div class="blockcard">
+							blockedSites.map((site) => (
+								<div key={site.id} class="blockcard">
 									<div className="blockcardDetails">
 										{/* <span style={{ opacity: "50%" }}>{index + 1} </span> */}
 										<span>{site.blockedUrl}</span>
