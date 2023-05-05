@@ -2,7 +2,7 @@ import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import TabgroupCard from "./components/TabgroupCard";
 import { withBlock } from "./background/background";
-import { isTheURLNative } from "./helpers";
+import { generateId, isTheURLNative } from "./helpers";
 import {
 	IconButton,
 	TrafficLightButton,
@@ -118,7 +118,7 @@ const ActionPage = () => {
 	}
 
 	async function saveTabGroup(
-		id: number,
+		id: number, //this is the same id from chrome, should be number
 		color: chrome.tabGroups.ColorEnum,
 		name?: string
 	) {
@@ -130,7 +130,8 @@ const ActionPage = () => {
 			const tabsInTheGroup = await chrome.tabs.query(queryInfo);
 
 			let newGroupToSave: SavedGroup = {
-				id: id,
+				id: generateId(),
+				chromeId: id,
 				title: name,
 				color: color,
 				tabs: tabsInTheGroup,
@@ -168,7 +169,7 @@ const ActionPage = () => {
 		} catch (error) {}
 	}
 
-	async function addCurrentTabToSavedGroup(id: number) {
+	async function addCurrentTabToSavedGroup(id: string) {
 		//the id is the groupId saved in storage
 
 		let sg = [...savedGroups];
@@ -187,6 +188,20 @@ const ActionPage = () => {
 			},
 			function () {
 				setSavedGroups(sg);
+			}
+		);
+	}
+
+	function deleteSavedGroup(id: string) {
+		let sg = savedGroups.filter((item) => item.id !== id);
+
+		chrome.storage.sync.set(
+			{
+				savedgroups: sg,
+			},
+			function () {
+				setSavedGroups(sg);
+				// set_status(" deleted.");
 			}
 		);
 	}
@@ -278,6 +293,7 @@ const ActionPage = () => {
 									key={group.id}
 									group={group}
 									addToSavedGroupHandler={addCurrentTabToSavedGroup}
+									deleteSavedGroup={deleteSavedGroup}
 								/>
 							))}
 						</div>

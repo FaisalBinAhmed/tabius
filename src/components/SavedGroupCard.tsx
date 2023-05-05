@@ -5,12 +5,14 @@ import { truncateText } from "./TabgroupCard";
 
 type TabgroupCardProps = {
 	group: SavedGroup;
-	addToSavedGroupHandler: (id: number) => void;
+	addToSavedGroupHandler: (id: string) => void;
+	deleteSavedGroup: (id: string) => void;
 };
 
 export default function SavedGroupCard({
 	group,
 	addToSavedGroupHandler,
+	deleteSavedGroup,
 }: // count,
 TabgroupCardProps) {
 	// const [count, setCount] = useState(group.count);
@@ -26,23 +28,39 @@ TabgroupCardProps) {
 
 	async function deleteGroup(e?: MouseEvent) {
 		e?.stopImmediatePropagation(); //prevents parent event getting triggered
-		// const updateProperties = {
-		// 	collapsed: true,
-		// };
-		try {
-			// await chrome.tabGroups.update(id, updateProperties);
-			// setGroupDetailOpen(false);
-		} catch (error) {}
+		deleteSavedGroup(group.id);
 	}
 	async function restoreGroup(e?: MouseEvent) {
 		e?.stopImmediatePropagation();
-		// const updateProperties = {
-		// 	collapsed: false,
-		// };
-		// try {
-		// 	await chrome.tabGroups.update(id, updateProperties);
-		// 	setGroupDetailOpen(true);
-		// } catch (error) {}
+		// first we create the tabs
+
+		const createdTabIds = await createTabs();
+
+		// then we group the tabs together
+
+		const options: chrome.tabs.GroupOptions = {
+			tabIds: [...createdTabIds], //creates a new tab group with the new tab and the opener tab
+		};
+
+		console.log("creating group with", options);
+
+		const groupdId = await chrome.tabs.group(options);
+
+		console.log(groupdId);
+	}
+
+	async function createTabs() {
+		const createdTabIds: number[] = await Promise.all(
+			group.tabs.map(async (tab) => {
+				const createProperties: chrome.tabs.CreateProperties = {
+					url: tab.url,
+					active: false, //don't move the focus
+				};
+				const newTab = await chrome.tabs.create(createProperties);
+				return newTab.id;
+			})
+		);
+		return createdTabIds;
 	}
 
 	return (

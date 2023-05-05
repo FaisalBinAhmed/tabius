@@ -24,7 +24,8 @@ export const EXCLUDED_URL = [
 // storage keys
 
 export type SavedGroup = {
-	id: number; //same as the original group. SHOULD CHECK FOR CLASH WHEN STORING
+	id: string; //unique id for storage
+	chromeId: number; //from chrome when saving
 	title?: string;
 	color: chrome.tabGroups.ColorEnum;
 	// count: number;

@@ -50,6 +50,7 @@ const Settings = () => {
 			"maximum",
 			"naming",
 			"regardless",
+			"savedgroups",
 		]);
 
 		console.log(items);
