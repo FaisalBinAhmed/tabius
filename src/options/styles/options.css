@@ -372,3 +372,18 @@ input[type="checkbox"] {
 	display: flex;
 	flex-direction: row;
 }
+
+.iconButton {
+	height: 18px;
+	border-radius: 5px;
+	border-width: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	margin-right: 3px;
+	font-size: smaller;
+	font-weight: bold;
+	padding: 0 5px;
+	color: #101010;
+}

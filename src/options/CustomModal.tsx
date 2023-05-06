@@ -255,6 +255,14 @@ function CustomRuleCard({
 		editRule(rule.id, url, alias, color); //should be newcolor TODO
 		setShowEdit(false);
 	}
+
+	function cancelEdit() {
+		//restore any unsaved changes
+		setUrl(rule.url);
+		setAlias(rule.alias);
+		setShowEdit(false);
+	}
+
 	return (
 		<div
 			class="rulecard"
@@ -285,16 +293,17 @@ function CustomRuleCard({
 			<div class="trafficLights">
 				{showEdit ? (
 					<span className="trafficSpan">
-						<TrafficLightButton
+						<IconButton
 							tooltip="Save"
 							icon="/icons/save-floppy-disk.svg"
 							onClick={confirmEdit}
 							color="#28c840"
+							title="Save"
 						/>
 						<TrafficLightButton
 							tooltip="Cancel"
 							icon="/icons/cancel.svg"
-							onClick={() => setShowEdit(false)}
+							onClick={cancelEdit}
 							color="orange"
 						/>
 					</span>
