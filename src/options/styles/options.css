@@ -28,14 +28,15 @@ option {
 	/* height: 570px; */
 	margin: 0 auto;
 	/* border: 15px #00d282 solid; */
-	font-size: 25px;
+	font-size: medium;
 	padding: 40px;
 	background-color: #0d0d0d;
+	border-radius: 5px;
 }
 @media all and (max-width: 1367px) {
 	#settingsmain {
 		width: 60vw;
-		font-size: 22px;
+		font-size: medium;
 	}
 }
 #settingsmain > p {
@@ -47,6 +48,7 @@ option {
 #settingsheader {
 	display: flex;
 	flex-direction: row;
+	opacity: 0.8;
 }
 /* styles for each line of option */
 .oneoptioncontainer {
@@ -275,7 +277,7 @@ input[type="checkbox"] {
 	color: #fff;
 }
 .inputblock > label {
-	font-size: small;
+	font-size: smaller;
 }
 
 .inputGap {
@@ -311,13 +313,13 @@ input[type="checkbox"] {
 .rulecard input[type="text"] {
 	background-color: inherit;
 	border: unset;
-	font-size: 22px;
+	font-size: medium;
 }
 
 .blockcard input[type="text"] {
 	background-color: inherit;
 	border: unset;
-	font-size: 22px;
+	font-size: medium;
 }
 
 /* modal styles end  */
