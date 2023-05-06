@@ -1,3 +1,5 @@
+@import url("../global.css");
+
 body {
 	margin: unset;
 	overscroll-behavior-y: none;
@@ -147,46 +149,6 @@ body {
 	margin-left: 10px;
 	margin-right: 10px;
 	border-radius: 5px;
-}
-
-.trafficLights {
-	display: flex;
-	flex-direction: row;
-}
-
-.trafficButton {
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	border-width: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	margin-right: 3px;
-	font-size: smaller;
-	font-weight: bold;
-}
-
-.iconButton {
-	/* width: 18px; */
-	height: 18px;
-	border-radius: 5px;
-	border-width: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	margin-right: 3px;
-	font-size: smaller;
-	font-weight: bold;
-	padding: 0 5px;
-	color: #101010;
-}
-
-.trafficicon {
-	width: 12px;
-	height: 12px;
 }
 
 .tabscontainer {
