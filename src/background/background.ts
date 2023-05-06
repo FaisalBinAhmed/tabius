@@ -81,7 +81,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			const tabsNumber = await getSingleGroupNumberOfTab(
 				openerTabInfo?.groupId
 			);
-			console.log("number of tabs", tabsNumber, maximumPropmise.maximum);
+			// console.log("number of tabs", tabsNumber, maximumPropmise.maximum);
 
 			if (tabsNumber > parseInt(maximumPropmise.maximum)) {
 				// console.log("no group should be created");
@@ -129,7 +129,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 				const regardlessPropmise = await getOneStorageItem("regardless");
 
-				console.log("regardless", regardlessPropmise);
+				// console.log("regardless", regardlessPropmise);
 				if (regardlessPropmise?.regardless !== true) {
 					ungroupOneTab(tab.id);
 				}
