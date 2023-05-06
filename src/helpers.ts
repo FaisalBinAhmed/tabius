@@ -28,24 +28,25 @@ export async function addUrlToBlocklist(url?: string) {
 
 	const id = generateId();
 
-	if (!isValidUrl(url)) {
-		// set_status("Please enter a valid url.", "red");
-		return false;
-	} else {
-		const { blocklist } = await getOneStorageItem("blocklist");
-		const newSite: BlockList = {
-			id: id,
-			blockedUrl: url,
-		};
+	if (!isValidUrl(url)) return false;
 
-		let newBlockList = [...blocklist, newSite];
+	let origin = new URL(url).origin;
 
-		chrome.storage.sync.set({
-			blocklist: newBlockList,
-		});
+	if (!origin) return false;
 
-		return true;
-	}
+	const { blocklist } = await getOneStorageItem("blocklist");
+	const newSite: BlockList = {
+		id: id,
+		blockedUrl: origin,
+	};
+
+	let newBlockList = [...blocklist, newSite];
+
+	chrome.storage.sync.set({
+		blocklist: newBlockList,
+	});
+
+	return true;
 }
 
 export async function deleteUrlFromBlocklist(url?: string) {
@@ -66,4 +67,12 @@ export async function deleteUrlFromBlocklist(url?: string) {
 		// console.log(error);
 		return false;
 	}
+}
+
+export function restoreSingleTab(tab: chrome.tabs.Tab) {
+	const createProperties: chrome.tabs.CreateProperties = {
+		url: tab.url,
+		active: false, //don't move the focus
+	};
+	chrome.tabs.create(createProperties);
 }

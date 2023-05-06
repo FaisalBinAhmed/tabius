@@ -2,6 +2,7 @@ import { useEffect, useState } from "preact/hooks";
 import { Colors, SavedGroup } from "../const";
 import { TrafficLightButton } from "./TrafficLightButton";
 import { truncateText } from "./TabgroupCard";
+import { restoreSingleTab } from "../helpers";
 
 type TabgroupCardProps = {
 	group: SavedGroup;
@@ -144,11 +145,12 @@ TabgroupCardProps) {
 								{truncateText(tab.title, 30)}
 							</div>
 							<div className="trafficLights">
-								{/* <TrafficLightButton
-									onClick={() => {}}
-									icon="/icons/transition-up.svg"
-									color="#29aeff"
-								/> */}
+								<TrafficLightButton
+									onClick={() => restoreSingleTab(tab)}
+									icon="/icons/open-in-browser.svg"
+									color="#a8f57d"
+									tooltip="Open this tab separately"
+								/>
 								<TrafficLightButton
 									onClick={() => {}}
 									icon="/icons/trash.svg"
