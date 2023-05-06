@@ -74,9 +74,6 @@ async function createTab(newtab: chrome.tabs.Tab) {
 	// checking maximum limitation
 
 	const maximumPropmise = await getOneStorageItem("maximum");
-	//  chrome.storage.sync.get([
-	// 	K_MAXIMUM_TABS_PER_GROUP,
-	// ]);
 
 	if (maximumPropmise.maximum && parseInt(maximumPropmise.maximum) > 1) {
 		if (!newGroup) {
@@ -84,7 +81,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			const tabsNumber = await getSingleGroupNumberOfTab(
 				openerTabInfo?.groupId
 			);
-			// console.log("number of tabs", tabsNumber, maximumPropmise.maximum);
+			console.log("number of tabs", tabsNumber, maximumPropmise.maximum);
 
 			if (tabsNumber > parseInt(maximumPropmise.maximum)) {
 				// console.log("no group should be created");
@@ -110,7 +107,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			!maximumAchieved
 		) {
 			// console.log("max ach", maximumAchieved);
-			//excluding all native chrome protocol pages
+			// excluding all native chrome protocol pages
 			// has side effects. looks like some time tabs are opened without having a pendingURL property
 			// results in error when pendingUrl is not found while opening the tab directly.
 			// this can however be used to control whether tab group should be created by right clicking or just by target _blank
@@ -131,10 +128,8 @@ async function createTab(newtab: chrome.tabs.Tab) {
 				// let tabIds = tab.id;
 
 				const regardlessPropmise = await getOneStorageItem("regardless");
-				// chrome.storage.sync.get([
-				// 	K_REGARDLESS_DOMAIN,
-				// ]);
-				// console.log("regardless", regardlessPropmise);
+
+				console.log("regardless", regardlessPropmise);
 				if (regardlessPropmise?.regardless !== true) {
 					ungroupOneTab(tab.id);
 				}
@@ -302,10 +297,13 @@ export async function withBlock(url?: string): Promise<boolean> {
 }
 
 async function getSingleGroupNumberOfTab(tabGroupId?: number) {
+	if (!tabGroupId) return 0; //with no groupId, chrome will return the number of all tabs that are open
+
 	const queryInfo = {
 		groupId: tabGroupId,
 	};
 	const tabNumbers = await chrome.tabs.query(queryInfo);
+	//Gets all tabs that have the specified properties, or all tabs if no properties are specified.
 	return tabNumbers.length;
 }
 

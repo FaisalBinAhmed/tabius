@@ -34,30 +34,44 @@ TabgroupCardProps) {
 		e?.stopImmediatePropagation();
 		// first we create the tabs
 
-		const createdTabIds = await createTabs();
+		const createdTabIds = (await createTabs()).filter(Number) as number[];
+		//explicit casting here since tscompiler doesn't infer it properly.
+		//the Number constructor in the filter removes all elements except number
 
 		// then we group the tabs together
 
 		const options: chrome.tabs.GroupOptions = {
-			tabIds: [...createdTabIds], //creates a new tab group with the new tab and the opener tab
+			tabIds: createdTabIds, //creates a new tab group with the new tab and the opener tab
 		};
 
 		console.log("creating group with", options);
+		try {
+			const groupId = await chrome.tabs.group(options);
 
-		const groupdId = await chrome.tabs.group(options);
+			let updateProperties: chrome.tabGroups.UpdateProperties = {
+				title: group.title,
+				color: group.color,
+			};
 
-		console.log(groupdId);
+			const groupUpdated = await chrome.tabGroups.update(
+				groupId,
+				updateProperties
+			);
+			console.log(groupUpdated);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async function createTabs() {
-		const createdTabIds: number[] = await Promise.all(
+		const createdTabIds = await Promise.all(
 			group.tabs.map(async (tab) => {
 				const createProperties: chrome.tabs.CreateProperties = {
 					url: tab.url,
 					active: false, //don't move the focus
 				};
-				const newTab = await chrome.tabs.create(createProperties);
-				return newTab.id;
+				const { id } = await chrome.tabs.create(createProperties);
+				return id;
 			})
 		);
 		return createdTabIds;
