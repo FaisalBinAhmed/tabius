@@ -241,7 +241,7 @@ async function getDomain(url?: string) {
 	}
 }
 
-function getHostname(url?: string) {
+export function getHostname(url?: string) {
 	if (!url) return;
 	return new URL(url).hostname;
 }

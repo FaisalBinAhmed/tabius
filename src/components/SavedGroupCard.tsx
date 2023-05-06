@@ -44,7 +44,7 @@ TabgroupCardProps) {
 			tabIds: createdTabIds, //creates a new tab group with the new tab and the opener tab
 		};
 
-		console.log("creating group with", options);
+		// console.log("creating group with", options);
 		try {
 			const groupId = await chrome.tabs.group(options);
 
@@ -57,9 +57,9 @@ TabgroupCardProps) {
 				groupId,
 				updateProperties
 			);
-			console.log(groupUpdated);
+			// console.log(groupUpdated);
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 		}
 	}
 

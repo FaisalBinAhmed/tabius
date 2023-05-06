@@ -2,41 +2,18 @@ import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import TabgroupCard from "./components/TabgroupCard";
 import { withBlock } from "./background/background";
-import { generateId, isTheURLNative } from "./helpers";
 import {
-	IconButton,
+	addUrlToBlocklist,
+	deleteUrlFromBlocklist,
+	generateId,
+	isTheURLNative,
+} from "./helpers";
+import {
+	// IconButton,
 	TrafficLightButton,
 } from "./components/TrafficLightButton";
 import { SavedGroup, getOneStorageItem } from "./const";
 import SavedGroupCard from "./components/SavedGroupCard";
-
-async function handleCurrentTabBlock() {
-	// get current tab
-	try {
-		// const currentTab = await chrome.tabs.query({
-		// 	active: true,
-		// });
-		// if (checkNativeUrl(currentTab[0].url)) {
-		// 	blockbutton.remove();
-		// } else {
-		// 	blockbutton.innerHTML = disableHtml;
-		// 	// console.log(currentTab);
-		// 	blockbutton.addEventListener(
-		// 		"click",
-		// 		async () => await addBlock(currentTab[0].url)
-		// 	);
-		// 	if (await withBlock(currentTab[0].url)) {
-		// 		blockbutton.innerHTML = enableHtml;
-		// 		blockbutton.addEventListener(
-		// 			"click",
-		// 			async () => await removeBlock(currentTab[0].url)
-		// 		);
-		// 	}
-		// }
-	} catch (error) {
-		// console.log(error);
-	}
-}
 
 function handleOptionButton() {
 	if (chrome.runtime.openOptionsPage) {
@@ -71,11 +48,20 @@ const ActionPage = () => {
 
 	const [savedGroups, setSavedGroups] = useState<SavedGroup[]>([]);
 
+	// const [inATabGroup, setInATabGroup] = useState(false)
+
 	useEffect(() => {
 		fetchTabGroups();
 		fetchSavedTabGroups();
 		fetchBlockInfo();
+		// isItAtabGroup();
 	}, []);
+
+	// async function isItAtabGroup() {
+	//this should check whether the current tab is in a tab group
+	//so we cn save this when user clicks on the add button
+
+	// }
 
 	async function fetchTabGroups() {
 		let tg = await getAllTabGroups();
@@ -102,8 +88,21 @@ const ActionPage = () => {
 	}
 
 	async function handleBlockButton() {
-		setSiteBlocked((prev) => !prev);
-		//TODO save to storage
+		const currentTab = await chrome.tabs.query({
+			active: true,
+		});
+
+		if (siteIsBlocked) {
+			//have to unblock the site
+
+			(await deleteUrlFromBlocklist(currentTab[0].url)) &&
+				setSiteBlocked(false);
+		} else {
+			//site is not blockedS
+			//should be added to blocklist
+
+			(await addUrlToBlocklist(currentTab[0].url)) && setSiteBlocked(true); //short circuit to only trigger when the saving is a success
+		}
 	}
 
 	function minimizeAllGroups() {
@@ -130,8 +129,8 @@ const ActionPage = () => {
 			const tabsInTheGroup = await chrome.tabs.query(queryInfo);
 
 			let newGroupToSave: SavedGroup = {
-				id: generateId(),
-				chromeId: id,
+				id: generateId(), //uuid for storage
+				chromeId: id, //saving the original groupId (number) for future reference
 				title: name,
 				color: color,
 				tabs: tabsInTheGroup,
@@ -206,6 +205,8 @@ const ActionPage = () => {
 		);
 	}
 
+	// function saveCurrentOpenTabGroup() {}
+
 	return (
 		<div className="popuproot">
 			<div className="headercontainer">
@@ -252,19 +253,19 @@ const ActionPage = () => {
 
 				{showSavedGroups ? (
 					<div className="trafficLights">
-						<IconButton
-							onClick={minimizeAllGroups}
+						{/* <IconButton
+							onClick={saveCurrentOpenTabGroup}
 							icon="/icons/plus.svg"
 							color="#bbc9d2"
 							tooltip="Save current tab group"
 							title="Add"
-						/>
-						<TrafficLightButton
+						/> */}
+						{/* <TrafficLightButton
 							onClick={maximizeAllGroups}
 							icon="/icons/open-in-browser.svg"
 							color="#a8f57d"
 							tooltip="Open all saved groups"
-						/>
+						/> */}
 					</div>
 				) : (
 					<div className="trafficLights">
