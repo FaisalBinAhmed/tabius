@@ -98,6 +98,7 @@ export default function CustomModal({
 		);
 	}
 
+	//TODO: typesafe events
 	function onUrlChange(e) {
 		if (e.target.value) {
 			setUrl(e.target.value);
@@ -223,6 +224,8 @@ function CustomRuleCard({
 	const [color, setColor] = useState<chrome.tabGroups.ColorEnum>(rule.color); //random??
 
 	const [showEdit, setShowEdit] = useState(false);
+
+	//TODO: type safe events
 
 	function onUrlChange(e) {
 		if (e.target.value) {

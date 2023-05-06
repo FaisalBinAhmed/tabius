@@ -205,6 +205,23 @@ const ActionPage = () => {
 		);
 	}
 
+	async function closeTabGroup(id: number) {
+		const queryInfo = {
+			groupId: id,
+		};
+		try {
+			const tabsToClose = await chrome.tabs.query(queryInfo);
+			tabsToClose.forEach((item) => chrome.tabs.remove(item?.id));
+			// should remove the entry from the popup here
+			// const a = document.getElementById(`tabcard${groupId}`); // ID can't be numbers :/
+			// a.remove();
+
+			const newTG = tabGroups.filter((item) => item.id !== id);
+
+			setTabGroups(newTG);
+		} catch (error) {}
+	}
+
 	// function saveCurrentOpenTabGroup() {}
 
 	return (
@@ -315,6 +332,7 @@ const ActionPage = () => {
 							id={tg.id}
 							collapsed={tg.collapsed}
 							saveHandler={saveTabGroup}
+							closeHandler={closeTabGroup}
 						/>
 					))}
 				</div>

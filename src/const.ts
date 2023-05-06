@@ -46,6 +46,7 @@ export type StorageKey =
 export async function getOneStorageItem(itemKey: StorageKey) {
 	return chrome.storage.sync.get(itemKey);
 }
+//TODO: make the return value typesafe
 
 export async function setOneStorageObject(
 	itemKey: StorageKey,

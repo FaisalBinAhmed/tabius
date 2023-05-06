@@ -23,6 +23,7 @@ type TabgroupCardProps = {
 		color: chrome.tabGroups.ColorEnum,
 		name?: string
 	) => Promise<void>;
+	closeHandler: (id: number) => void;
 };
 
 export default function TabgroupCard({
@@ -31,6 +32,7 @@ export default function TabgroupCard({
 	color,
 	collapsed = false,
 	saveHandler,
+	closeHandler,
 }: // count,
 TabgroupCardProps) {
 	const [count, setCount] = useState(0);
@@ -83,17 +85,9 @@ TabgroupCardProps) {
 		} catch (error) {}
 	}
 
-	function closeGroup() {
-		//     const queryInfo = {
-		// 	groupId: id,
-		// };
-		// try {
-		// 	const tabsToClose = await chrome.tabs.query(queryInfo);
-		// 	tabsToClose.forEach(async (item) => await chrome.tabs.remove(id));
-		// 	// should remove the entry from the popup here
-		// 	// const a = document.getElementById(`tabcard${groupId}`); // ID can't be numbers :/
-		// 	// a.remove();
-		// } catch (error) {}
+	function closeGroup(e?: MouseEvent) {
+		e?.stopImmediatePropagation();
+		closeHandler(id);
 	}
 
 	return (
