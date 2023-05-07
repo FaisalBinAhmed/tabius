@@ -51,16 +51,6 @@ TabgroupCardProps) {
 	}
 
 	function toggleGroupDetails(e: MouseEvent) {
-		// e.preventDefault();
-
-		// if (groupDetailIsOpen) {
-		// 	minimizeGroup();
-		// } else {
-		// 	maximizeGroup();
-		// }
-
-		// console.log("uuid: ", crypto.randomUUID());
-
 		setGroupDetailOpen((prev) => !prev);
 	}
 
