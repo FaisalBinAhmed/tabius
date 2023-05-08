@@ -1,3 +1,11 @@
+.title {
+	font-size: large;
+	font-weight: bold;
+	flex: 1;
+	color: #c2c3c7;
+	/* font-family: "Courier New", Courier, monospace; */
+}
+
 .trafficLights {
 	display: flex;
 	flex-direction: row;

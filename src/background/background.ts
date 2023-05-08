@@ -41,6 +41,8 @@ async function createTab(newtab: chrome.tabs.Tab) {
 		tabIds: [tab.id, tab.openerTabId], //creates a new tab group with the new tab and the opener tab
 	};
 
+	// if(tab.id){options.tabIds}
+
 	//getting the original tab to see if it's a member of a group already, for some reason the groupId in tab was always set to -1
 	let openerTabInfo;
 	if (tab.openerTabId) {

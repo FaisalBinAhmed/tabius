@@ -7,9 +7,11 @@ import { IconButton } from "../components/TrafficLightButton";
 export default function CustomModal({
 	isVisible = false,
 	toggleVisibility,
-}: {
+}: // showToastNotification,
+{
 	isVisible: boolean;
 	toggleVisibility: () => void;
+	// showToastNotification: (message: string, color: "green" | "red") => void;
 }) {
 	const [url, setUrl] = useState("");
 	const [alias, setAlias] = useState("");
@@ -32,7 +34,7 @@ export default function CustomModal({
 		const id = generateId();
 
 		if (!isValidUrl(url)) {
-			// set_status("Please enter a valid url.", "red");
+			// showToastNotification("Please enter a valid url.", "red");
 		} else {
 			const newRule: CustomRule = {
 				id: id,
@@ -50,6 +52,7 @@ export default function CustomModal({
 				function () {
 					setCustomRules(newCustomRules);
 					// Update status to let user know options were saved.
+					// showToastNotification("New rule saved", "green");
 					setUrl("");
 					setAlias("");
 					setColor("");
@@ -67,7 +70,8 @@ export default function CustomModal({
 			},
 			function () {
 				setCustomRules(newArray);
-				// set_status("Blacklisted site deleted.");
+
+				// showToastNotification("Blacklisted site deleted", "green");
 			}
 		);
 	}
@@ -92,7 +96,7 @@ export default function CustomModal({
 				customrules: restArray,
 			},
 			function () {
-				// set_status("Custom Rule updated.");
+				// showToastNotification("Custom Rule updated.", "green");
 				setCustomRules(restArray);
 			}
 		);

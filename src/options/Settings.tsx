@@ -1,9 +1,10 @@
 import { render } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useContext, useEffect, useState } from "preact/hooks";
 
 import CustomModal from "./CustomModal";
 import { GROUP_BY, GROUP_NAMING, getMultipleStorageItems } from "../const";
 import BlockModal from "./BlockModal";
+import ToastContextProvider, { ToastContext } from "../context/ToastContext";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,6 +28,12 @@ const Settings = () => {
 
 	const [crIsVisible, setCrVisible] = useState(false);
 	const [brIsVisible, setBrVisible] = useState(false);
+
+	//toast notification
+
+	const { showToastNotification } = useContext(ToastContext);
+
+	//TODO: convert it to its own hook
 
 	function toggleCustomModal() {
 		setCrVisible((prev) => !prev);
@@ -79,7 +86,7 @@ const Settings = () => {
 			},
 			function () {
 				// Update status to let user know options were saved.
-				// set_status("Options saved.");
+				showToastNotification("Settings Saved", "green");
 			}
 		);
 	}
@@ -260,10 +267,14 @@ const Settings = () => {
 				toggleVisibility={toggleCustomModal}
 			/>
 			<BlockModal isVisible={brIsVisible} toggleVisibility={toggleBlockModal} />
-
-			{/* settingMain */}
 		</div>
 	);
 };
 
-render(<Settings />, document.getElementById("settings")!);
+// context needs to be set one level above the consuming components to work !!! IMPORTANT
+render(
+	<ToastContextProvider>
+		<Settings />
+	</ToastContextProvider>,
+	document.getElementById("settings")!
+);

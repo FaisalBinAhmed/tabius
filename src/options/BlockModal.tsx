@@ -6,9 +6,11 @@ import { TrafficLightButton } from "../components/TrafficLightButton";
 export default function BlockModal({
 	isVisible = false,
 	toggleVisibility,
-}: {
+}: // showToastNotification,
+{
 	isVisible: boolean;
 	toggleVisibility: () => void;
+	// showToastNotification: (message: string, color: "green" | "red") => void;
 }) {
 	const [blockedSites, setBlockedSites] = useState<BlockList[]>([]);
 	const [url, setUrl] = useState("");

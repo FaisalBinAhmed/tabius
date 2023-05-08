@@ -24,8 +24,8 @@ body {
 	/* margin-bottom: 5px; */
 	user-select: none;
 	font-size: medium;
-	/* font-weight: 300; */
-	line-height: 36px;
+	height: 42px;
+	line-height: 42px;
 }
 
 .popuproot {
@@ -50,13 +50,6 @@ body {
 	margin-top: 0px;
 	color: white;
 	padding: 10px 0 10px 0;
-}
-
-.title {
-	font-size: large;
-	flex: 1;
-	color: #c2c3c7;
-	font-family: "Courier New", Courier, monospace;
 }
 
 .bigcard {
