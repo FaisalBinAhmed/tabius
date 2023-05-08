@@ -88,7 +88,7 @@ export const blockHint = `Please put the website URL in this format: "https://so
 					part of the URL (https://www.domain.com) is considered when
 					blacklisting. The rules are applicable when you open new tabs from
 					these websites - in other words - when they are the{" "}
-					<b>original tab</b>. The rules are also <b>subdomain sensitive</b>,
+					original tab. The rules are also subdomain sensitive,
 					meaning "https://en.wikipedia.com" is treated differenty than
 					"https://wikipedia.com".`;
 
@@ -97,7 +97,7 @@ export const customHint = `Please put the website URL in this format: "https://s
 					part of the URL (https://www.domain.com) is considered. The rules are
 					applicable when you open new tabs from these websites - in other words
 					- when they are the
-					<b>original tab</b>. The rules are also
-					<b>subdomain sensitive</b>, meaning "https://en.wikipedia.com" is
+					original tab. The rules are also
+					subdomain sensitive, meaning "https://en.wikipedia.com" is
 					treated differenty than "https://wikipedia.com". Duplicate entries
 					will be ignored.`;
