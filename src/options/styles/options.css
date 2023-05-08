@@ -129,7 +129,7 @@ input[type="checkbox"] {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	color: black;
+	color: white;
 	z-index: 100;
 	height: 42px;
 	line-height: 42px;
@@ -295,7 +295,7 @@ input[type="checkbox"] {
 	align-items: center;
 	/* color: #fff; */
 	flex: 1;
-	background-color: #121212;
+	background-color: #c2c3c7;
 	margin-bottom: 5px;
 	font-size: medium;
 	padding: 0 5px;

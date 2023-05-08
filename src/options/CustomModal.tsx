@@ -1,8 +1,9 @@
-import { useEffect, useState } from "preact/hooks";
+import { useContext, useEffect, useState } from "preact/hooks";
 import { Colors, CustomRule, customHint, getOneStorageItem } from "../const";
 import { TrafficLightButton } from "../components/TrafficLightButton";
 import { generateId, isValidUrl } from "../helpers";
 import { IconButton } from "../components/TrafficLightButton";
+import { ToastContext } from "../context/ToastContext";
 
 export default function CustomModal({
 	isVisible = false,
@@ -19,6 +20,8 @@ export default function CustomModal({
 
 	const [customRules, setCustomRules] = useState<CustomRule[]>([]);
 
+	const { showToastNotification } = useContext(ToastContext);
+
 	useEffect(() => {
 		restoreCustomRules();
 	}, []);
@@ -34,7 +37,7 @@ export default function CustomModal({
 		const id = generateId();
 
 		if (!isValidUrl(url)) {
-			// showToastNotification("Please enter a valid url.", "red");
+			showToastNotification("Please enter a valid url.", "red");
 		} else {
 			const newRule: CustomRule = {
 				id: id,
@@ -52,7 +55,7 @@ export default function CustomModal({
 				function () {
 					setCustomRules(newCustomRules);
 					// Update status to let user know options were saved.
-					// showToastNotification("New rule saved", "green");
+					showToastNotification("New rule saved", "green");
 					setUrl("");
 					setAlias("");
 					setColor("");
@@ -70,8 +73,7 @@ export default function CustomModal({
 			},
 			function () {
 				setCustomRules(newArray);
-
-				// showToastNotification("Blacklisted site deleted", "green");
+				showToastNotification("Custom rule deleted", "green");
 			}
 		);
 	}
@@ -96,7 +98,7 @@ export default function CustomModal({
 				customrules: restArray,
 			},
 			function () {
-				// showToastNotification("Custom Rule updated.", "green");
+				showToastNotification("Custom Rule updated.", "green");
 				setCustomRules(restArray);
 			}
 		);
@@ -229,6 +231,8 @@ function CustomRuleCard({
 
 	const [showEdit, setShowEdit] = useState(false);
 
+	const { showToastNotification } = useContext(ToastContext);
+
 	//TODO: type safe events
 
 	function onUrlChange(e) {
@@ -250,11 +254,11 @@ function CustomRuleCard({
 
 	function confirmEdit() {
 		if (!isValidUrl(url)) {
-			// set_status("Please enter a valid url.", "red");
+			showToastNotification("Please enter a valid url.", "red");
 			return;
 		}
 		if (!alias.length) {
-			// set_status("Alias can't be empty.", "red");
+			showToastNotification("Alias can't be empty.", "red");
 			return;
 		}
 		//everything should be valid here:
@@ -274,7 +278,7 @@ function CustomRuleCard({
 		<div
 			class="rulecard"
 			style={{
-				backgroundColor: rule.color ? Colors[rule.color] : "black",
+				backgroundColor: rule.color ? Colors[rule.color] : "#c2c3c7",
 			}}>
 			<div className="blockcardDetails" style={{ opacity: showEdit ? 1 : 0.8 }}>
 				<input

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "preact/hooks";
+import { useContext, useEffect, useState } from "preact/hooks";
 import { BlockList, blockHint, getOneStorageItem } from "../const";
 import { generateId, isValidUrl } from "../helpers";
 import { TrafficLightButton } from "../components/TrafficLightButton";
+import { ToastContext } from "../context/ToastContext";
 
 export default function BlockModal({
 	isVisible = false,
@@ -14,6 +15,8 @@ export default function BlockModal({
 }) {
 	const [blockedSites, setBlockedSites] = useState<BlockList[]>([]);
 	const [url, setUrl] = useState("");
+
+	const { showToastNotification } = useContext(ToastContext);
 
 	useEffect(() => {
 		restoreBlockSites();
@@ -36,7 +39,7 @@ export default function BlockModal({
 		const id = generateId();
 
 		if (!isValidUrl(url)) {
-			// set_status("Please enter a valid url.", "red");
+			showToastNotification("Please enter a valid url.", "red");
 		} else {
 			const newSite: BlockList = {
 				id: id,
@@ -53,7 +56,7 @@ export default function BlockModal({
 					setBlockedSites(newBlockList);
 					// Update status to let user know options were saved.
 					setUrl("");
-					// set_status("Blacklisted site saved.");
+					showToastNotification("Blacklisted site saved.", "green");
 				}
 			);
 		}
@@ -68,7 +71,7 @@ export default function BlockModal({
 			},
 			function () {
 				setBlockedSites(newArray);
-				// set_status("Blacklisted site deleted.");
+				showToastNotification("Blacklisted site deleted.", "green");
 			}
 		);
 	}
