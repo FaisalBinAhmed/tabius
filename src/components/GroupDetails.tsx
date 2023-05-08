@@ -13,6 +13,7 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 		fetchGroupDetails();
 	}, []);
 
+	//TODO: this should also check if tab group is lonely and update the action popup
 	function ejectTabFromGroup(id?: number) {
 		if (id) {
 			chrome.tabs.ungroup(id);
@@ -20,6 +21,7 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 		}
 	}
 
+	//TODO: this should also check if tab group is lonely and update the action popup
 	function closeTab(id?: number) {
 		if (id) {
 			chrome.tabs.remove(id);

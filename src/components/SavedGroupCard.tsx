@@ -49,6 +49,8 @@ TabgroupCardProps) {
 		try {
 			const groupId = await chrome.tabs.group(options);
 
+			//TOOD: add this to the popup
+
 			let updateProperties: chrome.tabGroups.UpdateProperties = {
 				title: group.title,
 				color: group.color,
