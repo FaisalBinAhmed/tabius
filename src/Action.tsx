@@ -222,7 +222,9 @@ const ActionPage = () => {
 		} catch (error) {}
 	}
 
-	// function saveCurrentOpenTabGroup() {}
+	function addToOpenTabGroups(tg: chrome.tabGroups.TabGroup) {
+		setTabGroups((prev) => prev.concat(tg));
+	}
 
 	return (
 		<div className="popuproot">
@@ -312,6 +314,7 @@ const ActionPage = () => {
 									group={group}
 									addToSavedGroupHandler={addCurrentTabToSavedGroup}
 									deleteSavedGroup={deleteSavedGroup}
+									addToOpenTabGroups={addToOpenTabGroups}
 								/>
 							))}
 						</div>

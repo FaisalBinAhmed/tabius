@@ -8,12 +8,14 @@ type TabgroupCardProps = {
 	group: SavedGroup;
 	addToSavedGroupHandler: (id: string) => void;
 	deleteSavedGroup: (id: string) => void;
+	addToOpenTabGroups: (tg: chrome.tabGroups.TabGroup) => void;
 };
 
 export default function SavedGroupCard({
 	group,
 	addToSavedGroupHandler,
 	deleteSavedGroup,
+	addToOpenTabGroups,
 }: // count,
 TabgroupCardProps) {
 	// const [count, setCount] = useState(group.count);
@@ -60,7 +62,8 @@ TabgroupCardProps) {
 				groupId,
 				updateProperties
 			);
-			// console.log(groupUpdated);
+			// console.log("updated", groupUpdated, group.tabs);
+			addToOpenTabGroups(groupUpdated);
 		} catch (error) {
 			// console.log(error);
 		}

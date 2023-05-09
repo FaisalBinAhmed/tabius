@@ -102,12 +102,15 @@ body {
 	/* background: #e0e0e0; */
 	/* box-shadow: 10px 10px 20px #181818, -10px -10px 20px #101010; */
 	box-shadow: 2px 2px 5px #181818, -2px -2px 5px #101010;
+	/* overflow: hidden; */
 }
 
 .tabgroupContainer:last-child {
 	min-height: 42px;
 	/* border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px; */
+	/* border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px; */
 }
 
 .tabgroupCard {
@@ -115,6 +118,7 @@ body {
 	/* border-radius: 2px; */
 	display: flex;
 	align-items: center;
+	/* overflow: hidden; */
 }
 .tabgroupData {
 	display: flex;
@@ -146,6 +150,8 @@ body {
 
 .tabscontainer {
 	margin-bottom: 10px;
+	background-color: rgba(255, 255, 255, 0.5);
+	/* overflow: hidden; */
 }
 
 .tabcard {
