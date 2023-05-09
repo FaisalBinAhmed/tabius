@@ -80,20 +80,24 @@ const Settings = () => {
 		// setOneStorageObject("autocollapse", autoCollapse);
 		// setOneStorageObject("regardless", regardless);
 
-		chrome.storage.sync.set(
-			{
-				groupby: groupby,
-				naming: naming,
-				regardless: regardless,
-				maximum: maximum,
-				lonely: lonely,
-				autocollapse: autocollapse,
-			},
-			function () {
-				// Update status to let user know options were saved.
-				showToastNotification("Settings Saved", "green");
-			}
-		);
+		try {
+			chrome.storage.sync.set(
+				{
+					groupby: groupby,
+					naming: naming,
+					regardless: regardless,
+					maximum: maximum,
+					lonely: lonely,
+					autocollapse: autocollapse,
+				},
+				function () {
+					// Update status to let user know options were saved.
+					showToastNotification("Settings Saved", "green");
+				}
+			);
+		} catch (error) {
+			showToastNotification("Error saving item", "red");
+		}
 	}
 
 	function toggleLonelyValue() {

@@ -48,34 +48,42 @@ export default function CustomModal({
 
 			let newCustomRules = [...customRules, newRule];
 
-			chrome.storage.sync.set(
-				{
-					customrules: newCustomRules,
-				},
-				function () {
-					setCustomRules(newCustomRules);
-					// Update status to let user know options were saved.
-					showToastNotification("New rule saved", "green");
-					setUrl("");
-					setAlias("");
-					setColor("");
-				}
-			);
+			try {
+				chrome.storage.sync.set(
+					{
+						customrules: newCustomRules,
+					},
+					function () {
+						setCustomRules(newCustomRules);
+						// Update status to let user know options were saved.
+						showToastNotification("New rule saved", "green");
+						setUrl("");
+						setAlias("");
+						setColor("");
+					}
+				);
+			} catch (error) {
+				showToastNotification("Error saving item", "red");
+			}
 		}
 	}
 
 	function deleteRule(id: string) {
 		let newArray = customRules.filter((item) => item.id !== id); // replace this with actually deleting the rule in the localstorage
 
-		chrome.storage.sync.set(
-			{
-				customrules: newArray,
-			},
-			function () {
-				setCustomRules(newArray);
-				showToastNotification("Custom rule deleted", "green");
-			}
-		);
+		try {
+			chrome.storage.sync.set(
+				{
+					customrules: newArray,
+				},
+				function () {
+					setCustomRules(newArray);
+					showToastNotification("Custom rule deleted", "green");
+				}
+			);
+		} catch (error) {
+			showToastNotification("Storage error", "red");
+		}
 	}
 
 	function editRule(
@@ -93,15 +101,20 @@ export default function CustomModal({
 		};
 
 		restArray.push(editedRule);
-		chrome.storage.sync.set(
-			{
-				customrules: restArray,
-			},
-			function () {
-				showToastNotification("Custom Rule updated.", "green");
-				setCustomRules(restArray);
-			}
-		);
+
+		try {
+			chrome.storage.sync.set(
+				{
+					customrules: restArray,
+				},
+				function () {
+					showToastNotification("Custom Rule updated.", "green");
+					setCustomRules(restArray);
+				}
+			);
+		} catch (error) {
+			showToastNotification("Error editing item", "red");
+		}
 	}
 
 	//TODO: typesafe events

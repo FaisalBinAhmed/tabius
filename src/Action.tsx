@@ -1,5 +1,5 @@
 import { render } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useContext, useEffect, useState } from "preact/hooks";
 import TabgroupCard from "./components/TabgroupCard";
 import { withBlock } from "./background/background";
 import {
@@ -14,6 +14,7 @@ import {
 } from "./components/TrafficLightButton";
 import { SavedGroup, getOneStorageItem } from "./const";
 import SavedGroupCard from "./components/SavedGroupCard";
+import ToastContextProvider, { ToastContext } from "./context/ToastContext";
 
 function handleOptionButton() {
 	if (chrome.runtime.openOptionsPage) {
@@ -47,6 +48,8 @@ const ActionPage = () => {
 	const [showSavedGroups, setShowSavedGroups] = useState(false);
 
 	const [savedGroups, setSavedGroups] = useState<SavedGroup[]>([]);
+
+	const { showToastNotification } = useContext(ToastContext);
 
 	// const [inATabGroup, setInATabGroup] = useState(false)
 
@@ -144,9 +147,12 @@ const ActionPage = () => {
 				},
 				function () {
 					setSavedGroups(newSavedGroups);
+					showToastNotification("Tab group saved", "green");
 				}
 			);
-		} catch (error) {}
+		} catch (error) {
+			showToastNotification("Error saving item", "red");
+		}
 	}
 
 	async function toggleAllGroups(shouldCollapse: boolean) {
@@ -181,14 +187,19 @@ const ActionPage = () => {
 
 		sg[gIndex].tabs.push(currentTab[0]); //the first one is the currentTab
 
-		chrome.storage.sync.set(
-			{
-				savedgroups: sg,
-			},
-			function () {
-				setSavedGroups(sg);
-			}
-		);
+		try {
+			chrome.storage.sync.set(
+				{
+					savedgroups: sg,
+				},
+				function () {
+					setSavedGroups(sg);
+					showToastNotification("Saved tab to group", "green");
+				}
+			);
+		} catch (error) {
+			showToastNotification("Error saving item", "red");
+		}
 	}
 
 	function deleteSavedGroup(id: string) {
@@ -349,4 +360,9 @@ const ActionPage = () => {
 	);
 };
 
-render(<ActionPage />, document.getElementById("action")!);
+render(
+	<ToastContextProvider>
+		<ActionPage />
+	</ToastContextProvider>,
+	document.getElementById("action")!
+);

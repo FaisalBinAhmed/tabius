@@ -77,7 +77,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 	const maximumPropmise = await getOneStorageItem("maximum");
 
-	if (maximumPropmise.maximum && parseInt(maximumPropmise.maximum) > 1) {
+	if (maximumPropmise?.maximum && parseInt(maximumPropmise.maximum) > 1) {
 		if (!newGroup) {
 			//checking if its a new group
 			const tabsNumber = await getSingleGroupNumberOfTab(
@@ -118,7 +118,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 			const originalURL = openerTabInfo?.url;
 			const newUrl = tab.pendingUrl ?? tab.url;
 			if (
-				groupByPropmise.groupby === "sd" &&
+				groupByPropmise?.groupby === "sd" &&
 				getHostname(originalURL) !== getHostname(newUrl)
 			) {
 				// console.log("true, domain didnt match");
@@ -219,7 +219,7 @@ async function getDomain(url?: string) {
 	const groupnamePropmise = await getOneStorageItem("naming"); //chrome.storage.sync.get<StorageKey>([K_NAMING_RULE]);
 	// console.log(groupnamePropmise);
 
-	switch (groupnamePropmise.naming) {
+	switch (groupnamePropmise?.naming) {
 		case "dom":
 			return justDomain();
 
@@ -315,7 +315,7 @@ chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
 	// console.log("220", removeInfo);
 
 	const lonely = await getOneStorageItem("lonely"); //chrome.storage.sync.get([K_LONELY]);
-	if (!lonely.lonely) return;
+	if (!lonely?.lonely) return;
 
 	const queryInfo = {
 		windowId: -2,
@@ -359,7 +359,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 
 	const autocollapse = await getOneStorageItem("autocollapse"); //chrome.storage.sync.get([K_AUTO_COLLAPSE]);
 
-	if (!autocollapse.autocollapse) return; //we don't have to do anything
+	if (!autocollapse?.autocollapse) return; //we don't have to do anything
 
 	//handle if current tab is already inside a tabgroup
 

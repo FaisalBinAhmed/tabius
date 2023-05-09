@@ -48,32 +48,39 @@ export default function BlockModal({
 
 			let newBlockList = [...blockedSites, newSite];
 
-			chrome.storage.sync.set(
-				{
-					blocklist: newBlockList,
-				},
-				function () {
-					setBlockedSites(newBlockList);
-					// Update status to let user know options were saved.
-					setUrl("");
-					showToastNotification("Blacklisted site saved.", "green");
-				}
-			);
+			try {
+				chrome.storage.sync.set(
+					{
+						blocklist: newBlockList,
+					},
+					function () {
+						setBlockedSites(newBlockList);
+						setUrl("");
+						showToastNotification("Blacklisted site saved.", "green");
+					}
+				);
+			} catch (error) {
+				showToastNotification("Error saving item", "red");
+			}
 		}
 	}
 
 	function deleteRule(id: string) {
 		let newArray = blockedSites.filter((item) => item.id !== id); // replace this with actually deleting the rule in the localstorage
 
-		chrome.storage.sync.set(
-			{
-				blocklist: newArray,
-			},
-			function () {
-				setBlockedSites(newArray);
-				showToastNotification("Blacklisted site deleted.", "green");
-			}
-		);
+		try {
+			chrome.storage.sync.set(
+				{
+					blocklist: newArray,
+				},
+				function () {
+					setBlockedSites(newArray);
+					showToastNotification("Blacklisted site deleted.", "green");
+				}
+			);
+		} catch (error) {
+			showToastNotification("Storage error", "red");
+		}
 	}
 
 	return (

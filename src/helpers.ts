@@ -34,19 +34,23 @@ export async function addUrlToBlocklist(url?: string) {
 
 	if (!origin) return false;
 
-	const { blocklist } = await getOneStorageItem("blocklist");
-	const newSite: BlockList = {
-		id: id,
-		blockedUrl: origin,
-	};
+	try {
+		const { blocklist } = await getOneStorageItem("blocklist");
+		const newSite: BlockList = {
+			id: id,
+			blockedUrl: origin,
+		};
 
-	let newBlockList = [...blocklist, newSite];
+		let newBlockList = [...blocklist, newSite];
 
-	chrome.storage.sync.set({
-		blocklist: newBlockList,
-	});
+		chrome.storage.sync.set({
+			blocklist: newBlockList,
+		});
 
-	return true;
+		return true;
+	} catch (error) {
+		return false;
+	}
 }
 
 export async function deleteUrlFromBlocklist(url?: string) {

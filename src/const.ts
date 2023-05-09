@@ -44,7 +44,9 @@ export type StorageKey =
 	| "savedgroups";
 
 export async function getOneStorageItem(itemKey: StorageKey) {
-	return chrome.storage.sync.get(itemKey);
+	try {
+		return chrome.storage.sync.get(itemKey);
+	} catch (error) {}
 }
 //TODO: make the return value typesafe
 
@@ -52,7 +54,9 @@ export async function setOneStorageObject(
 	itemKey: StorageKey,
 	value: boolean | number | string
 ) {
-	chrome.storage.sync.set({ [itemKey]: value });
+	try {
+		chrome.storage.sync.set({ [itemKey]: value });
+	} catch (error) {}
 }
 
 export async function getMultipleStorageItems(itemKeys: StorageKey[]) {
@@ -65,7 +69,9 @@ type StorageObject = {
 };
 
 export async function setMultipleStorageObjects(items: StorageObject[]) {
-	chrome.storage.sync.set({ ...items });
+	try {
+		chrome.storage.sync.set({ ...items });
+	} catch (error) {}
 }
 
 export type GROUP_BY = "sot" | "sd";
