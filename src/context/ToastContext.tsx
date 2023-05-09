@@ -25,14 +25,14 @@ const ToastContextProvider = ({ children }) => {
 			});
 			setToastVisible(true);
 
-			console.log("showing toast with", toast);
+			// console.log("showing toast with", toast);
 
 			setTimeout(function () {
 				setToast(); //typesafe
 				setToastVisible(false);
 			}, 2000);
 		} catch (error) {
-			console.log("show errot", error);
+			// console.log("show error", error);
 		}
 	};
 

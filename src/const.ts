@@ -101,3 +101,13 @@ export const customHint = `Please put the website URL in this format: "https://s
 					subdomain sensitive, meaning "https://en.wikipedia.com" is
 					treated differenty than "https://wikipedia.com". Duplicate entries
 					will be ignored.`;
+
+export const tabiusAscii = `
+████████╗ █████╗ ██████╗ ██╗██╗   ██╗███████╗    ██████╗     ██████╗ 
+╚══██╔══╝██╔══██╗██╔══██╗██║██║   ██║██╔════╝    ╚════██╗   ██╔═████╗
+   ██║   ███████║██████╔╝██║██║   ██║███████╗     █████╔╝   ██║██╔██║
+   ██║   ██╔══██║██╔══██╗██║██║   ██║╚════██║    ██╔═══╝    ████╔╝██║
+   ██║   ██║  ██║██████╔╝██║╚██████╔╝███████║    ███████╗██╗╚██████╔╝
+   ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚═╝ ╚═════╝ ╚══════╝    ╚══════╝╚═╝ ╚═════╝ 
+                                                                     
+`;

@@ -2,7 +2,12 @@ import { render } from "preact";
 import { useContext, useEffect, useState } from "preact/hooks";
 
 import CustomModal from "./CustomModal";
-import { GROUP_BY, GROUP_NAMING, getMultipleStorageItems } from "../const";
+import {
+	GROUP_BY,
+	GROUP_NAMING,
+	getMultipleStorageItems,
+	tabiusAscii,
+} from "../const";
 import BlockModal from "./BlockModal";
 import ToastContextProvider, { ToastContext } from "../context/ToastContext";
 
@@ -60,7 +65,7 @@ const Settings = () => {
 			"savedgroups",
 		]);
 
-		console.log(items);
+		console.log(tabiusAscii, "\n", "USER SETTINGS: \n", items);
 		setLonely(items.lonely);
 		setAutocollapse(items.autocollapse);
 		setRegardless(items.regardless);
@@ -208,8 +213,8 @@ const Settings = () => {
 				</div>
 				<p>
 					0 (default) = no restrictions ~ unlimited tabs.
-					<b>1 = no effects</b> (not applicable). 2 - 999 = maximum number of
-					tabs.
+					<b>1 = Tabius has no effects</b> (not applicable). 2 - 999 = maximum
+					number of tabs.
 				</p>
 				<div id="popuptext">
 					<label>

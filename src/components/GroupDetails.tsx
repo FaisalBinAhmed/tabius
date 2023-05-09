@@ -40,7 +40,7 @@ export default function GroupDetails({ id }: GroupDetailsProps) {
 		};
 		try {
 			const tabsInTheGroup = await chrome.tabs.query(queryInfo);
-			console.log(tabsInTheGroup);
+			// console.log(tabsInTheGroup);
 			setGDetails(tabsInTheGroup);
 		} catch (error) {}
 	}
