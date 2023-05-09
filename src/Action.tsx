@@ -205,15 +205,19 @@ const ActionPage = () => {
 	function deleteSavedGroup(id: string) {
 		let sg = savedGroups.filter((item) => item.id !== id);
 
-		chrome.storage.sync.set(
-			{
-				savedgroups: sg,
-			},
-			function () {
-				setSavedGroups(sg);
-				// set_status(" deleted.");
-			}
-		);
+		try {
+			chrome.storage.sync.set(
+				{
+					savedgroups: sg,
+				},
+				function () {
+					setSavedGroups(sg);
+					// set_status(" deleted.");
+				}
+			);
+		} catch (error) {
+			showToastNotification("Storage error", "red");
+		}
 	}
 
 	async function closeTabGroup(id: number) {
