@@ -16,7 +16,7 @@ export default function CustomModal({
 }) {
 	const [url, setUrl] = useState("");
 	const [alias, setAlias] = useState("");
-	const [color, setColor] = useState<chrome.tabGroups.ColorEnum>(""); //random??
+	const [color, setColor] = useState<chrome.tabGroups.ColorEnum | "">(""); //random??
 
 	const [customRules, setCustomRules] = useState<CustomRule[]>([]);
 
@@ -43,7 +43,7 @@ export default function CustomModal({
 				id: id,
 				url: url,
 				alias: alias,
-				color: color,
+				color: color, // "" | undefined = random
 			};
 
 			let newCustomRules = [...customRules, newRule];
@@ -119,20 +119,20 @@ export default function CustomModal({
 
 	//TODO: typesafe events
 	function onUrlChange(e) {
-		if (e.target.value) {
-			setUrl(e.target.value);
-		}
+		// if (e.target.value) {
+		setUrl(e.target.value);
+		// }
 	}
 	function onAliasChange(e) {
-		if (e.target.value) {
-			setAlias(e.target.value);
-		}
+		// if (e.target.value) {
+		setAlias(e.target.value);
+		// }
 	}
 
 	function handleColor(e) {
-		if (e.target.value) {
-			setColor(e.target.value);
-		}
+		// if (e.target.value) {
+		setColor(e.target.value);
+		// }
 	}
 
 	return (
@@ -240,7 +240,9 @@ function CustomRuleCard({
 }) {
 	const [url, setUrl] = useState(rule.url);
 	const [alias, setAlias] = useState(rule.alias);
-	const [color, setColor] = useState<chrome.tabGroups.ColorEnum>(rule.color); //random??
+	const [color, setColor] = useState<chrome.tabGroups.ColorEnum | "">(
+		rule.color ?? ""
+	); //random??
 
 	const [showEdit, setShowEdit] = useState(false);
 
@@ -249,20 +251,20 @@ function CustomRuleCard({
 	//TODO: type safe events
 
 	function onUrlChange(e) {
-		if (e.target.value) {
-			setUrl(e.target.value);
-		}
+		// if (e.target.value) {
+		setUrl(e.target.value);
+		// }
 	}
 	function onAliasChange(e) {
-		if (e.target.value) {
-			setAlias(e.target.value);
-		}
+		// if (e.target.value) {
+		setAlias(e.target.value);
+		// }
 	}
 
 	function handleColor(e) {
-		if (e.target.value) {
-			setColor(e.target.value);
-		}
+		// if (e.target.value) {
+		setColor(e.target.value);
+		// }
 	}
 
 	function confirmEdit() {
@@ -270,10 +272,10 @@ function CustomRuleCard({
 			showToastNotification("Please enter a valid url.", "red");
 			return;
 		}
-		if (!alias.length) {
-			showToastNotification("Alias can't be empty.", "red");
-			return;
-		}
+		// if (!alias.length) {
+		// 	showToastNotification("Alias can't be empty.", "red");
+		// 	return;
+		// }
 		//everything should be valid here:
 
 		editRule(rule.id, url, alias, color); //should be newcolor TODO
