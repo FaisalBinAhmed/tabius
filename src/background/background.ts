@@ -1,6 +1,6 @@
 // Background Script Code
 
-import { getOneStorageItem } from "../const";
+import { GROUP_NAMING, getOneStorageItem } from "../const";
 import { isTheURLNative } from "../helpers";
 
 chrome.tabs.onCreated.addListener(async (tab) => await createTab(tab));
@@ -216,9 +216,12 @@ async function getDomain(url?: string) {
 	const fragments = domain.split(".");
 	// console.log("url pieces", fragments);
 	// let groupname = justDomain();
-	const groupnamePropmise = await getOneStorageItem("naming"); //chrome.storage.sync.get<StorageKey>([K_NAMING_RULE]);
+	const groupnamePropmise = (await getOneStorageItem("naming")) as {
+		naming: GROUP_NAMING;
+	}; //chrome.storage.sync.get<StorageKey>([K_NAMING_RULE]);
 	// console.log(groupnamePropmise);
 
+	//TODO: Typesafe this
 	switch (groupnamePropmise?.naming) {
 		case "dom":
 			return justDomain();
@@ -230,6 +233,9 @@ async function getDomain(url?: string) {
 
 		case "subdomtld":
 			return domain;
+
+		case "nameless":
+			return "";
 
 		default:
 			return justDomain();
