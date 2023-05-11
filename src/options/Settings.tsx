@@ -112,6 +112,7 @@ const Settings = () => {
 
 	function handleMaximum(e) {
 		if (e.target.value) {
+			// handle 0 TODO: ⚠️
 			setMaximum(parseInt(e?.target?.value));
 		}
 	}
