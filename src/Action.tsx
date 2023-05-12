@@ -243,16 +243,25 @@ const ActionPage = () => {
 	}
 
 	function deleteSavedGroup(id: string) {
-		let sg = savedGroups.filter((item) => item.id !== id);
+		//removing the id, from id list
+		let sgids = savedGroupIds.filter((item) => item !== id);
 
+		//removing the group from group list
+		let sg = savedGroups.filter((item) => item.id !== id);
 		try {
 			chrome.storage.sync.set(
 				{
-					savedgroups: sg,
+					savedgroupids: sgids,
 				},
 				function () {
-					setSavedGroups(sg);
+					setSavedGroupIds(sgids);
 					// set_status(" deleted.");
+					//now I have to actually delete the savedGroup
+
+					chrome.storage.sync.remove(id, () => {
+						//oh no callback hell
+						setSavedGroups(sg);
+					});
 				}
 			);
 		} catch (error) {
