@@ -217,7 +217,7 @@ const ActionPage = () => {
 	async function addCurrentTabToSavedGroup(id: string) {
 		//the id is the groupId saved in storage
 
-		let sg = [...savedGroups];
+		let sg = [...savedGroups]; //getting all the current saved groups in view
 
 		let gIndex = sg.findIndex((item) => item.id === id);
 
@@ -230,7 +230,7 @@ const ActionPage = () => {
 		try {
 			chrome.storage.sync.set(
 				{
-					savedgroups: sg,
+					[id]: sg[gIndex],
 				},
 				function () {
 					setSavedGroups(sg);
