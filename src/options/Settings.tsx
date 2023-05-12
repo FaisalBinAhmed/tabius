@@ -63,9 +63,12 @@ const Settings = () => {
 			"naming",
 			"regardless",
 			"savedgroups",
+			"savedgroupids",
 		]);
 
-		console.log(tabiusAscii, "\n", "USER SETTINGS: \n", items);
+		console.log(tabiusAscii, "\n", "USER SETTINGS: \n");
+		chrome.storage.sync.get(console.log);
+
 		setLonely(items.lonely);
 		setAutocollapse(items.autocollapse);
 		setRegardless(items.regardless);

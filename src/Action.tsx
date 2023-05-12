@@ -86,7 +86,10 @@ const ActionPage = () => {
 			sgids.savedgroupids.forEach(async (id) => {
 				const savedGroup = await chrome.storage.sync.get(id);
 				console.log(savedGroup);
-				// setSavedGroups((prev) => prev.concat(savedGroup[id]));
+
+				if (savedGroup[id]) {
+					setSavedGroups((prev) => prev.concat(savedGroup[id]));
+				}
 			});
 		}
 
@@ -172,6 +175,7 @@ const ActionPage = () => {
 			);
 		} catch (error) {
 			showToastNotification("Error saving item", "red");
+			console.log(error);
 		}
 	}
 
@@ -186,7 +190,9 @@ const ActionPage = () => {
 			});
 
 			setSavedGroupIds(newSavedGroupIds);
-		} catch (error) {}
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async function toggleAllGroups(shouldCollapse: boolean) {
