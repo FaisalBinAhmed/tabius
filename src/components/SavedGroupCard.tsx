@@ -83,6 +83,12 @@ TabgroupCardProps) {
 		return createdTabIds;
 	}
 
+	async function deleteTabFromSavedGroup(id?: number) {
+		if (!id) return;
+
+		//TODO ⚠️
+	}
+
 	return (
 		<div
 			className="tabgroupContainer"
@@ -157,7 +163,7 @@ TabgroupCardProps) {
 									tooltip="Open this tab separately"
 								/>
 								<TrafficLightButton
-									onClick={() => {}}
+									onClick={() => deleteTabFromSavedGroup(tab.id)}
 									icon="/icons/trash.svg"
 									color="#fe5f58"
 								/>
