@@ -47,6 +47,7 @@ const ActionPage = () => {
 
 	const [showSavedGroups, setShowSavedGroups] = useState(false);
 
+	const [savedGroupIds, setSavedGroupIds] = useState<string[]>([]);
 	const [savedGroups, setSavedGroups] = useState<SavedGroup[]>([]);
 
 	const { showToastNotification } = useContext(ToastContext);
@@ -72,10 +73,26 @@ const ActionPage = () => {
 	}
 
 	async function fetchSavedTabGroups() {
-		const sg = await getOneStorageItem("savedgroups");
-		if (sg?.savedgroups?.length) {
-			setSavedGroups(sg.savedgroups); //TODO type safe this
+		//first I fetch the uuids of the saved groups
+		const sgids = (await getOneStorageItem("savedgroupids")) as {
+			savedgroupids: string[];
+		};
+
+		if (Array.isArray(sgids.savedgroupids) && sgids.savedgroupids.length) {
+			setSavedGroupIds(sgids.savedgroupids);
+
+			//now we fetch the actual saved groups
+
+			sgids.savedgroupids.forEach(async (id) => {
+				const savedGroup = await chrome.storage.sync.get(id);
+				console.log(savedGroup);
+				// setSavedGroups((prev) => prev.concat(savedGroup[id]));
+			});
 		}
+
+		// if (sg?.savedgroups?.length) {
+		// 	setSavedGroups(sg.savedgroups); //TODO type safe this
+		// }
 	}
 
 	async function fetchBlockInfo() {
@@ -131,28 +148,45 @@ const ActionPage = () => {
 		try {
 			const tabsInTheGroup = await chrome.tabs.query(queryInfo);
 
-			let newGroupToSave: SavedGroup = {
-				id: generateId(), //uuid for storage
+			const uuid = generateId();
+
+			const newGroupToSave: SavedGroup = {
+				id: uuid, //uuid for storage. DO I NEED THIS? the key is already this value
 				chromeId: id, //saving the original groupId (number) for future reference
 				title: name,
 				color: color,
 				tabs: tabsInTheGroup,
 			};
 
-			let newSavedGroups = [...savedGroups, newGroupToSave];
+			// let newSavedGroups = [...savedGroups, newGroupToSave];
 
 			chrome.storage.sync.set(
 				{
-					savedgroups: newSavedGroups,
+					[uuid]: newGroupToSave,
 				},
 				function () {
-					setSavedGroups(newSavedGroups);
+					setSavedGroups((prev) => prev.concat(newGroupToSave)); //updating the state with new group
+					saveAndUpdateUUID(uuid);
 					showToastNotification("Tab group saved", "green");
 				}
 			);
 		} catch (error) {
 			showToastNotification("Error saving item", "red");
 		}
+	}
+
+	async function saveAndUpdateUUID(uuid: string) {
+		let newSavedGroupIds: string[] = [...savedGroupIds, uuid];
+
+		//saving the ids first
+		//8KB limit / 36 bytes uuid = 227 entries, should be enough
+		try {
+			chrome.storage.sync.set({
+				savedgroupids: newSavedGroupIds,
+			});
+
+			setSavedGroupIds(newSavedGroupIds);
+		} catch (error) {}
 	}
 
 	async function toggleAllGroups(shouldCollapse: boolean) {

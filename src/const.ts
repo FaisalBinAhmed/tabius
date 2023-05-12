@@ -47,7 +47,8 @@ export type StorageKey =
 	| "groupby"
 	| "naming"
 	| "regardless"
-	| "savedgroups";
+	| "savedgroups"
+	| "savedgroupids";
 
 export async function getOneStorageItem(itemKey: StorageKey) {
 	try {
