@@ -126,11 +126,13 @@ export default function BlockModal({
 					<h3>Block list</h3>
 					<div id="blockcontainer">
 						{blockedSites?.length ? (
-							blockedSites.map((site) => (
+							blockedSites.map((site, index) => (
 								<div key={site.id} class="blockcard">
 									<div className="blockcardDetails">
-										{/* <span style={{ opacity: "50%" }}>{index + 1} </span> */}
-										<span>{site.blockedUrl}</span>
+										<h1>{index + 1}</h1>
+										<span style={{ paddingLeft: "5px" }}>
+											{site.blockedUrl}
+										</span>
 									</div>
 									<div class="trafficLights">
 										<TrafficLightButton

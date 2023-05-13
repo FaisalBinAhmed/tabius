@@ -290,13 +290,14 @@ function CustomRuleCard({
 		setUrl(rule.url);
 		setAlias(rule.alias);
 		setShowEdit(false);
+		setColor(rule.color ?? "");
 	}
 
 	return (
 		<div
 			class="rulecard"
 			style={{
-				backgroundColor: rule.color ? Colors[rule.color] : "#c2c3c7",
+				backgroundColor: rule.color ? Colors[rule.color] : "#fff",
 			}}>
 			<div className="blockcardDetails" style={{ opacity: showEdit ? 1 : 0.8 }}>
 				<h1>{index}</h1>
@@ -318,6 +319,17 @@ function CustomRuleCard({
 					onInput={onAliasChange}
 					readOnly={!showEdit}
 				/>
+
+				{showEdit && (
+					<select id="colormodifier" value={color} onChange={handleColor}>
+						<option value="">Random</option>
+						{Object.entries(Colors).map(([k, v]) => (
+							<option value={k} style={{ backgroundColor: v }}>
+								{k}
+							</option>
+						))}
+					</select>
+				)}
 			</div>
 			<div class="trafficLights">
 				{showEdit ? (

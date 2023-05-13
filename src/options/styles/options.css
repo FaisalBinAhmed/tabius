@@ -190,7 +190,7 @@ input[type="checkbox"] {
 	background-color: #121212;
 	color: #c2c3c7;
 	margin: auto;
-	padding: 5px;
+	padding: 10px;
 	width: 50rem;
 }
 
@@ -198,7 +198,7 @@ input[type="checkbox"] {
 	background-color: #121212;
 	margin: auto;
 	color: #c2c3c7;
-	padding: 5px;
+	padding: 10px;
 	width: 50rem;
 }
 
@@ -251,6 +251,15 @@ input[type="checkbox"] {
 	font-size: medium;
 }
 
+#colormodifier {
+	min-height: 42px;
+	font-size: medium;
+	background-color: transparent;
+	border: unset;
+	/* border-radius: 2px; */
+	/* color: #fff; */
+}
+
 #colors {
 	min-height: 42px;
 	font-size: medium;
@@ -259,6 +268,7 @@ input[type="checkbox"] {
 	border-radius: 2px;
 	color: #fff;
 }
+
 .inputblock > label {
 	font-size: smaller;
 }
@@ -294,11 +304,12 @@ input[type="checkbox"] {
 }
 
 .blockcard {
-	color: #fff;
+	color: #000;
 }
 
 .blockcard:nth-child(2) {
 	background-color: #242424;
+	color: #fff;
 }
 
 .blockcardDetails {
