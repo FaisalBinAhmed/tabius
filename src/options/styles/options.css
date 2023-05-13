@@ -270,6 +270,10 @@ input[type="checkbox"] {
 	line-height: 42px;
 }
 
+#rulescontainer {
+	overflow: scroll;
+}
+
 .rulecard,
 .blockcard {
 	height: 42px;
@@ -299,6 +303,8 @@ input[type="checkbox"] {
 
 .blockcardDetails {
 	flex: 1;
+	display: flex;
+	align-items: center;
 }
 
 .rulecard input[type="text"] {

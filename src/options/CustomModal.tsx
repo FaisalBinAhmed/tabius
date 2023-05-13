@@ -206,9 +206,10 @@ export default function CustomModal({
 					<h3>Modify Existing Rules</h3>
 					<div id="rulescontainer">
 						{customRules?.length ? (
-							customRules.map((rule) => (
+							customRules.map((rule, index) => (
 								<CustomRuleCard
 									key={rule.id}
+									index={index + 1}
 									rule={rule}
 									editRule={editRule}
 									deleteRule={deleteRule}
@@ -225,10 +226,12 @@ export default function CustomModal({
 }
 
 function CustomRuleCard({
+	index,
 	rule,
 	editRule,
 	deleteRule,
 }: {
+	index: number;
 	rule: CustomRule;
 	editRule: (
 		id: string,
@@ -296,9 +299,10 @@ function CustomRuleCard({
 				backgroundColor: rule.color ? Colors[rule.color] : "#c2c3c7",
 			}}>
 			<div className="blockcardDetails" style={{ opacity: showEdit ? 1 : 0.8 }}>
+				<h1>{index}</h1>
 				<input
 					type="text"
-					name="groupsite"
+					size={42}
 					value={url}
 					onInput={onUrlChange}
 					readOnly={!showEdit}
@@ -310,7 +314,6 @@ function CustomRuleCard({
 
 				<input
 					type="text"
-					name="groupsite"
 					value={alias}
 					onInput={onAliasChange}
 					readOnly={!showEdit}
@@ -324,7 +327,7 @@ function CustomRuleCard({
 							icon="/icons/save-floppy-disk.svg"
 							onClick={confirmEdit}
 							color="#28c840"
-							title="Save"
+							title=" Save"
 						/>
 						<TrafficLightButton
 							tooltip="Cancel"
