@@ -150,7 +150,7 @@ body {
 
 .tabscontainer {
 	margin-bottom: 10px;
-	background-color: rgba(255, 255, 255, 0.5);
+	/* background-color: rgba(255, 255, 255, 0.5); */
 	/* overflow: hidden; */
 }
 
@@ -166,9 +166,11 @@ body {
 	height: 30px;
 	/* margin: 0 5px 0 5px; */
 	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+	background-color: rgba(255, 255, 255, 0.5);
 }
 .tabcard:last-child {
 	border-bottom: unset;
+	border-radius: 0 0 5px 5px;
 }
 
 .tabdetails {
