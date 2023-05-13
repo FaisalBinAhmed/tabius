@@ -242,6 +242,32 @@ const ActionPage = () => {
 		}
 	}
 
+	async function removeATabFromSavedGroup(groupId: string, tabId: number) {
+		//the id is the groupId saved in storage
+
+		let sg = [...savedGroups]; //getting all the current saved groups in view
+
+		let gIndex = sg.findIndex((item) => item.id === groupId); //group to be modified
+
+		const newTabArray = sg[gIndex].tabs.filter((tab) => tab.id !== tabId); //removing the said tab
+
+		sg[gIndex].tabs = newTabArray; //replacing the old tabs arraya
+
+		try {
+			chrome.storage.sync.set(
+				{
+					[groupId]: sg[gIndex],
+				},
+				function () {
+					setSavedGroups(sg);
+					showToastNotification("Tab deleted from storage", "green");
+				}
+			);
+		} catch (error) {
+			showToastNotification("Error deleting item", "red");
+		}
+	}
+
 	function deleteSavedGroup(id: string) {
 		//removing the id, from id list
 		let sgids = savedGroupIds.filter((item) => item !== id);
@@ -379,6 +405,7 @@ const ActionPage = () => {
 									addToSavedGroupHandler={addCurrentTabToSavedGroup}
 									deleteSavedGroup={deleteSavedGroup}
 									addToOpenTabGroups={addToOpenTabGroups}
+									deleteATabHandler={removeATabFromSavedGroup}
 								/>
 							))}
 						</div>
