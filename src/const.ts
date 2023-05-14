@@ -102,7 +102,7 @@ export const blockHint = `Please put the website URL in this format: "https://so
 					blacklisting. The rules are applicable when you open new tabs from
 					these websites - in other words - when they are the{" "}
 					original tab. The rules are also subdomain sensitive,
-					meaning "https://en.wikipedia.com" is treated differenty than
+					meaning "https://en.wikipedia.com" is treated differently than
 					"https://wikipedia.com".`;
 
 export const customHint = `Please put the website URL in this format: "https://somewebsite.com"
@@ -111,8 +111,8 @@ export const customHint = `Please put the website URL in this format: "https://s
 					applicable when you open new tabs from these websites - in other words
 					- when they are the
 					original tab. The rules are also
-					subdomain sensitive, meaning "https://en.wikipedia.com" is
-					treated differenty than "https://wikipedia.com". Duplicate entries
+					subdomain sensitive, meaning "https://www.wikipedia.com" is
+					treated differently than "https://wikipedia.com". Duplicate entries
 					will be ignored.`;
 
 export const tabiusAscii = `
