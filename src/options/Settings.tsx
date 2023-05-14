@@ -158,9 +158,9 @@ const Settings = () => {
 						</a>
 						<a
 							class="headerbutton"
-							href="https://forms.gle/9wBKmTuYpxfrJxGY9"
+							href="https://chrome.google.com/webstore/detail/tabius-tab-grouping-assis/enceimdjnaccoeikjobaeicfodlfnijp"
 							target="_blank">
-							&#128172; Send Feedback
+							&#128172; Rate/Review
 						</a>
 					</div>
 				</div>
