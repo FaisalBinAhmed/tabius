@@ -308,7 +308,7 @@ input[type="checkbox"] {
 	color: #000;
 }
 
-.blockcard:nth-child(2) {
+.blockcard:nth-child(even) {
 	background-color: #242424;
 	color: #fff;
 }

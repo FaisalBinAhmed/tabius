@@ -139,8 +139,8 @@ const Settings = () => {
 					<div id="logocontainer">
 						<img src="/icon.png" width="128px" height="128px" />
 						<div id="textcontainer">
-							<div id="title">Tabius</div>
-							<div id="subtitle">Tab Grouping Assistant</div>
+							<div id="title">Tabius 2</div>
+							<div id="subtitle">Automatic Tab Grouping Assistant</div>
 						</div>
 					</div>
 					<div class="promocontainer">
