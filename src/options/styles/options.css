@@ -20,7 +20,7 @@ option {
 	cursor: pointer;
 	/* font-family: "Courier New", Courier, monospace; */
 	font-size: large;
-	padding-top: 10px;
+	margin-top: 10px;
 }
 
 #settingsmain {
@@ -60,8 +60,8 @@ option {
 	border-radius: 2px;
 	font-size: medium;
 	padding: 5px;
-	background-color: transparent;
-	color: #fff;
+	background-color: inherit;
+	color: inherit;
 }
 #maximum {
 	border-radius: 3px;

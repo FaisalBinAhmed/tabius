@@ -1,6 +1,6 @@
 {
 	"manifest_version": 3,
-	"name": "Tabius 2",
+	"name": "Tabius - Automatic Tab Grouping Assistant",
 	"short_name": "Tabius",
 	"description": "An Automatic Tab Grouping Extension for Your Browser.",
 	"version": "2.0",
@@ -14,7 +14,7 @@
 	},
 	"content_scripts": [],
 	"action": {
-		"default_title": "Current Tab Groups",
+		"default_title": "Tab Groups",
 		"default_popup": "src/action.html"
 	},
 	"options_ui": {

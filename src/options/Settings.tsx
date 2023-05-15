@@ -201,7 +201,7 @@ const Settings = () => {
 						<option value="dom">domain</option>
 						<option value="subdom">subdomain.domain</option>
 						<option value="subdomtld">subdomain.domain.tld</option>
-						<option value="nameless">Nameless (no name)</option>
+						<option value="nameless">nameless (no name)</option>
 					</select>
 				</div>
 				<p>
