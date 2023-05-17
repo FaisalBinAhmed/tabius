@@ -281,7 +281,7 @@ function CustomRuleCard({
 		// }
 		//everything should be valid here:
 
-		editRule(rule.id, url, alias, color); //should be newcolor TODO
+		editRule(rule.id, url, alias, color); // is "" set it uses random color as it is falsy. TODO: typesafe
 		setShowEdit(false);
 	}
 

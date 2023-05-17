@@ -87,8 +87,6 @@ TabgroupCardProps) {
 
 	async function deleteTabFromSavedGroup(id?: number) {
 		if (!id) return;
-
-		//TODO ⚠️
 		deleteATabHandler(group.id, id);
 	}
 

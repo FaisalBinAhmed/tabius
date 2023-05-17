@@ -221,7 +221,6 @@ async function getDomain(url?: string) {
 	}; //chrome.storage.sync.get<StorageKey>([K_NAMING_RULE]);
 	// console.log(groupnamePropmise);
 
-	//TODO: Typesafe this
 	switch (groupnamePropmise?.naming) {
 		case "dom":
 			return justDomain();

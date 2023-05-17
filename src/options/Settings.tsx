@@ -38,8 +38,6 @@ const Settings = () => {
 
 	const { showToastNotification } = useContext(ToastContext);
 
-	//TODO: convert it to its own hook
-
 	function toggleCustomModal() {
 		setCrVisible((prev) => !prev);
 	}
@@ -115,7 +113,7 @@ const Settings = () => {
 
 	function handleMaximum(e) {
 		if (e.target.value) {
-			// handle 0 TODO: ⚠️
+			// handle 0 TODO: HANDLED BY Input, checked
 			setMaximum(parseInt(e?.target?.value));
 		}
 	}
