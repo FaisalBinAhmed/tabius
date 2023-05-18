@@ -1,6 +1,6 @@
 # Tabius - Automatic Tab Grouping Assistant 
+### current version: 2.0
 
-## current version: 2.0
 publised at [Chrome Web Store](https://chrome.google.com/webstore/detail/tabius-automatic-tab-grou/enceimdjnaccoeikjobaeicfodlfnijp?hl=en) and [Microsoft Store](https://microsoftedge.microsoft.com/addons/detail/tabius-tab-grouping-ass/filcmnpmbooeiloehikfjlligcgnnibb)
 
 
@@ -28,5 +28,16 @@ The extension is packed with useful features like:
 
 I created this extension from my need. I use tab groups all the time and the extension helps enhance this feature.
 
+## Contribution guide
+
+The extension is made with Preact and Vite bundler.
+To start, first clone the repo and run `npm install` in the project directory. 
+Then run `npm run build` to build the extension. The dist folder will contain all the relevant bits after this step.
+
+To install in your browser, go to your Chrome/Edge (or any Chromium based browsers) Extension page and click on `Load Unpacked` and then select the `dist` folder.
+The extension is good to go.
 
 
+Please create an issue first before you make a pull request.
+
+The goal of this extension is to be as simple as possible while providing the best tab grouping experience.
