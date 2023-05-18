@@ -1,23 +1,32 @@
-# Chrome-Extension-Preact-Vite-Manifest-3 (CEPV)
+# Tabius - Automatic Tab Grouping Assistant 
+
+## current version: 2.0
+publised at [Chrome Web Store](https://chrome.google.com/webstore/detail/tabius-automatic-tab-grou/enceimdjnaccoeikjobaeicfodlfnijp?hl=en) and [Microsoft Store](https://microsoftedge.microsoft.com/addons/detail/tabius-tab-grouping-ass/filcmnpmbooeiloehikfjlligcgnnibb)
 
 
-![CEPV Icon](/public/icon.png "CEPV Icon")
+![CEPV Icon](/public/icon.png "Tabius Icon")
 
-This is a Chrome Extension boilerplate with Preact and Vite bundler support out of the box.
-The extension is targeted for manifest version 3. This should make it futureproof for newer extension development.
 
-The extension includes:
+An Automatic Tab Grouping Extension for Your Browser.
+Tabius is a customizable and easy to use Tab Grouping assistant for Chrome.
 
-- Preact based Action Page (popup that appears when user clicks on the extension icon from broswer toolbar)
-- Preact based Options UI (Extension settings page)
-- Typescript-native
-- Intellisense support for Chrome APIs
-- And many more..
+If you use tab grouping or couldn't use it due to lack of options, Tabius is a must have extension for you.
+The extension is packed with useful features like:
 
-To start, clone the project and run `npm install` to install all dependencies. Finally, run `npm build` to run the app. This command should build/bundle everything in the `dist` folder.
+- Automatically create new tab groups when you open a link in a new tab.
+- Auto Collapse inactive tab groups.
+- Limit the browser to only create groups if the new tab matches the original tab's domain.
+- Create custom tab grouping rules: always create tab groups with a specific name and color from your favorite websites!
+- Save your favorite tab groups and restore them for later use!
+- Don't want to create tab groups from a specific site? Create a blacklist from the settings or add the site to the blacklist right from the toolbar!
+- Option to close an existing tab group when there is only 1 tab left in it.
+- Limit maximum number of tabs allowed in a group.
+- Automatically name tab groups based on domain/subdomain or the full URL.
+- View current tab groups and act upon them by clicking on the extension icon right from the toolbar.
+- Sync all your settings, tab groups, and custom lists with browser.
+- ..and many more features.
 
-From Chrome/Microsoft Edge, go to Extensions page, turn on Developer Mode, and then load unpacked. Select the dist folder as the source of the extension, this should install the app in the browser.
+I created this extension from my need. I use tab groups all the time and the extension helps enhance this feature.
 
-Try editing the `src/Action.tsx` and `src/options/Settings.tsx` files and see the changes reflect automatically.
 
-Feedback/Discussions and pull requests are welcome. :)
+
