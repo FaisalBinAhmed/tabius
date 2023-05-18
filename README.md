@@ -2,12 +2,14 @@
 
 ### Current version: 2.0
 
-Publised at [Chrome Web Store](https://chrome.google.com/webstore/detail/tabius-automatic-tab-grou/enceimdjnaccoeikjobaeicfodlfnijp?hl=en) and [Microsoft Store](https://microsoftedge.microsoft.com/addons/detail/tabius-tab-grouping-ass/filcmnpmbooeiloehikfjlligcgnnibb)
+Published at [Chrome Web Store](https://chrome.google.com/webstore/detail/tabius-automatic-tab-grou/enceimdjnaccoeikjobaeicfodlfnijp?hl=en) and [Microsoft Store](https://microsoftedge.microsoft.com/addons/detail/tabius-tab-grouping-ass/filcmnpmbooeiloehikfjlligcgnnibb)
 
 ![Tabius Icon](/public/icon.png "Tabius Icon")
 
 An Automatic Tab Grouping Extension for Your Browser.
 Tabius is a customizable and easy to use Tab Grouping assistant for Chrome.
+
+![Tabius Features](/tabius-bento.png "Tabius Features")
 
 If you use tab grouping or couldn't use it due to lack of options, Tabius is a must have extension for you.
 The extension is packed with useful features like:
