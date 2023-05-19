@@ -216,7 +216,9 @@ export default function CustomModal({
 								/>
 							))
 						) : (
-							<p>No Blacklisting rules yet. Blacklist a specific site above.</p>
+							<p>
+								No Custom rules yet. Create a rule for a specific site above.
+							</p>
 						)}
 					</div>
 				</div>
