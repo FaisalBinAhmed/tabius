@@ -3,7 +3,6 @@
 	font-weight: bold;
 	flex: 1;
 	color: #c2c3c7;
-	/* font-family: "Courier New", Courier, monospace; */
 }
 
 .trafficLights {
@@ -55,8 +54,5 @@
 	line-height: 21px;
 	font-size: medium;
 	padding: 5px;
-	/* background-color: white; */
-	/* border: 1px solid black; */
 	border-radius: 5px;
-	/* visibility: hidden; */
 }
