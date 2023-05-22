@@ -156,7 +156,7 @@ const Settings = () => {
 						</a>
 						<a
 							class="headerbutton"
-							href="https://chrome.google.com/webstore/detail/tabius-tab-grouping-assis/enceimdjnaccoeikjobaeicfodlfnijp"
+							href="https://microsoftedge.microsoft.com/addons/detail/tabius-tab-grouping-ass/filcmnpmbooeiloehikfjlligcgnnibb"
 							target="_blank">
 							&#128172; Rate/Review
 						</a>

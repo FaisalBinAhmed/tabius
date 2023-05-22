@@ -27,7 +27,7 @@ function handleOptionButton() {
 function handleRatingButton() {
 	// check if it"s chrome or edge
 	window.open(
-		"https://chrome.google.com/webstore/detail/tabius-tab-grouping-assis/enceimdjnaccoeikjobaeicfodlfnijp"
+		"https://microsoftedge.microsoft.com/addons/detail/tabius-tab-grouping-ass/filcmnpmbooeiloehikfjlligcgnnibb"
 	);
 }
 
