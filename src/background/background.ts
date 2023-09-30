@@ -37,6 +37,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 	//this options is used to create a new tab group down the road
 
+	//TODO: fix the type warning
 	const options: chrome.tabs.GroupOptions = {
 		tabIds: [tab.id, tab.openerTabId], //creates a new tab group with the new tab and the opener tab
 	};
@@ -167,7 +168,8 @@ async function createTab(newtab: chrome.tabs.Tab) {
 				} else {
 					//we choose something dependingn on the domain rule
 					tabgroupName = await getDomain(
-						openerTabInfo?.pendingUrl ?? openerTabInfo?.url
+						openerTabInfo?.pendingUrl ?? openerTabInfo?.url,
+						openerTabInfo
 					); //getting original tab's url and checking if it's pending
 				}
 
@@ -185,11 +187,11 @@ async function createTab(newtab: chrome.tabs.Tab) {
 				}
 				// updating the group after creation
 				try {
-					const groupUpdated = await chrome.tabGroups.update(
+					const _groupUpdated = await chrome.tabGroups.update(
 						groupId,
 						updateProperties
 					);
-					// console.log(groupUpdated);
+					// console.log(_groupUpdated);
 				} catch (error) {
 					// console.log(error, groupId, tabgroupName);
 				}
@@ -207,7 +209,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 	}
 }
 
-async function getDomain(url?: string) {
+async function getDomain(url?: string, openerTab?: chrome.tabs.Tab) {
 	if (!url) {
 		return;
 	}
@@ -236,6 +238,9 @@ async function getDomain(url?: string) {
 		case "nameless":
 			return "";
 
+		case "title":
+			return openerTab?.title ? getOgSiteTitle(openerTab) : justDomain(); //in case the title is empty, we return the domain
+
 		default:
 			return justDomain();
 	}
@@ -246,6 +251,12 @@ async function getDomain(url?: string) {
 		}
 		return fragments[0];
 	}
+}
+
+function getOgSiteTitle(tab: chrome.tabs.Tab) {
+	//have to limit the title to some chars in future version?
+	//currently Chrome will truncate it anyway
+	return tab.title;
 }
 
 export function getHostname(url?: string) {

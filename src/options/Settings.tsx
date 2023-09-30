@@ -199,6 +199,7 @@ const Settings = () => {
 						<option value="dom">domain</option>
 						<option value="subdom">subdomain.domain</option>
 						<option value="subdomtld">subdomain.domain.tld</option>
+						<option value="title">Group opener's title</option>
 						<option value="nameless">nameless (no name)</option>
 					</select>
 				</div>

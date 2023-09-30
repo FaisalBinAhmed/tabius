@@ -35,6 +35,7 @@ export async function addUrlToBlocklist(url?: string) {
 	if (!origin) return false;
 
 	try {
+		//todo: fix the type warning
 		const { blocklist } = await getOneStorageItem("blocklist");
 		const newSite: BlockList = {
 			id: id,
@@ -57,6 +58,7 @@ export async function deleteUrlFromBlocklist(url?: string) {
 	if (!url) return false;
 
 	try {
+		//todo: fix the type warning
 		const { blocklist } = await getOneStorageItem("blocklist"); //chrome.storage.sync.get([K_BLOCK_LIST]);
 		const rules: BlockList[] = blocklist?.filter(
 			(item: BlockRule) => getHostname(item.blockedUrl) !== getHostname(url)
