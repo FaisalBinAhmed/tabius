@@ -3,7 +3,7 @@
 	"name": "Tabius - Automatic Tab Grouping Assistant",
 	"short_name": "Tabius",
 	"description": "An Automatic Tab Grouping Extension for Your Browser.",
-	"version": "2.0",
+	"version": "2.0.1",
 	"author": "Faisal Ahmed",
 	"background": {
 		"service_worker": "assets/background.js",

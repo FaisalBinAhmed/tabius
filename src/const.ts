@@ -82,7 +82,12 @@ export async function setMultipleStorageObjects(items: StorageObject[]) {
 }
 
 export type GROUP_BY = "sot" | "sd";
-export type GROUP_NAMING = "dom" | "subdom" | "subdomtld" | "nameless";
+export type GROUP_NAMING =
+	| "dom"
+	| "subdom"
+	| "subdomtld"
+	| "nameless"
+	| "title";
 
 export type BlockList = {
 	id: string;
