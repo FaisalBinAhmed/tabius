@@ -37,9 +37,8 @@ async function createTab(newtab: chrome.tabs.Tab) {
 
 	//this options is used to create a new tab group down the road
 
-	//TODO: fix the type warning
 	const options: chrome.tabs.GroupOptions = {
-		tabIds: [tab.id, tab.openerTabId], //creates a new tab group with the new tab and the opener tab
+		tabIds: [tab.id!, tab.openerTabId!] //creates a new tab group with the new tab and the opener tab
 	};
 
 	// if(tab.id){options.tabIds}

@@ -23,11 +23,6 @@ export const EXCLUDED_URL = [
 
 // storage keys
 
-type UsefulTabInfo = Pick<
-	chrome.tabs.Tab,
-	"id" | "url" | "title" | "favIconUrl" | "groupId"
->;
-
 export type SavedGroup = {
 	id: string; //unique id for storage
 	chromeId: number; //from chrome when saving
