@@ -1,4 +1,4 @@
-import { createContext } from "preact";
+import { createContext, ComponentChild } from "preact";
 import { useState } from "preact/hooks";
 
 type ToastObject = {
@@ -8,12 +8,13 @@ type ToastObject = {
 
 type ContextProps = {
 	showToastNotification: (message: string, color: "green" | "red") => void;
-	// toastVisible: boolean;
 };
 
-export const ToastContext = createContext<ContextProps>({});
+export const ToastContext = createContext<ContextProps>({
+	showToastNotification: () => {}
+});
 
-const ToastContextProvider = ({ children }) => {
+const ToastContextProvider = ({ children }: { children: ComponentChild }) => {
 	const [toastVisible, setToastVisible] = useState(false);
 	const [toast, setToast] = useState<ToastObject>();
 
@@ -21,14 +22,14 @@ const ToastContextProvider = ({ children }) => {
 		try {
 			setToast({
 				message,
-				color,
+				color
 			});
 			setToastVisible(true);
 
 			// console.log("showing toast with", toast);
 
 			setTimeout(function () {
-				setToast(); //typesafe
+				setToast(undefined); //typesafe
 				setToastVisible(false);
 			}, 2000);
 		} catch (error) {
