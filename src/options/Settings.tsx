@@ -111,22 +111,25 @@ const Settings = () => {
 		setRegardless((prev) => !prev);
 	}
 
-	function handleMaximum(e) {
-		if (e.target.value) {
-			// handle 0 TODO: HANDLED BY Input, checked
-			setMaximum(parseInt(e?.target?.value));
+	
+	function handleMaximum(e: Event) {
+		const target = e.target as HTMLInputElement;
+		if (target.value) {
+			setMaximum(parseInt(target.value));
 		}
 	}
 
-	function handleGroupBy(e) {
-		if (e.target.value) {
-			setGroupby(e.target.value);
+	function handleGroupBy(e: Event) {
+		const target = e.target as HTMLSelectElement;
+		if (target.value) {
+			setGroupby(target.value as GROUP_BY);
 		}
 	}
 
-	function handleNaming(e) {
-		if (e.target.value) {
-			setNaming(e.target.value);
+	function handleNaming(e: HTMLElementEventMap["select"]) {
+		const target = e.target as HTMLSelectElement;
+		if (target.value) {
+			setNaming(target.value as GROUP_NAMING);
 		}
 	}
 

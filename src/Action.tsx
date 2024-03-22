@@ -301,7 +301,7 @@ const ActionPage = () => {
 		};
 		try {
 			const tabsToClose = await chrome.tabs.query(queryInfo);
-			tabsToClose.forEach((item) => chrome.tabs.remove(item?.id));
+			tabsToClose.forEach((item) => item.id && chrome.tabs.remove(item.id));
 			// should remove the entry from the popup here
 			// const a = document.getElementById(`tabcard${groupId}`); // ID can't be numbers :/
 			// a.remove();

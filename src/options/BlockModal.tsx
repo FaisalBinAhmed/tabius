@@ -22,9 +22,10 @@ export default function BlockModal({
 		restoreBlockSites();
 	}, []);
 
-	function onUrlChange(e) {
-		if (e.target.value) {
-			setUrl(e.target.value);
+	function onUrlChange(e: Event) {
+		const target = e.target as HTMLInputElement;
+		if (target.value) {
+			setUrl(target.value);
 		}
 	}
 

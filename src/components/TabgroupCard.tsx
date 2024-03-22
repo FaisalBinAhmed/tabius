@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { Colors, SavedGroup } from "../const";
+import { Colors } from "../const";
 import GroupDetails from "./GroupDetails";
 import { TrafficLightButton } from "./TrafficLightButton";
 

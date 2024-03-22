@@ -36,16 +36,18 @@ export async function addUrlToBlocklist(url?: string) {
 
 	try {
 		//todo: fix the type warning
-		const { blocklist } = await getOneStorageItem("blocklist");
+		const { blocklist } = (await getOneStorageItem("blocklist")) as {
+			blocklist: BlockList[];
+		}; // explicit casting - not the best solution
 		const newSite: BlockList = {
 			id: id,
-			blockedUrl: origin,
+			blockedUrl: origin
 		};
 
 		let newBlockList = [...blocklist, newSite];
 
 		chrome.storage.sync.set({
-			blocklist: newBlockList,
+			blocklist: newBlockList
 		});
 
 		return true;
@@ -58,8 +60,9 @@ export async function deleteUrlFromBlocklist(url?: string) {
 	if (!url) return false;
 
 	try {
-		//todo: fix the type warning
-		const { blocklist } = await getOneStorageItem("blocklist"); //chrome.storage.sync.get([K_BLOCK_LIST]);
+		const { blocklist } = (await getOneStorageItem("blocklist")) as {
+			blocklist: BlockList[];
+		};
 		const rules: BlockList[] = blocklist?.filter(
 			(item: BlockRule) => getHostname(item.blockedUrl) !== getHostname(url)
 		);
