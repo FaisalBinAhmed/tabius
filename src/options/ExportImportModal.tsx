@@ -20,6 +20,53 @@ function exportTabGroups(groups: SavedGroup[]) {
 	URL.revokeObjectURL(url);
 }
 
+function importTabGroups(
+	file: File,
+	onError: (error: string) => void,
+	onSuccess: (msg: string) => void,
+) {
+	const reader = new FileReader();
+	reader.onload = (event) => {
+		try {
+			const json = event.target?.result as string;
+			const parsed = JSON.parse(json);
+
+			if (!Array.isArray(parsed)) {
+				throw new Error("Invalid format: Expected an array.");
+			}
+
+			console.log(parsed);
+			for (const item of parsed) {
+				const newGroupToSave: SavedGroup = {
+					...item,
+				};
+
+				// let newSavedGroups = [...savedGroups, newGroupToSave];
+
+				chrome.storage.sync.set(
+					{
+						[item.id]: newGroupToSave,
+					},
+					function () {
+						console.log("Saved group imported.");
+					},
+				);
+			}
+
+			const savedGroupIds = parsed.map((group: SavedGroup) => group.id);
+			chrome.storage.sync.set({
+				savedgroupids: savedGroupIds,
+			});
+
+			onSuccess("Tab groups imported successfully.");
+		} catch (error) {
+			onError(error instanceof Error ? error.message : "Unknown error.");
+		}
+	};
+
+	reader.readAsText(file);
+}
+
 export const ExportImportModal = ({
 	isVisible,
 	toggleVisibility,
@@ -28,6 +75,24 @@ export const ExportImportModal = ({
 		const savedGroups = await getOneStorageItem("savedgroups");
 		if (savedGroups?.savedgroups?.length) {
 			exportTabGroups(savedGroups.savedgroups);
+		}
+	};
+
+	const importGroups = async () => {
+		const fileInput = document.getElementById("fileinput") as HTMLInputElement;
+		if (fileInput.files?.length) {
+			const file = fileInput.files[0];
+
+			importTabGroups(
+				file,
+				(error) => {
+					console.error(error);
+				},
+				(msg) => {
+					console.log(msg);
+					toggleVisibility();
+				},
+			);
 		}
 	};
 
@@ -95,6 +160,15 @@ export const ExportImportModal = ({
 									width: "100%",
 								}}
 							/>
+							<button
+								type={"button"}
+								style={{
+									cursor: "pointer",
+								}}
+								onClick={importGroups}
+							>
+								Import
+							</button>
 						</div>
 					</div>
 				</div>
