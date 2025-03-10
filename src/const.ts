@@ -24,14 +24,12 @@ export const EXCLUDED_URL = [
 // storage keys
 
 export type SavedGroup = {
-	id: string; //unique id for storage
-	chromeId: number; //from chrome when saving
-	title?: string;
-	color: chrome.tabGroups.ColorEnum;
-	// count: number;
-	// tabs: UsefulTabInfo[];
-	tabs: chrome.tabs.Tab[];
-};
+		id: string; //unique id for storage
+		chromeId: number; //from chrome when saving
+		title?: string;
+		color: chrome.tabGroups.ColorEnum;
+		tabs: chrome.tabs.Tab[];
+	};
 
 export type StorageKey =
 	| "lonely"
@@ -48,18 +46,22 @@ export type StorageKey =
 export async function getOneStorageItem(itemKey: StorageKey) {
 	try {
 		return chrome.storage.sync.get(itemKey);
-	} catch (error) {}
+	} catch (error) {
+		console.error(error);
+	}
 }
 //TODO: make the return value typesafe. DONE
 
 export async function setOneStorageObject(
-	itemKey: StorageKey,
-	value: boolean | number | string
-) {
-	try {
-		chrome.storage.sync.set({ [itemKey]: value });
-	} catch (error) {}
-}
+		itemKey: StorageKey,
+		value: boolean | number | string,
+	) {
+		try {
+			chrome.storage.sync.set({ [itemKey]: value });
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 export async function getMultipleStorageItems(itemKeys: StorageKey[]) {
 	return chrome.storage.sync.get([...itemKeys]);
@@ -73,7 +75,9 @@ type StorageObject = {
 export async function setMultipleStorageObjects(items: StorageObject[]) {
 	try {
 		chrome.storage.sync.set({ ...items });
-	} catch (error) {}
+	} catch (error) {
+		console.error(error);
+	}
 }
 
 export type GROUP_BY = "sot" | "sd";

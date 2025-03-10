@@ -10,6 +10,7 @@ import {
 } from "../const";
 import BlockModal from "./BlockModal";
 import ToastContextProvider, { ToastContext } from "../context/ToastContext";
+import { ExportImportModal } from "./ExportImportModal";
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +34,7 @@ const Settings = () => {
 
 	const [crIsVisible, setCrVisible] = useState(false);
 	const [brIsVisible, setBrVisible] = useState(false);
+	const [eiModalIsVisible, setEiModalVisible] = useState(false);
 
 	//toast notification
 
@@ -44,6 +46,10 @@ const Settings = () => {
 
 	function toggleBlockModal() {
 		setBrVisible((prev) => !prev);
+	}
+
+	function toggleEiModal() {
+		setEiModalVisible((prev) => !prev);
 	}
 
 	useEffect(() => {
@@ -148,19 +154,22 @@ const Settings = () => {
 						<a
 							class="headerbutton"
 							href="https://www.buymeacoffee.com/faisalbin"
-							target="_blank">
+							target="_blank"
+						>
 							&#9749; Buy me a coffee
 						</a>
 						<a
 							class="headerbutton"
 							href="https://faisalbin.com"
-							target="_blank">
+							target="_blank"
+						>
 							&#127760; Visit Website
 						</a>
 						<a
 							class="headerbutton"
 							href="https://chrome.google.com/webstore/detail/tabius-tab-grouping-assis/enceimdjnaccoeikjobaeicfodlfnijp"
-							target="_blank">
+							target="_blank"
+						>
 							&#128172; Rate/Review
 						</a>
 					</div>
@@ -259,15 +268,22 @@ const Settings = () => {
 					will collapse all other tab groups automatically.
 				</p>
 
-				<div style="display: flex">
-					<span style="flex: 1"></span>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						margin: "20px 0",
+					}}
+				>
 					<button id="myBtn" onClick={toggleCustomModal}>
 						Custom Rules
 					</button>
 					<button id="blockBtn" onClick={toggleBlockModal}>
 						Blacklist
 					</button>
-					<span style="flex: 1"></span>
+					<button id="myBtn" onClick={toggleEiModal}>
+						Export/Import
+					</button>
 				</div>
 				{/* <p>Hint: Blocklist will always get precendence over Custom Rules.</p> */}
 				<div style="display: flex">
@@ -283,6 +299,10 @@ const Settings = () => {
 				toggleVisibility={toggleCustomModal}
 			/>
 			<BlockModal isVisible={brIsVisible} toggleVisibility={toggleBlockModal} />
+			<ExportImportModal
+				isVisible={eiModalIsVisible}
+				toggleVisibility={toggleBlockModal}
+			/>
 		</div>
 	);
 };
