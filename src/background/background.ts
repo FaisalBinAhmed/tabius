@@ -69,6 +69,10 @@ async function createTab(newtab: chrome.tabs.Tab) {
 	if (openerTabInfo?.groupId !== -1) {
 		options.groupId = openerTabInfo?.groupId;
 		newGroup = false;
+	} else {
+		options.createProperties = {
+			windowId: openerTabInfo?.windowId, // make sure that the new group is in the same window as the opener tab
+		};
 	}
 	// console.log(newGroup, "new group");
 	// console.log(options);
