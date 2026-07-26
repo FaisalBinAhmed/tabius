@@ -105,3 +105,6 @@ dist
 
 **/.DS_Store
 .DS_Store
+
+# web-ext (Firefox) packaged output
+web-ext-artifacts

@@ -5,14 +5,23 @@
 	"description": "An Automatic Tab Grouping Extension for Your Browser.",
 	"version": "2.0.5",
 	"author": "Faisal Ahmed",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "tabius@failab.com",
+			"strict_min_version": "140.0",
+			"data_collection_permissions": {
+				"required": ["none"]
+			}
+		}
+	},
 	"background": {
+		"scripts": ["assets/background.js"],
 		"service_worker": "assets/background.js",
 		"type": "module"
 	},
 	"icons": {
-		"128": "/icon.png"
+		"128": "icon.png"
 	},
-	"content_scripts": [],
 	"action": {
 		"default_title": "Tab Groups",
 		"default_popup": "src/action.html"

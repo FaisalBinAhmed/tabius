@@ -4,7 +4,10 @@
 	"description": "A chrome extension template with Preact",
 	"scripts": {
 		"build": "vite build",
-		"build-w": "vite build --watch"
+		"build-w": "vite build --watch",
+		"firefox:lint": "npm run build && npx --yes web-ext@8 lint -s dist",
+		"firefox:run": "npm run build && npx --yes web-ext@8 run -s dist",
+		"firefox:build": "npm run build && npx --yes web-ext@8 build -s dist -a web-ext-artifacts --overwrite-dest --ignore-files=**/.DS_Store"
 	},
 	"repository": {
 		"type": "git",

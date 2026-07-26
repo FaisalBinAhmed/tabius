@@ -61,7 +61,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 		// console.log("block found");
 		try {
 			ungroupOneTab(tab.id);
-		} catch (error) {}
+		} catch (error) { }
 		return;
 	}
 
@@ -326,40 +326,41 @@ async function getSingleGroupNumberOfTab(tabGroupId?: number) {
 
 // group event related
 
-chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
+chrome.tabs.onRemoved.addListener(async (removedTabId, removeInfo) => {
 	// console.log("220", removeInfo);
+
+	if (removeInfo.isWindowClosing) return;
 
 	const lonely = await getOneStorageItem("lonely"); //chrome.storage.sync.get([K_LONELY]);
 	if (!lonely?.lonely) return;
 
 	const queryInfo = {
-		windowId: -2,
+		windowId: removeInfo.windowId,
 	};
 
 	const tabGroups = await chrome.tabGroups.query(queryInfo);
 	// console.log(tabGroups);
 
-	let isLonely = false;
-	// tabGroups.some(async (item) => await isGroupNotLonely(item.id));
-	// while (!isLonely) {
-	tabGroups.forEach(async (item) => {
-		isLonely = await isGroupNotLonely(item.id);
-	});
-	// }
+	for (const group of tabGroups) {
+		await isGroupNotLonely(group.id, removedTabId);
+	}
 });
 
-async function isGroupNotLonely(tabGroupId: number) {
+async function isGroupNotLonely(tabGroupId: number, removedTabId?: number) {
 	const queryInfo = {
 		groupId: tabGroupId,
 	};
 	const tabNumbers = await chrome.tabs.query(queryInfo);
 	// console.log("223", tabNumbers);
-	if (tabNumbers.length === 1) {
+
+	const remaining = tabNumbers.filter((tab) => tab.id !== removedTabId);
+
+	if (remaining.length === 1) {
 		//ungrouping the tab:
-		const tabId = tabNumbers[0].id;
+		const lastTabId = remaining[0].id;
 		// const a =
-		if (tabId) {
-			await chrome.tabs.ungroup(tabId);
+		if (lastTabId) {
+			await chrome.tabs.ungroup(lastTabId);
 		}
 		// console.log("lonely group unlonlied", a);
 
