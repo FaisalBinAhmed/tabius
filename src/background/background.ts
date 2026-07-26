@@ -38,7 +38,7 @@ async function createTab(newtab: chrome.tabs.Tab) {
 	//this options is used to create a new tab group down the road
 
 	const options: chrome.tabs.GroupOptions = {
-		tabIds: [tab.id!, tab.openerTabId!] //creates a new tab group with the new tab and the opener tab
+		tabIds: [tab.openerTabId!, tab.id!] //creates a new tab group with the new tab and the opener tab, ordered
 	};
 
 	// if(tab.id){options.tabIds}
